@@ -1,0 +1,85 @@
+# sample_customer.plan
+
+VERSION "4.0"
+
+GRAPH sample_customer
+
+PROCESS input_customer
+{
+    TYPE=input_file
+    DML=customer.dml
+    FILE="/data/in/customer.dat"
+}
+
+PROCESS input_country
+{
+    TYPE=input_file
+    DML=country.dml
+    FILE="/data/ref/country.dat"
+}
+
+PROCESS reformat_customer
+{
+    TYPE=reformat
+}
+
+PROCESS sort_customer
+{
+    TYPE=sort
+    KEY="country_code"
+}
+
+PROCESS sort_country
+{
+    TYPE=sort
+    KEY="country_code"
+}
+
+PROCESS join_customer_country
+{
+    TYPE=join
+    JOIN_TYPE="inner"
+    KEY="country_code"
+}
+
+PROCESS rollup_country
+{
+    TYPE=rollup
+    KEY="country_name"
+}
+
+PROCESS output_summary
+{
+    TYPE=output_file
+    FILE="/data/out/customer_summary.dat"
+}
+
+FLOW
+{
+    input_customer
+        -> reformat_customer
+        -> sort_customer
+        -> join_customer_country;
+
+    input_country
+        -> sort_country
+        -> join_customer_country;
+
+    join_customer_country
+        -> rollup_country
+        -> output_summary;
+}
+
+PARTITIONS
+{
+    input_customer          : 1;
+    input_country           : 1;
+    reformat_customer       : 1;
+    sort_customer           : 1;
+    sort_country            : 1;
+    join_customer_country   : 1;
+    rollup_country          : 1;
+    output_summary          : 1;
+}
+
+END_GRAPH

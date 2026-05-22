@@ -1,0 +1,74 @@
+========================================================================
+Graph execution started
+========================================================================
+
+Graph: /projects/dwh/mp/load_customer.mp
+Start time: Fri May 22 10:15:32 2026
+
+Running on host: etlprd01
+
+[input_file] Opened file:
+/data/in/customer_20260522.dat
+
+[input_file] Records processed: 1000000
+
+[validate_customer] Records accepted: 998450
+[validate_customer] Records rejected: 1550
+
+[dedup_customer] Input records : 998450
+[dedup_customer] Output records: 993220
+
+[load_customer] Establishing database connection...
+
+[load_customer] Connected to database ORACLEPRD
+
+-----------------------------------------------------------------------
+ERROR DETECTED
+-----------------------------------------------------------------------
+
+[load_customer] db_load> Error executing SQL statement
+
+Oracle Error:
+ORA-00001: unique constraint
+(DWH.CUSTOMER_PK) violated
+
+Failed Record:
+
+CUSTOMER_ID=100245
+CUSTOMER_NAME=JOHN SMITH
+EMAIL=john.smith@test.com
+
+Component "load_customer" failed
+
+Program aborted.
+
+-----------------------------------------------------------------------
+Co>Operating System Messages
+-----------------------------------------------------------------------
+
+ERROR: Component load_customer terminated abnormally.
+
+ERROR: Graph execution aborted because one or more
+components exited with non-zero status.
+
+Component Name : load_customer
+Process ID     : 28741
+Exit Status    : 1
+
+-----------------------------------------------------------------------
+Graph Summary
+-----------------------------------------------------------------------
+
+Records Read      : 1000000
+Records Validated : 998450
+Records Deduped   : 993220
+Records Loaded    : 990000
+
+Graph Status      : FAILED
+
+End time          : Fri May 22 10:15:58 2026
+Elapsed time      : 26 seconds
+
+========================================================================
+Graph execution failed
+========================================================================
