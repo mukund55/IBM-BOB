@@ -44,52 +44,52 @@ import pandas as pd
 
 # Enhanced imports for new features
 try:
-    import matplotlib
+    import matplotlib  # type: ignore[import-not-found]
     matplotlib.use('Agg')  # Non-interactive backend
-    import matplotlib.pyplot as plt
-    import seaborn as sns
+    import matplotlib.pyplot as plt  # type: ignore[import-not-found]
+    import seaborn as sns  # type: ignore[import-not-found]
     VISUALIZATION_AVAILABLE = True
 except ImportError:
     VISUALIZATION_AVAILABLE = False
     logging.warning("Visualization libraries not available. Install matplotlib and seaborn for dashboard features.")
 
 try:
-    import plotly.graph_objects as go
-    import plotly.express as px
-    from plotly.subplots import make_subplots
+    import plotly.graph_objects as go  # type: ignore[import-not-found]
+    import plotly.express as px  # type: ignore[import-not-found]
+    from plotly.subplots import make_subplots  # type: ignore[import-not-found]
     PLOTLY_AVAILABLE = True
 except ImportError:
     PLOTLY_AVAILABLE = False
 
 # Database connectivity imports
 try:
-    import sqlalchemy
-    from sqlalchemy import create_engine, text
+    import sqlalchemy  # type: ignore[import-not-found]
+    from sqlalchemy import create_engine, text  # type: ignore[import-not-found]
     DB_SUPPORT = True
 except ImportError:
     DB_SUPPORT = False
     logging.warning("SQLAlchemy not available. Install sqlalchemy for database connectivity.")
 
 try:
-    import cx_Oracle
+    import cx_Oracle  # type: ignore[import-not-found]
     ORACLE_AVAILABLE = True
 except ImportError:
     ORACLE_AVAILABLE = False
 
 try:
-    import pyodbc
+    import pyodbc  # type: ignore[import-not-found]
     ODBC_AVAILABLE = True
 except ImportError:
     ODBC_AVAILABLE = False
 
 try:
-    import pymysql
+    import pymysql  # type: ignore[import-not-found]
     MYSQL_AVAILABLE = True
 except ImportError:
     MYSQL_AVAILABLE = False
 
 try:
-    import psycopg2
+    import psycopg2  # type: ignore[import-not-found]
     POSTGRES_AVAILABLE = True
 except ImportError:
     POSTGRES_AVAILABLE = False
@@ -869,7 +869,7 @@ def load_from_database(config: Dict[str, Any]) -> pd.DataFrame:
     logging.info(f"Connecting to {db_type} database...")
     
     try:
-        engine = create_engine(connection_string)
+        engine = create_engine(connection_string)  # type: ignore[possibly-unbound]
         
         with engine.connect() as connection:
             df = pd.read_sql(query, connection)
@@ -969,7 +969,7 @@ def generate_quality_dashboard(
     logging.info("Generating quality dashboard...")
     
     # Create subplots
-    fig = make_subplots(
+    fig = make_subplots(  # type: ignore[possibly-unbound]
         rows=3, cols=2,
         subplot_titles=(
             'Overall Quality Score',
@@ -990,7 +990,7 @@ def generate_quality_dashboard(
     
     # 1. Quality Score Gauge
     fig.add_trace(
-        go.Indicator(
+        go.Indicator(  # type: ignore[possibly-unbound]
             mode="gauge+number+delta",
             value=quality_score,
             title={'text': "Quality Score"},
@@ -1016,9 +1016,10 @@ def generate_quality_dashboard(
     
     # 2. Issues by Category
     if not anomaly_summary_df.empty and 'category' in anomaly_summary_df.columns:
-        category_counts = anomaly_summary_df.groupby('category')['count'].sum().sort_values(ascending=True)
+        category_counts = anomaly_summary_df.groupby('category')['count'].sum()
+        category_counts = category_counts.sort_values(ascending=True)  # type: ignore[attr-defined]
         fig.add_trace(
-            go.Bar(
+            go.Bar(  # type: ignore[possibly-unbound]
                 y=category_counts.index,
                 x=category_counts.values,
                 orientation='h',
@@ -1031,7 +1032,7 @@ def generate_quality_dashboard(
     if not column_metrics_df.empty and 'column' in column_metrics_df.columns:
         top_columns = column_metrics_df.nlargest(10, 'issue_count')
         fig.add_trace(
-            go.Bar(
+            go.Bar(  # type: ignore[possibly-unbound]
                 x=top_columns['column'],
                 y=top_columns['issue_count'],
                 marker_color='lightcoral'
@@ -1047,7 +1048,7 @@ def generate_quality_dashboard(
         'Low': len(anomaly_summary_df[anomaly_summary_df['count'] <= total_rows * 0.01]) if not anomaly_summary_df.empty else 0,
     }
     fig.add_trace(
-        go.Pie(
+        go.Pie(  # type: ignore[possibly-unbound]
             labels=list(severity_data.keys()),
             values=list(severity_data.values()),
             marker_colors=['red', 'orange', 'yellow', 'lightgreen']
@@ -1062,7 +1063,7 @@ def generate_quality_dashboard(
             completeness['completeness'] = ((total_rows - completeness['null_count']) / total_rows * 100)
             top_incomplete = completeness.nsmallest(10, 'completeness')
             fig.add_trace(
-                go.Bar(
+                go.Bar(  # type: ignore[possibly-unbound]
                     x=top_incomplete['column'],
                     y=top_incomplete['completeness'],
                     marker_color='lightblue'
@@ -1072,7 +1073,7 @@ def generate_quality_dashboard(
     
     # 6. Quality Trend (placeholder)
     fig.add_trace(
-        go.Scatter(
+        go.Scatter(  # type: ignore[possibly-unbound]
             x=['Run 1', 'Run 2', 'Run 3', 'Current'],
             y=[75, 80, 85, quality_score],
             mode='lines+markers',
@@ -1113,10 +1114,10 @@ def generate_static_charts(
     charts_dir.mkdir(exist_ok=True)
     
     # Set style
-    sns.set_style("whitegrid")
+    sns.set_style("whitegrid")  # type: ignore[possibly-unbound]
     
     # 1. Quality Score Chart
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))  # type: ignore[possibly-unbound]
     colors = ['red' if quality_score < 60 else 'orange' if quality_score < 80 else 'yellow' if quality_score < 90 else 'green']
     ax.barh(['Quality Score'], [quality_score], color=colors)
     ax.set_xlim(0, 100)
@@ -1124,24 +1125,25 @@ def generate_static_charts(
     ax.set_title('Overall Data Quality Score')
     for i, v in enumerate([quality_score]):
         ax.text(v + 2, i, f'{v:.1f}%', va='center')
-    plt.tight_layout()
-    plt.savefig(charts_dir / 'quality_score.png', dpi=300, bbox_inches='tight')
-    plt.close()
+    plt.tight_layout()  # type: ignore[possibly-unbound]
+    plt.savefig(charts_dir / 'quality_score.png', dpi=300, bbox_inches='tight')  # type: ignore[possibly-unbound]
+    plt.close()  # type: ignore[possibly-unbound]
     
     # 2. Issues by Category
     if not anomaly_summary_df.empty and 'category' in anomaly_summary_df.columns:
-        fig, ax = plt.subplots(figsize=(10, 6))
-        category_counts = anomaly_summary_df.groupby('category')['count'].sum().sort_values()
-        category_counts.plot(kind='barh', ax=ax, color='coral')
+        fig, ax = plt.subplots(figsize=(10, 6))  # type: ignore[possibly-unbound]
+        category_counts = anomaly_summary_df.groupby('category')['count'].sum()
+        category_counts = category_counts.sort_values()  # type: ignore[attr-defined]
+        category_counts.plot(kind='barh', ax=ax, color='coral')  # type: ignore[attr-defined]
         ax.set_xlabel('Number of Issues')
         ax.set_title('Issues by Category')
-        plt.tight_layout()
-        plt.savefig(charts_dir / 'issues_by_category.png', dpi=300, bbox_inches='tight')
-        plt.close()
+        plt.tight_layout()  # type: ignore[possibly-unbound]
+        plt.savefig(charts_dir / 'issues_by_category.png', dpi=300, bbox_inches='tight')  # type: ignore[possibly-unbound]
+        plt.close()  # type: ignore[possibly-unbound]
     
     # 3. Data Completeness
     if not profile_df.empty and 'column' in profile_df.columns and 'null_count' in profile_df.columns:
-        fig, ax = plt.subplots(figsize=(12, 6))
+        fig, ax = plt.subplots(figsize=(12, 6))  # type: ignore[possibly-unbound]
         completeness = profile_df.copy()
         completeness['completeness'] = ((total_rows - completeness['null_count']) / total_rows * 100)
         top_incomplete = completeness.nsmallest(15, 'completeness')
@@ -1149,10 +1151,10 @@ def generate_static_charts(
         ax.set_ylabel('Completeness %')
         ax.set_xlabel('Column')
         ax.set_title('Data Completeness by Column (Top 15 Incomplete)')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        plt.savefig(charts_dir / 'data_completeness.png', dpi=300, bbox_inches='tight')
-        plt.close()
+        plt.xticks(rotation=45, ha='right')  # type: ignore[possibly-unbound]
+        plt.tight_layout()  # type: ignore[possibly-unbound]
+        plt.savefig(charts_dir / 'data_completeness.png', dpi=300, bbox_inches='tight')  # type: ignore[possibly-unbound]
+        plt.close()  # type: ignore[possibly-unbound]
     
     logging.info(f"Static charts saved to: {charts_dir}")
 
@@ -1183,7 +1185,7 @@ def aggregate_quality_metrics(
         'group': 'All Data',
         'total_records': total_records,
         'total_columns': total_columns,
-        'total_issues': int(total_issues),
+        'total_issues': int(total_issues) if not pd.isna(total_issues) else 0,  # type: ignore[arg-type]
         'issue_rate': (total_issues / total_records * 100) if total_records > 0 else 0,
     })
     
@@ -1199,7 +1201,7 @@ def aggregate_quality_metrics(
                 'group': row['category'],
                 'total_records': total_records,
                 'total_columns': total_columns,
-                'total_issues': int(row['count']),
+                'total_issues': int(row['count']) if not pd.isna(row['count']) else 0,  # type: ignore[arg-type]
                 'issue_rate': (row['count'] / total_records * 100) if total_records > 0 else 0,
             })
     
@@ -1212,8 +1214,8 @@ def aggregate_quality_metrics(
                 'group': row['column'],
                 'total_records': total_records,
                 'total_columns': 1,
-                'total_issues': int(null_count),
-                'issue_rate': (null_count / total_records * 100) if total_records > 0 else 0,
+                'total_issues': int(null_count) if not pd.isna(null_count) else 0,  # type: ignore[arg-type]
+                'issue_rate': (null_count / total_records * 100) if total_records > 0 else 0,  # type: ignore[operator]
             })
     
     agg_df = pd.DataFrame(aggregations)
@@ -2712,10 +2714,10 @@ def cleanse_data(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFrame
     # 8. Handle duplicate primary keys (keep first, mark others)
     primary_keys = config.get("keys", {}).get("primary_keys", [])
     if primary_keys and all(pk in cleansed_df.columns for pk in primary_keys):
-        pk_duplicate_mask = cleansed_df.duplicated(subset=primary_keys, keep='first')
+        pk_duplicate_mask = cleansed_df.duplicated(subset=primary_keys, keep='first')  # type: ignore
         pk_duplicate_count = pk_duplicate_mask.sum()
         if pk_duplicate_count > 0:
-            cleansed_df = cleansed_df[~pk_duplicate_mask].reset_index(drop=True)
+            cleansed_df = cleansed_df[~pk_duplicate_mask].reset_index(drop=True)  # type: ignore
             cleansing_log.append({
                 'column': ', '.join(primary_keys),
                 'operation': 'remove_duplicate_primary_keys',
@@ -2733,7 +2735,7 @@ def cleanse_data(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFrame
     logging.info(f"Data cleansing completed: {total_operations} operations, {total_records_affected} total records affected")
     logging.info(f"Original records: {len(df)}, Cleansed records: {len(cleansed_df)}")
     
-    return cleansed_df, cleansing_log_df
+    return cleansed_df, cleansing_log_df  # type: ignore[return-value]
 
 def run_all_checks(df: pd.DataFrame, config: Dict[str, Any]) -> Dict[str, Any]:
     all_issue_frames: Dict[str, pd.DataFrame] = {}
@@ -2924,7 +2926,7 @@ def print_console_summary(
     
     if not anomaly_summary_df.empty:
         category_counts = anomaly_summary_df.groupby('category')['count'].sum()
-        for category, count in category_counts.items():
+        for category, count in category_counts.items():  # type: ignore
             print(f" - {category}: {count}")
 
 
@@ -3015,7 +3017,7 @@ def generate_executive_summary(
     # === ANOMALY ANALYSIS ===
     if not anomaly_summary_df.empty:
         # Group by category and sum counts
-        category_summary = anomaly_summary_df.groupby('category')['count'].sum().to_dict()
+        category_summary = anomaly_summary_df.groupby('category')['count'].sum().to_dict()  # type: ignore
         
         for category, count in sorted(category_summary.items(), key=lambda x: x[1], reverse=True):
             if count > 0:
@@ -3119,7 +3121,7 @@ def generate_executive_summary(
             'HIGH': '[H]',
             'MEDIUM': '[M]',
             'LOW': '[L]'
-        }.get(row['Status'], '[*]')
+        }.get(str(row['Status']), '[*]')  # type: ignore[arg-type]
         
         metric_line = f"  {status_symbol} {row['Metric']:<45} : {str(row['Value']):>12}"
         if row['Percentage'] != '-':
@@ -3362,7 +3364,7 @@ def generate_executive_dashboard(
             html_content += f"""
                     <tr>
                         <td><strong>{row['column']}</strong></td>
-                        <td>{row['operation'].replace('_', ' ').title()}</td>
+                        <td>{str(row['operation']).replace('_', ' ').title()}</td>
                         <td>{row['records_affected']:,}</td>
                         <td>{row['description']}</td>
                     </tr>
@@ -3416,7 +3418,7 @@ def generate_executive_dashboard(
     # Add executive summary table rows
     
     for _, row in executive_summary_df.iterrows():
-        status_class = f"status-{row['Status'].lower()}" if row['Status'].lower() in ['excellent', 'good', 'warning', 'critical'] else ""
+        status_class = f"status-{str(row['Status']).lower()}" if str(row['Status']).lower() in ['excellent', 'good', 'warning', 'critical'] else ""
         html_content += f"""
         <tr>
             <td><strong>{row['Category']}</strong></td>
@@ -3476,7 +3478,8 @@ def generate_executive_dashboard(
     
     # Add category chart data
     if not anomaly_summary_df.empty:
-        category_data = anomaly_summary_df.groupby('category')['count'].sum().sort_values(ascending=False)
+        category_data = anomaly_summary_df.groupby('category')['count'].sum()
+        category_data = category_data.sort_values(ascending=False)  # type: ignore[attr-defined]
         categories = category_data.index.tolist()
         counts = category_data.values.tolist()
         
@@ -3484,7 +3487,7 @@ def generate_executive_dashboard(
         // Issues by Category
         var categoryData = [{{
             x: {counts},
-            y: {[cat.replace('_', ' ').title() for cat in categories]},
+            y: {[str(cat).replace('_', ' ').title() for cat in categories]},
             type: 'bar',
             orientation: 'h',
             marker: {{

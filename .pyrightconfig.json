@@ -1,0 +1,10 @@
+{
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none",
+  "reportPossiblyUnboundVariable": "none",
+  "reportAttributeAccessIssue": "warning",
+  "reportCallIssue": "warning",
+  "reportArgumentType": "warning",
+  "reportReturnType": "warning",
+  "reportOptionalOperand": "warning"
+}
