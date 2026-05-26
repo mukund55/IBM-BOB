@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAT Transformation Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .metric-subtitle {
+            font-size: 12px;
+            color: #999;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .status-remediated {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .corrections-list {
+            list-style: none;
+            padding: 0;
+        }
+        .corrections-list li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transition: width 0.5s ease;
+        }
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .analysis-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .analysis-table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .analysis-table tr:hover {
+            background: #f8f9fa;
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DAT Transformation Report</h1>
+            <p>Smart Data Transformation with Auto-Correction</p>
+            <p style="font-size: 12px; margin-top: 10px;">Generated: 2026-05-26 12:59:27</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Records</div>
+                <div class="metric-value">10</div>
+                <div class="metric-subtitle">Input dataset size</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Records Transformed</div>
+                <div class="metric-value">10</div>
+                <div class="metric-subtitle">100.0% recovery rate</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100.0%">100.0%</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Corrections Made</div>
+                <div class="metric-value">6</div>
+                <div class="metric-subtitle">5 type + 1 delimiter</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Auto-Fix Success Rate</div>
+                <div class="metric-value">100.0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100.0%">100.0%</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Transformation Success</div>
+                <div class="metric-value">100.0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100.0%">100.0%</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Remaining Issues</div>
+                <div class="metric-value">0</div>
+                <div class="metric-subtitle">Issues not auto-fixed</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📊 Transformation Summary</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Input File</div>
+                    <div class="info-value">sample_employee_data.dat</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">DML File</div>
+                    <div class="info-value">unsupported_format_employee.dml</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Output File</div>
+                    <div class="info-value">sample_employee_data_transformed.dat</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Correction Rate</div>
+                    <div class="info-value">100.0%</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">DML Compatibility</div>
+                    <div class="info-value">✅ IMPROVED</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Final Status</div>
+                    <div class="info-value">
+                        <span class="status-badge status-remediated">REMEDIATED</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Processing Time</div>
+                    <div class="info-value">0.07s</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Transformation Errors</div>
+                    <div class="info-value">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔧 Corrections Applied</div>
+            <p style="color: #28a745; font-weight: bold;">✅ 6 corrections were successfully applied:</p>
+            <ul class="corrections-list">
+                <li>Field 'EMP_ID': Changed type from 'string' to 'decimal' (confidence: 100.0%, samples: ['101', '102', '103'])</li><li>Field 'EMP_NAME': Changed type from 'decimal' to 'string' (confidence: 100.0%, samples: ['John Smith', 'Alice Brown', 'David Miller'])</li><li>Field 'DEPARTMENT': Changed type from 'date' to 'string' (confidence: 100.0%, samples: ['IT', 'HR', 'Finance'])</li><li>Field 'DEPARTMENT': Fixed delimiter from 'YYYY/MM/DD' to ',' (comma)</li><li>Field 'SALARY': Changed type from 'string' to 'decimal' (confidence: 100.0%, samples: ['75000', '68000', '82000'])</li><li>Field 'JOIN_DATE': Changed type from 'decimal' to 'date' (confidence: 100.0%, samples: ['2023-01-15', '2022-11-20', '2021-09-10'])</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 Data Analysis Results</div>
+            <table class="analysis-table">
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Detected Type</th>
+                        <th>Confidence</th>
+                        <th>Sample Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>EMP_ID</strong></td>
+                        <td>decimal</td>
+                        <td>100.0%</td>
+                        <td>101, 102, 103</td>
+                    </tr><tr>
+                        <td><strong>EMP_NAME</strong></td>
+                        <td>string</td>
+                        <td>100.0%</td>
+                        <td>John Smith, Alice Brown, David Miller</td>
+                    </tr><tr>
+                        <td><strong>DEPARTMENT</strong></td>
+                        <td>string</td>
+                        <td>100.0%</td>
+                        <td>IT, HR, Finance</td>
+                    </tr><tr>
+                        <td><strong>SALARY</strong></td>
+                        <td>decimal</td>
+                        <td>100.0%</td>
+                        <td>75000, 68000, 82000</td>
+                    </tr><tr>
+                        <td><strong>JOIN_DATE</strong></td>
+                        <td>date</td>
+                        <td>100.0%</td>
+                        <td>2023-01-15, 2022-11-20, 2021-09-10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💬 Comments & Recommendations</div>
+            <div style="line-height: 1.8;">
+                <p><strong>What was fixed:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ 5 data type mismatches corrected</li>
+                    <li>✅ 1 delimiter issues fixed</li>
+                    <li>✅ 10 records successfully transformed</li>
+                </ul>
+                
+                <p style="margin-top: 20px;"><strong>DML Compatibility:</strong></p>
+                <p style="margin-left: 20px; margin-top: 10px;">
+                    ✅ DML compatibility has been <strong>IMPROVED</strong>. The auto-corrected DML now matches the actual data structure.
+                </p>
+                
+                <p style="margin-top: 20px;"><strong>Final Status:</strong></p>
+                <p style="margin-left: 20px; margin-top: 10px;">
+                    <span style="color: #28a745;">✅ <strong>REMEDIATED</strong> - All issues have been successfully resolved. The transformation is complete with no remaining issues.</span>
+                </p>
+                
+                <p style="margin-top: 20px;"><strong>Recommendations:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    
+                    <li>📝 Update the source DML file with the auto-corrected specifications</li>
+                    <li>🔍 Validate the transformed output file before using in production</li>
+                    <li>✅ Transformation completed successfully - output file is ready to use</li>
+                    <li>🎉 No further action required</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔧 Resolution Steps</div>
+            <div style="line-height: 1.8;">
+                <p><strong>How to apply these corrections to your DML file:</strong></p>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #667eea;">
+                    <p style="font-weight: bold; color: #667eea; margin-bottom: 15px;">Step-by-Step Resolution:</p>
+                    
+                    <ol style="margin-left: 20px;">
+                        <li style="margin-bottom: 15px;">
+                            <strong>Open your DML file:</strong> unsupported_format_employee.dml
+                            <br><code style="background: #e9ecef; padding: 2px 6px; border-radius: 3px; font-size: 12px;">notepad unsupported_format_employee.dml</code>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong>Apply the following corrections:</strong>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: EMP_ID
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            string
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            decimal
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em> 100.0%, samples: ['101', '102', '103']</em>
+                                    </div>
+                                </li><li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: EMP_NAME
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            decimal
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            string
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em> 100.0%, samples: ['John Smith', 'Alice Brown', 'David Miller']</em>
+                                    </div>
+                                </li><li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: DEPARTMENT
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            date
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            string
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em> 100.0%, samples: ['IT', 'HR', 'Finance']</em>
+                                    </div>
+                                </li><li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: DEPARTMENT
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            YYYY/MM/DD
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            ,
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em>Full details: Field 'DEPARTMENT': Fixed delimiter from 'YYYY/MM/DD' to ',' (comma)</em>
+                                    </div>
+                                </li><li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: SALARY
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            string
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            decimal
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em> 100.0%, samples: ['75000', '68000', '82000']</em>
+                                    </div>
+                                </li><li style="margin-bottom: 15px; background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #667eea;">
+                                    <div style="font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 8px;">
+                                        📌 Field: JOIN_DATE
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #dc3545;">❌ Issue:</strong>
+                                        <span style="background: #fff5f5; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            decimal
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="color: #28a745;">✅ Fix:</strong>
+                                        <span style="background: #f0fdf4; padding: 3px 8px; border-radius: 3px; font-family: monospace;">
+                                            date
+                                        </span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                                        💡 <em> 100.0%, samples: ['2023-01-15', '2022-11-20', '2021-09-10']</em>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong>Example DML correction format:</strong>
+                            <div style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; margin-top: 10px; font-family: 'Courier New', monospace; font-size: 13px;">
+                                <div style="color: #6c757d;">// Before (incorrect):</div>
+                                <div style="color: #ff6b6b;">string("|") EMP_ID;</div>
+                                <br>
+                                <div style="color: #6c757d;">// After (corrected):</div>
+                                <div style="color: #51cf66;">decimal("|") EMP_ID;</div>
+                            </div>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong>Save the corrected DML file</strong> and re-run the transformation to verify
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong>Validate the output:</strong>
+                            <br>• Check the transformed file: sample_employee_data_transformed.dat
+                            <br>• Verify data types match expectations
+                            <br>• Ensure delimiters are correct
+                            <br>• Test with downstream systems
+                        </li>
+                    </ol>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ffc107;">
+                    <p style="font-weight: bold; color: #856404; margin-bottom: 10px;">⚠️ Important Notes:</p>
+                    <ul style="margin-left: 20px;">
+                        <li>Always backup your original DML file before making changes</li>
+                        <li>Test the corrected DML with a sample dataset first</li>
+                        <li>Document all changes made for future reference</li>
+                        <li>If using version control, commit the corrected DML with a descriptive message</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #d4edda; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #28a745;">
+                    <p style="font-weight: bold; color: #155724; margin-bottom: 10px;">✅ Quick Command to Re-run:</p>
+                    <code style="background: #155724; color: white; padding: 10px; border-radius: 5px; display: block; font-family: 'Courier New', monospace;">
+                        python smart_transform_dat.py sample_employee_data.dat unsupported_format_employee.dml
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Smart DAT Transformer | 2026-05-26 12:59:27</p>
+            <p style="margin-top: 5px;">Duration: 0.07s</p>
+        </div>
+    </div>
+</body>
+</html>

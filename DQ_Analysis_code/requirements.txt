@@ -1,0 +1,19 @@
+# Core dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization (optional but recommended)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Database connectivity (optional)
+sqlalchemy>=2.0.0
+cx-Oracle>=8.3.0
+pyodbc>=4.0.39
+pymysql>=1.0.3
+psycopg2-binary>=2.9.6
+
+# Excel support
+openpyxl>=3.1.0
+xlsxwriter>=3.1.0

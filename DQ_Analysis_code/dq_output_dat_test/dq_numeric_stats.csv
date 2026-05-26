@@ -1,0 +1,2 @@
+count,mean,std,min,25%,50%,75%,max,column_name
+4.0,2.5,1.2909944487358056,1.0,1.75,2.5,3.25,4.0,customer_id

@@ -1,0 +1,3 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+duplicate_primary_keys,Duplicate business key values detected for ['CUSTOMER_ID']; rows may differ in non-key columns,CUSTOMER_ID,1001,John Doe,john.doe@example.com,35,75000,2020-01-15,US,ACTIVE
+duplicate_primary_keys,Duplicate business key values detected for ['CUSTOMER_ID']; rows may differ in non-key columns,CUSTOMER_ID,1001,John Duplicate,john.dup@example.com,35,75000,2020-01-15,US,ACTIVE

@@ -1,0 +1,4 @@
+CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+1018,Paul Lopez,paul.lopez@example.com,34,71000.0,2021-07-05,US,ACTIVE
+1019,Quinn Gonzalez,quinn.gonzalez@example.com,30,69000.0,2022-05-17,IN,ACTIVE
+1020,Rachel Perez,rachel.perez@example.com,26,59000.0,2023-02-20,UK,ACTIVE

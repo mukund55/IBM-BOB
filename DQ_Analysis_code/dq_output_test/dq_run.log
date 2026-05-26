@@ -1,0 +1,302 @@
+2026-05-25 15:23:14,515 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:23:14,515 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 15:23:14,515 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 15:23:14,614 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 15:23:14,614 | INFO | Applying data cleansing...
+2026-05-25 15:23:14,615 | INFO | Starting data cleansing process...
+2026-05-25 15:23:14,621 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-25 15:23:14,627 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-25 15:23:14,645 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-25 15:23:14,650 | INFO | Fixed negative values in AGE: 1 records
+2026-05-25 15:23:14,655 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-25 15:23:14,664 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-25 15:23:14,666 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-25 15:23:14,671 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-25 15:23:14,672 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-25 15:23:14,692 | INFO | Removed 1 records with duplicate primary keys
+2026-05-25 15:23:14,694 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-25 15:23:14,695 | INFO | Original records: 21, Cleansed records: 20
+2026-05-25 15:23:14,695 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-25 15:23:14,712 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-25 15:23:14,879 | INFO | Good records: 3, Bad records: 17
+2026-05-25 15:23:14,957 | INFO | Good records file created: 3 clean records
+2026-05-25 15:23:14,965 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 15:23:14,966 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 15:23:14,972 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 15:23:14,973 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 15:23:14,977 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 15:23:14,978 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 15:23:14,978 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 15:23:14,978 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 15:23:14,978 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 15:23:14,978 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 15:23:14,984 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 15:23:14,984 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 15:23:14,991 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-25 15:23:14,995 | INFO | Cleansing log saved: 10 operations logged
+2026-05-25 15:23:14,997 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 15:23:15,001 | INFO | Aggregated metrics saved
+2026-05-25 15:23:15,013 | ERROR | Data quality analysis failed: 'charmap' codec can't encode characters in position 209-288: character maps to <undefined>
+2026-05-25 15:23:15,066 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2717, in main
+    generate_executive_summary(
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2580, in generate_executive_summary
+    print("\n" + report_text)
+  File "C:\Users\IshikaRamteke\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 209-288: character maps to <undefined>
+
+2026-05-25 15:23:44,172 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:23:44,172 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 15:23:44,172 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 15:23:44,189 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 15:23:44,190 | INFO | Applying data cleansing...
+2026-05-25 15:23:44,191 | INFO | Starting data cleansing process...
+2026-05-25 15:23:44,196 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-25 15:23:44,200 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-25 15:23:44,206 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-25 15:23:44,212 | INFO | Fixed negative values in AGE: 1 records
+2026-05-25 15:23:44,216 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-25 15:23:44,222 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-25 15:23:44,227 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-25 15:23:44,232 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-25 15:23:44,236 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-25 15:23:44,245 | INFO | Removed 1 records with duplicate primary keys
+2026-05-25 15:23:44,247 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-25 15:23:44,247 | INFO | Original records: 21, Cleansed records: 20
+2026-05-25 15:23:44,249 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-25 15:23:44,260 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-25 15:23:44,428 | INFO | Good records: 3, Bad records: 17
+2026-05-25 15:23:44,506 | INFO | Good records file created: 3 clean records
+2026-05-25 15:23:44,514 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 15:23:44,514 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 15:23:44,518 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 15:23:44,518 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 15:23:44,523 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 15:23:44,524 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 15:23:44,524 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 15:23:44,524 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 15:23:44,524 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 15:23:44,525 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 15:23:44,530 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 15:23:44,530 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 15:23:44,534 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-25 15:23:44,540 | INFO | Cleansing log saved: 10 operations logged
+2026-05-25 15:23:44,542 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 15:23:44,546 | INFO | Aggregated metrics saved
+2026-05-25 15:23:44,556 | ERROR | Data quality analysis failed: 'charmap' codec can't encode characters in position 209-288: character maps to <undefined>
+2026-05-25 15:23:44,560 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2717, in main
+    generate_executive_summary(
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2580, in generate_executive_summary
+    print("\n" + report_text)
+  File "C:\Users\IshikaRamteke\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 209-288: character maps to <undefined>
+
+2026-05-25 15:24:16,937 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:24:16,938 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 15:24:16,938 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 15:24:16,957 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 15:24:16,957 | INFO | Applying data cleansing...
+2026-05-25 15:24:16,958 | INFO | Starting data cleansing process...
+2026-05-25 15:24:16,963 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-25 15:24:16,968 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-25 15:24:16,972 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-25 15:24:16,975 | INFO | Fixed negative values in AGE: 1 records
+2026-05-25 15:24:16,978 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-25 15:24:16,981 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-25 15:24:16,985 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-25 15:24:16,989 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-25 15:24:16,993 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-25 15:24:17,000 | INFO | Removed 1 records with duplicate primary keys
+2026-05-25 15:24:17,002 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-25 15:24:17,002 | INFO | Original records: 21, Cleansed records: 20
+2026-05-25 15:24:17,002 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-25 15:24:17,011 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-25 15:24:17,141 | INFO | Good records: 3, Bad records: 17
+2026-05-25 15:24:17,203 | INFO | Good records file created: 3 clean records
+2026-05-25 15:24:17,211 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 15:24:17,212 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 15:24:17,217 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 15:24:17,219 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 15:24:17,223 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 15:24:17,223 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 15:24:17,223 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 15:24:17,223 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 15:24:17,224 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 15:24:17,224 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 15:24:17,227 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 15:24:17,227 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 15:24:17,230 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-25 15:24:17,234 | INFO | Cleansing log saved: 10 operations logged
+2026-05-25 15:24:17,235 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 15:24:17,239 | INFO | Aggregated metrics saved
+2026-05-25 15:24:17,247 | INFO | Executive summary report generated
+2026-05-25 15:24:17,250 | ERROR | Data quality analysis failed: name 'input_file' is not defined
+2026-05-25 15:24:17,258 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2717, in main
+    generate_executive_summary(
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2591, in generate_executive_summary
+    print(f"Input file          : {input_file}")
+                                   ^^^^^^^^^^
+NameError: name 'input_file' is not defined
+
+2026-05-25 15:25:22,879 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:25:22,880 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 15:25:22,880 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 15:25:22,901 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 15:25:22,901 | INFO | Applying data cleansing...
+2026-05-25 15:25:22,902 | INFO | Starting data cleansing process...
+2026-05-25 15:25:22,905 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-25 15:25:22,909 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-25 15:25:22,915 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-25 15:25:22,920 | INFO | Fixed negative values in AGE: 1 records
+2026-05-25 15:25:22,923 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-25 15:25:22,925 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-25 15:25:22,926 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-25 15:25:22,931 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-25 15:25:22,935 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-25 15:25:22,942 | INFO | Removed 1 records with duplicate primary keys
+2026-05-25 15:25:22,945 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-25 15:25:22,945 | INFO | Original records: 21, Cleansed records: 20
+2026-05-25 15:25:22,945 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-25 15:25:22,957 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-25 15:25:23,120 | INFO | Good records: 3, Bad records: 17
+2026-05-25 15:25:23,176 | INFO | Good records file created: 3 clean records
+2026-05-25 15:25:23,182 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 15:25:23,182 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 15:25:23,185 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 15:25:23,187 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 15:25:23,189 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 15:25:23,190 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 15:25:23,190 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 15:25:23,190 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 15:25:23,190 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 15:25:23,190 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 15:25:23,192 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 15:25:23,193 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 15:25:23,196 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-25 15:25:23,199 | INFO | Cleansing log saved: 10 operations logged
+2026-05-25 15:25:23,200 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 15:25:23,204 | INFO | Aggregated metrics saved
+2026-05-25 15:25:23,213 | INFO | Executive summary report generated
+2026-05-25 15:25:23,215 | INFO | Data quality analysis completed successfully
+2026-05-25 15:29:05,027 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:29:05,029 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 15:29:05,029 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 15:29:05,072 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 15:29:05,073 | INFO | Applying data cleansing...
+2026-05-25 15:29:05,073 | INFO | Starting data cleansing process...
+2026-05-25 15:29:05,078 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-25 15:29:05,084 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-25 15:29:05,092 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-25 15:29:05,097 | INFO | Fixed negative values in AGE: 1 records
+2026-05-25 15:29:05,101 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-25 15:29:05,106 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-25 15:29:05,109 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-25 15:29:05,113 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-25 15:29:05,115 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-25 15:29:05,131 | INFO | Removed 1 records with duplicate primary keys
+2026-05-25 15:29:05,133 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-25 15:29:05,134 | INFO | Original records: 21, Cleansed records: 20
+2026-05-25 15:29:05,134 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-25 15:29:05,145 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-25 15:29:05,275 | INFO | Good records: 3, Bad records: 17
+2026-05-25 15:29:05,345 | INFO | Good records file created: 3 clean records
+2026-05-25 15:29:05,353 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 15:29:05,354 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 15:29:05,356 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 15:29:05,357 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 15:29:05,359 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 15:29:05,360 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 15:29:05,360 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 15:29:05,360 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 15:29:05,360 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 15:29:05,360 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 15:29:05,364 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 15:29:05,364 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 15:29:05,367 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-25 15:29:05,371 | INFO | Cleansing log saved: 10 operations logged
+2026-05-25 15:29:05,374 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 15:29:05,377 | INFO | Aggregated metrics saved
+2026-05-25 15:29:05,389 | INFO | Executive summary report generated
+2026-05-25 15:29:05,389 | INFO | Generating executive dashboard...
+2026-05-25 15:29:05,397 | INFO | Executive dashboard saved to: dq_output_test\dq_executive_dashboard.html
+2026-05-25 15:29:05,400 | INFO | Data quality analysis completed successfully
+2026-05-25 15:43:43,624 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:43:43,625 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:43:43,626 | INFO | Checking for mixed newline characters...
+2026-05-25 15:43:43,629 | ERROR | Data quality analysis failed: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>
+2026-05-25 15:43:43,697 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 3139, in main
+    print("\n✅ No mixed newline characters detected. File is clean!")
+  File "C:\Users\IshikaRamteke\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>
+
+2026-05-25 15:44:59,697 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:44:59,698 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:44:59,698 | INFO | Checking for mixed newline characters...
+2026-05-25 15:44:59,699 | INFO | Loading input file: test_mixed_newlines.dat
+2026-05-25 15:44:59,699 | ERROR | Data quality analysis failed: Unsupported input file type: .dat. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+2026-05-25 15:44:59,702 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 3217, in main
+    df = load_input_data_enhanced(args.input_file, config)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 606, in load_input_data_enhanced
+    raise ValueError(
+ValueError: Unsupported input file type: .dat. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+
+2026-05-25 15:45:39,230 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:45:39,230 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:45:39,231 | INFO | Checking for mixed newline characters...
+2026-05-25 15:45:39,270 | WARNING | Mixed newline characters detected in test_mixed_newlines.dat
+2026-05-25 15:45:39,270 | WARNING |   CRLF (\r\n): 1, LF (\n): 2, CR (\r): 1
+2026-05-25 15:45:39,271 | WARNING |   Recommendation: Standardize to LF (\n)
+2026-05-25 15:45:39,272 | ERROR | Data quality analysis failed: 'charmap' codec can't encode characters in position 2-3: character maps to <undefined>
+2026-05-25 15:45:39,315 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 3116, in main
+    print("\n⚠️  MIXED NEWLINE CHARACTERS DETECTED!")
+  File "C:\Users\IshikaRamteke\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 2-3: character maps to <undefined>
+
+2026-05-25 15:46:37,452 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:46:37,454 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:46:37,454 | INFO | Checking for mixed newline characters...
+2026-05-25 15:46:37,457 | WARNING | Mixed newline characters detected in test_mixed_newlines.dat
+2026-05-25 15:46:37,458 | WARNING |   CRLF (\r\n): 1, LF (\n): 2, CR (\r): 1
+2026-05-25 15:46:37,458 | WARNING |   Recommendation: Standardize to LF (\n)
+2026-05-25 15:46:37,519 | INFO | Newline issues report saved to: dq_output_test\newline_issues_report.csv
+2026-05-25 15:46:37,519 | INFO | Loading input file: test_mixed_newlines.dat
+2026-05-25 15:46:37,521 | ERROR | Data quality analysis failed: Unsupported input file type: .dat. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+2026-05-25 15:46:37,524 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 3217, in main
+    df = load_input_data_enhanced(args.input_file, config)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 606, in load_input_data_enhanced
+    raise ValueError(
+ValueError: Unsupported input file type: .dat. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+
+2026-05-25 15:47:29,181 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:47:29,182 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:47:29,182 | INFO | Checking for mixed newline characters...
+2026-05-25 15:47:29,186 | WARNING | Mixed newline characters detected in test_mixed_newlines.dat
+2026-05-25 15:47:29,187 | WARNING |   CRLF (\r\n): 1, LF (\n): 2, CR (\r): 1
+2026-05-25 15:47:29,188 | WARNING |   Recommendation: Standardize to LF (\n)
+2026-05-25 15:47:29,204 | INFO | Newline issues report saved to: dq_output_test\newline_issues_report.csv
+2026-05-25 15:47:29,205 | INFO | Newline check completed. Exiting.
+2026-05-25 15:47:46,858 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 15:47:46,859 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 15:47:46,859 | INFO | Fixing newline characters to LF...
+2026-05-25 15:47:46,924 | INFO | Fixed newline characters in test_mixed_newlines.dat
+2026-05-25 15:47:46,925 | INFO |   Original: CRLF=1, LF=2, CR=1
+2026-05-25 15:47:46,925 | INFO |   Fixed to LF: CRLF=0, LF=4, CR=0
+2026-05-25 15:47:46,926 | INFO |   Output saved to: test_mixed_newlines_fixed.dat
+2026-05-25 15:47:46,943 | INFO | Fix report saved to: dq_output_test\newline_fix_report.csv
+2026-05-25 15:47:46,943 | INFO | Newline fixing completed. Exiting.

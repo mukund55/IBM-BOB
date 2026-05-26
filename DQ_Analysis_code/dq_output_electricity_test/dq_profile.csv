@@ -1,0 +1,9 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values
+METERID,string,1500,1500,0,0,0.0,1489,0.9927,"{""MTR50"": 12, ""MTR1"": 1, ""MTR2"": 1, ""MTR3"": 1, ""MTR4"": 1}"
+CONSUMERNAME,string,1500,1144,356,0,23.73,3,0.002,"{""Ravi"": 390, ""Priya"": 383, ""Neha"": 371}"
+UNITSCONSUMED,string,1500,1500,0,0,0.0,4,0.0027,"{""100"": 412, ""250"": 399, ""-50"": 350, ""999999"": 339}"
+BILLAMOUNT,string,1500,1500,0,0,0.0,4,0.0027,"{""9999999"": 411, ""-200"": 375, ""1500"": 372, ""500"": 342}"
+BILLINGDATE,string,1500,1500,0,0,0.0,2,0.0013,"{""2025-05-01"": 1490, ""2100-01-01"": 10}"
+EMAIL,string,1500,1500,0,0,0.0,1396,0.9307,"{""invalidmail"": 9, ""@gmail.com"": 7, ""missingdomain@"": 7, ""test@@gmail.com"": 4, ""david49@gmail.com"": 3}"
+REGION,string,1500,1109,391,0,26.07,3,0.002,"{""InvalidRegion"": 391, ""South"": 377, ""North"": 341}"
+ISSUEFLAG,string,1500,1500,0,0,0.0,2,0.0013,"{""NO"": 1458, ""YES"": 42}"

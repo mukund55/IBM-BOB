@@ -1,0 +1,2 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+datatype_violations,Datatype validation failed for column JOIN_DATE; expected date,JOIN_DATE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE

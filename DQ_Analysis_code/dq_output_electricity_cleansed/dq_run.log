@@ -1,0 +1,116 @@
+2026-05-26 10:58:18,459 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 10:58:18,460 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 10:58:18,461 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 10:58:18,652 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 10:58:18,653 | INFO | Applying data cleansing...
+2026-05-26 10:58:18,654 | INFO | Starting data cleansing process...
+2026-05-26 10:58:18,688 | INFO | Data cleansing completed: 0 operations, 0 total records affected
+2026-05-26 10:58:18,689 | INFO | Original records: 1500, Cleansed records: 1500
+2026-05-26 10:58:18,690 | INFO | Data cleansing completed. Records: 1500 -> 1500
+2026-05-26 10:58:18,754 | INFO | Cleansed data saved to: dq_output_electricity_cleansed\cleansed_data.csv
+2026-05-26 10:58:19,457 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 10:58:19,751 | INFO | Good records file created: 360 clean records
+2026-05-26 10:58:19,882 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 10:58:19,888 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 10:58:19,921 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 10:58:19,923 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 10:58:19,938 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 10:58:19,975 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 10:58:19,994 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 10:58:20,018 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 10:58:20,030 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 10:58:20,040 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 10:58:20,073 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 10:58:20,087 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 10:58:20,104 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 10:58:20,107 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 10:58:20,114 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 10:58:20,134 | INFO | Aggregated metrics saved
+2026-05-26 10:58:20,136 | INFO | Generating quality dashboard...
+2026-05-26 10:58:25,030 | INFO | Dashboard saved to: dq_output_electricity_cleansed\dq_dashboard.html
+2026-05-26 10:58:29,195 | INFO | Static charts saved to: dq_output_electricity_cleansed\charts
+2026-05-26 10:58:29,280 | INFO | Executive summary report generated
+2026-05-26 10:58:29,281 | INFO | Generating executive dashboard...
+2026-05-26 10:58:29,318 | INFO | Executive dashboard saved to: dq_output_electricity_cleansed\dq_executive_dashboard.html
+2026-05-26 10:58:29,595 | INFO | Data quality analysis completed successfully
+2026-05-26 11:48:35,528 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 11:48:35,531 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 11:48:35,532 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 11:48:35,694 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 11:48:35,694 | INFO | Calculating baseline quality score on original data...
+2026-05-26 11:48:35,844 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 11:48:35,852 | INFO | Baseline quality score: 24.00%
+2026-05-26 11:48:35,852 | INFO | Applying data cleansing...
+2026-05-26 11:48:35,853 | INFO | Starting data cleansing process...
+2026-05-26 11:48:35,867 | INFO | Data cleansing completed: 0 operations, 0 total records affected
+2026-05-26 11:48:35,867 | INFO | Original records: 1500, Cleansed records: 1500
+2026-05-26 11:48:35,868 | INFO | Data cleansing completed. Records: 1500 -> 1500
+2026-05-26 11:48:35,895 | INFO | Cleansed data saved to: dq_output_electricity_cleansed\cleansed_data.csv
+2026-05-26 11:48:35,895 | INFO | Calculating quality score on cleansed data...
+2026-05-26 11:48:36,022 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 11:48:36,031 | INFO | Quality score after cleansing: 24.00%
+2026-05-26 11:48:36,031 | INFO | Quality improvement: +0.00%
+2026-05-26 11:48:36,316 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 11:48:36,452 | INFO | Good records file created: 360 clean records
+2026-05-26 11:48:36,501 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 11:48:36,501 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 11:48:36,516 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 11:48:36,517 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 11:48:36,522 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 11:48:36,523 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 11:48:36,523 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 11:48:36,523 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 11:48:36,523 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 11:48:36,524 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 11:48:36,530 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 11:48:36,531 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 11:48:36,531 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 11:48:36,531 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 11:48:36,533 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 11:48:36,541 | INFO | Aggregated metrics saved
+2026-05-26 11:48:36,562 | INFO | Executive summary report generated
+2026-05-26 11:48:36,563 | INFO | Generating executive dashboard...
+2026-05-26 11:48:36,617 | INFO | Executive dashboard saved to: dq_output_electricity_cleansed\dq_executive_dashboard.html
+2026-05-26 11:48:36,622 | INFO | Data quality analysis completed successfully
+2026-05-26 13:08:31,874 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 13:08:31,876 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 13:08:31,877 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 13:08:31,935 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 13:08:31,936 | INFO | Calculating baseline quality score on original data...
+2026-05-26 13:08:32,041 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 13:08:32,045 | INFO | Baseline quality score: 24.00%
+2026-05-26 13:08:32,045 | INFO | Applying data cleansing...
+2026-05-26 13:08:32,045 | INFO | Starting data cleansing process...
+2026-05-26 13:08:32,056 | INFO | Data cleansing completed: 0 operations, 0 total records affected
+2026-05-26 13:08:32,056 | INFO | Original records: 1500, Cleansed records: 1500
+2026-05-26 13:08:32,056 | INFO | Data cleansing completed. Records: 1500 -> 1500
+2026-05-26 13:08:32,074 | INFO | Cleansed data saved to: dq_output_electricity_cleansed\cleansed_data.csv
+2026-05-26 13:08:32,074 | INFO | Calculating quality score on cleansed data...
+2026-05-26 13:08:32,158 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 13:08:32,163 | INFO | Quality score after cleansing: 24.00%
+2026-05-26 13:08:32,164 | INFO | Quality improvement: +0.00%
+2026-05-26 13:08:32,312 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 13:08:32,375 | INFO | Good records file created: 360 clean records
+2026-05-26 13:08:32,403 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 13:08:32,403 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 13:08:32,412 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 13:08:32,412 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 13:08:32,417 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 13:08:32,421 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 13:08:32,422 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 13:08:32,422 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 13:08:32,422 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 13:08:32,425 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 13:08:32,431 | INFO | Aggregated metrics saved
+2026-05-26 13:08:32,432 | INFO | Generating quality dashboard...
+2026-05-26 13:08:33,533 | INFO | Dashboard saved to: dq_output_electricity_cleansed\dq_dashboard.html
+2026-05-26 13:08:34,916 | INFO | Static charts saved to: dq_output_electricity_cleansed\charts
+2026-05-26 13:08:34,930 | INFO | Executive summary report generated
+2026-05-26 13:08:34,930 | INFO | Generating executive dashboard...
+2026-05-26 13:08:34,940 | INFO | Executive dashboard saved to: dq_output_electricity_cleansed\dq_executive_dashboard.html
+2026-05-26 13:08:34,942 | INFO | Data quality analysis completed successfully

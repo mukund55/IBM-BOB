@@ -1,0 +1,2 @@
+input_file,output_file,target_format,original_crlf,original_lf,original_cr,fixed_crlf,fixed_lf,fixed_cr,lines_processed,timestamp
+test_mixed_newlines.dat,test_mixed_newlines_fixed.dat,LF,1,2,1,0,4,0,4,2026-05-25 15:47:46

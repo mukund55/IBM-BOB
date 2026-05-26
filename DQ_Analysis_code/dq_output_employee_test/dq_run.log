@@ -1,0 +1,36 @@
+2026-05-25 17:50:50,704 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 17:50:50,705 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 17:50:50,705 | INFO | Loading input file: sample_employee_data.dat
+2026-05-25 17:50:50,705 | INFO | Loading .dat file as delimited text: sample_employee_data.dat
+2026-05-25 17:50:50,706 | INFO | Auto-detected delimiter: '|'
+2026-05-25 17:50:50,718 | INFO | Loaded dataset with 10 rows and 5 columns
+2026-05-25 17:50:50,781 | INFO | All 10 records are clean (no issues found)
+2026-05-25 17:50:50,844 | INFO | Good records file created: 10 clean records
+2026-05-25 17:50:50,844 | INFO | Skipping empty file: dq_all_bad_records.csv
+2026-05-25 17:50:50,845 | INFO | Skipping empty bad records file for category: null_blank
+2026-05-25 17:50:50,845 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 17:50:50,846 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 17:50:50,846 | INFO | Skipping empty bad records file for category: outliers
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: pattern_violations
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 17:50:50,847 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-25 17:50:50,847 | INFO | Bad record files: 0 created, 17 skipped (no issues found)
+2026-05-25 17:50:50,850 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 17:50:50,854 | INFO | Aggregated metrics saved
+2026-05-25 17:50:50,854 | INFO | Generating quality dashboard...
+2026-05-25 17:50:51,493 | INFO | Dashboard saved to: dq_output_employee_test\dq_dashboard.html
+2026-05-25 17:50:52,600 | INFO | Static charts saved to: dq_output_employee_test\charts
+2026-05-25 17:50:52,610 | INFO | Executive summary report generated
+2026-05-25 17:50:52,611 | INFO | Generating executive dashboard...
+2026-05-25 17:50:52,616 | INFO | Executive dashboard saved to: dq_output_employee_test\dq_executive_dashboard.html
+2026-05-25 17:50:52,618 | INFO | Data quality analysis completed successfully

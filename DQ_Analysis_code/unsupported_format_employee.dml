@@ -1,0 +1,7 @@
+record
+    string(",") EMP_ID;          
+    decimal(",") EMP_NAME(20);     
+    date("YYYY/MM/DD") DEPARTMENT; 
+    string(",") SALARY;            
+    decimal("\n") JOIN_DATE;        
+end;

@@ -1,0 +1,28 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+null_blank,Null values detected in column EMAIL,EMAIL,1004,Alice Williams,,31,70000,2020-11-05,US,INACTIVE
+null_blank,Null values detected in column EMAIL,EMAIL,1013,Kate Thomas,,25,62000,2023-01-10,UK,INACTIVE
+null_blank,Null values detected in column SALARY,SALARY,1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE
+duplicate_primary_keys,Duplicate business key values detected for ['CUSTOMER_ID']; rows may differ in non-key columns,CUSTOMER_ID,1001,John Doe,john.doe@example.com,35,75000,2020-01-15,US,ACTIVE
+duplicate_primary_keys,Duplicate business key values detected for ['CUSTOMER_ID']; rows may differ in non-key columns,CUSTOMER_ID,1001,John Duplicate,john.dup@example.com,35,75000,2020-01-15,US,ACTIVE
+outliers,"Outliers detected in numeric column AGE using IQR method (IQR multiplier=1.5, lower=15.5, upper=51.5)",AGE,1005,Charlie Brown,charlie@invalid,150,95000,2018-05-20,US,ACTIVE
+outliers,"Outliers detected in numeric column AGE using IQR method (IQR multiplier=1.5, lower=15.5, upper=51.5)",AGE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+outliers,"Outliers detected in numeric column AGE using IQR method (IQR multiplier=1.5, lower=15.5, upper=51.5)",AGE,1012,Jack Anderson,jack.anderson@example.com,52,1500000,2016-04-12,US,ACTIVE
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=33000.0, upper=109000.0)",SALARY,1012,Jack Anderson,jack.anderson@example.com,52,1500000,2016-04-12,US,ACTIVE
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=33000.0, upper=109000.0)",SALARY,1016,Noah Rodriguez,noah@test,36,-10000,2019-11-15,IN,ACTIVE
+mixed_types,Non-date values detected in column JOIN_DATE expected to follow date format,JOIN_DATE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+invalid_dates,Invalid date format detected in column JOIN_DATE,JOIN_DATE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,1005,Charlie Brown,charlie@invalid,150,95000,2018-05-20,US,ACTIVE
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,1016,Noah Rodriguez,noah@test,36,-10000,2019-11-15,IN,ACTIVE
+negative_values,Negative values detected in business-sensitive column AGE,AGE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+negative_values,Negative values detected in business-sensitive column SALARY,SALARY,1016,Noah Rodriguez,noah@test,36,-10000,2019-11-15,IN,ACTIVE
+datatype_violations,Datatype validation failed for column JOIN_DATE; expected date,JOIN_DATE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+range_violations,Range validation failed for column AGE,AGE,1005,Charlie Brown,charlie@invalid,150,95000,2018-05-20,US,ACTIVE
+range_violations,Range validation failed for column AGE,AGE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+range_violations,Range validation failed for column SALARY,SALARY,1012,Jack Anderson,jack.anderson@example.com,52,1500000,2016-04-12,US,ACTIVE
+range_violations,Range validation failed for column SALARY,SALARY,1016,Noah Rodriguez,noah@test,36,-10000,2019-11-15,IN,ACTIVE
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,1005,Charlie Brown,charlie@invalid,150,95000,2018-05-20,US,ACTIVE
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,1016,Noah Rodriguez,noah@test,36,-10000,2019-11-15,IN,ACTIVE
+allowed_value_violations,Unexpected values detected in column STATUS,STATUS,1007,Eve Davis,eve.davis@example.com,29,55000,2022-02-14,UK,PENDING
+allowed_value_violations,Unexpected values detected in column COUNTRY_CODE,COUNTRY_CODE,1006,Diana Prince,diana.prince@example.com,-5,60000,invalid-date,XX,ACTIVE
+business_rule_violations,Business rule 'active_customer_should_have_join_date' failed,"STATUS,JOIN_DATE",1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE

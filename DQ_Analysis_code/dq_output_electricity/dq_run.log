@@ -1,0 +1,39 @@
+2026-05-25 18:35:45,050 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 18:35:45,050 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 18:35:45,051 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-25 18:35:45,051 | ERROR | Data quality analysis failed: name 'config' is not defined
+2026-05-25 18:35:45,054 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 3777, in main
+    df = load_input_data_enhanced(args.input_file, config)
+                                                   ^^^^^^
+NameError: name 'config' is not defined
+
+2026-05-25 18:36:11,633 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 18:36:11,635 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 18:36:11,635 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-25 18:36:11,662 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-25 18:36:11,723 | INFO | Good records: 360, Bad records: 1140
+2026-05-25 18:36:11,751 | INFO | Good records file created: 360 clean records
+2026-05-25 18:36:11,759 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 18:36:11,759 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 18:36:11,762 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 18:36:11,762 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 18:36:11,763 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 18:36:11,765 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 18:36:11,765 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 18:36:11,765 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-25 18:36:11,765 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-25 18:36:11,766 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 18:36:11,768 | INFO | Aggregated metrics saved
+2026-05-25 18:36:11,768 | INFO | Generating quality dashboard...
+2026-05-25 18:36:12,234 | INFO | Dashboard saved to: dq_output_electricity\dq_dashboard.html
+2026-05-25 18:36:12,852 | INFO | Static charts saved to: dq_output_electricity\charts
+2026-05-25 18:36:12,861 | INFO | Executive summary report generated
+2026-05-25 18:36:12,861 | INFO | Generating executive dashboard...
+2026-05-25 18:36:12,868 | INFO | Executive dashboard saved to: dq_output_electricity\dq_executive_dashboard.html
+2026-05-25 18:36:12,871 | INFO | Data quality analysis completed successfully

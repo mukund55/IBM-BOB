@@ -1,0 +1,52 @@
+2026-05-25 16:00:13,162 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 16:00:13,163 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 16:00:13,163 | INFO | Loading Ab Initio DAT file with DML...
+2026-05-25 16:00:13,163 | INFO |   DAT file: sample_advanced.dat
+2026-05-25 16:00:13,164 | INFO |   DML file: sample_advanced.dml
+2026-05-25 16:00:13,164 | INFO | Parsing DML file: sample_advanced.dml
+2026-05-25 16:00:13,171 | INFO | DML parsed successfully:
+2026-05-25 16:00:13,172 | INFO |   Fields: 7
+2026-05-25 16:00:13,172 | INFO |   Field delimiter: ','
+2026-05-25 16:00:13,172 | INFO |   Record delimiter: '\n'
+2026-05-25 16:00:13,173 | INFO |   Columns: ['customer_id', 'customer_name', 'email', 'purchase_amount', 'discount', 'notes', 'is_active']
+2026-05-25 16:00:13,174 | INFO |   Nullable fields: 4
+2026-05-25 16:00:13,174 | INFO |   Mandatory fields: 3
+2026-05-25 16:00:13,174 | INFO | Loading DAT file: sample_advanced.dat
+2026-05-25 16:00:13,213 | WARNING | Newline mismatch detected!
+2026-05-25 16:00:13,213 | WARNING |   DML expects: '\n'
+2026-05-25 16:00:13,213 | WARNING |   DAT file has: '\r\n'
+2026-05-25 16:00:13,214 | WARNING |   CRLF: 3, LF: 0, CR: 0
+2026-05-25 16:00:13,214 | INFO | Auto-fixing newlines to match DML specification...
+2026-05-25 16:00:13,247 | INFO | Fixed newline characters in sample_advanced.dat
+2026-05-25 16:00:13,248 | INFO |   Original: CRLF=3, LF=0, CR=0
+2026-05-25 16:00:13,248 | INFO |   Fixed to LF: CRLF=0, LF=3, CR=0
+2026-05-25 16:00:13,248 | INFO |   Output saved to: sample_advanced.dat.fixed_temp
+2026-05-25 16:00:13,248 | INFO | Newlines fixed successfully. Using fixed file for loading.
+2026-05-25 16:00:13,254 | INFO | DAT file loaded successfully: 3 rows, 7 columns
+2026-05-25 16:00:13,255 | INFO | Temporary fixed file cleaned up
+2026-05-25 16:00:13,256 | INFO | Ab Initio DAT file loaded successfully
+2026-05-25 16:00:13,256 | INFO | Loaded dataset with 3 rows and 7 columns
+2026-05-25 16:00:13,352 | INFO | Good records: 0, Bad records: 5
+2026-05-25 16:00:13,417 | INFO | Skipping empty file: good_records.csv
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: outliers
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-25 16:00:13,426 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-25 16:00:13,429 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: pattern_violations
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-25 16:00:13,430 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-25 16:00:13,430 | INFO | Bad record files: 2 created, 15 skipped (no issues found)
+2026-05-25 16:00:13,432 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 16:00:13,436 | INFO | Aggregated metrics saved
+2026-05-25 16:00:13,448 | INFO | Executive summary report generated
+2026-05-25 16:00:13,448 | INFO | Generating executive dashboard...
+2026-05-25 16:00:13,453 | INFO | Executive dashboard saved to: dq_output_advanced_test\dq_executive_dashboard.html
+2026-05-25 16:00:13,454 | INFO | Data quality analysis completed successfully

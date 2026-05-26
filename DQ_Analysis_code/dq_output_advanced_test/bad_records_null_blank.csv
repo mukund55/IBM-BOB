@@ -1,0 +1,3 @@
+issue_type,issue_detail,columns_involved,customer_id,customer_name,email,purchase_amount,discount,notes,is_active
+null_blank,Null values detected in column email,email,2,Jane Smith,,2000.0,-1.0,,1
+null_blank,Null values detected in column notes,notes,2,Jane Smith,,2000.0,-1.0,,1

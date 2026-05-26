@@ -1,0 +1,87 @@
+2026-05-25 13:50:52,475 | INFO | Starting data quality analysis
+2026-05-25 13:50:52,475 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 13:50:52,554 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 13:50:52,823 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 13:50:52,831 | INFO | Data quality analysis completed successfully
+2026-05-25 14:28:25,401 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 14:28:25,402 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 14:28:25,403 | INFO | Loading input file: sample_customer_data.cdv
+2026-05-25 14:28:25,404 | ERROR | Data quality analysis failed: Unsupported input file type: .cdv. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+2026-05-25 14:28:25,408 | ERROR | Traceback (most recent call last):
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 2143, in main
+    df = load_input_data_enhanced(args.input_file, config)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IshikaRamteke\.bob\IBM-BOB\DQ_Analysis_code\data_quality_analysis.py", line 575, in load_input_data_enhanced
+    raise ValueError(
+ValueError: Unsupported input file type: .cdv. Supported types are: .csv, .xml, .xlsx, .xls, .json, .parquet
+
+2026-05-25 14:28:36,691 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 14:28:36,692 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 14:28:36,692 | INFO | Loading input file: sample_customer_data.csv
+2026-05-25 14:28:36,699 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-25 14:28:36,851 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 14:28:36,854 | INFO | Aggregated metrics saved
+2026-05-25 14:28:36,854 | INFO | Generating quality dashboard...
+2026-05-25 14:28:38,922 | INFO | Dashboard saved to: dq_output\dq_dashboard.html
+2026-05-25 14:28:40,899 | INFO | Static charts saved to: dq_output\charts
+2026-05-25 14:28:40,910 | INFO | Data quality analysis completed successfully
+2026-05-25 14:52:45,920 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 14:52:45,921 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation
+2026-05-25 14:52:45,921 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-25 14:52:45,965 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-25 14:52:46,140 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-25 14:52:46,143 | INFO | Aggregated metrics saved
+2026-05-25 14:52:46,143 | INFO | Generating quality dashboard...
+2026-05-25 14:52:47,872 | INFO | Dashboard saved to: dq_output\dq_dashboard.html
+2026-05-25 14:52:48,597 | INFO | Static charts saved to: dq_output\charts
+2026-05-25 14:52:48,601 | INFO | Data quality analysis completed successfully
+2026-05-25 17:29:58,796 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 17:29:58,800 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 17:29:58,803 | INFO | Checking for mixed newline characters...
+2026-05-25 17:29:58,842 | INFO | Newline check completed. File is clean. Exiting.
+2026-05-25 17:31:45,905 | INFO | Starting ENHANCED data quality analysis
+2026-05-25 17:31:45,905 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-25 17:31:45,906 | INFO | Checking for mixed newline characters...
+2026-05-25 17:31:45,909 | INFO | Newline check completed. File is clean. Exiting.
+2026-05-26 12:41:04,400 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 12:41:04,402 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 12:41:04,403 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 12:41:04,462 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 12:41:04,463 | INFO | Calculating baseline quality score on original data...
+2026-05-26 12:41:04,565 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:41:04,570 | INFO | Baseline quality score: 24.00%
+2026-05-26 12:41:04,570 | INFO | Applying data cleansing...
+2026-05-26 12:41:04,571 | INFO | Starting data cleansing process...
+2026-05-26 12:41:04,581 | INFO | Data cleansing completed: 0 operations, 0 total records affected
+2026-05-26 12:41:04,582 | INFO | Original records: 1500, Cleansed records: 1500
+2026-05-26 12:41:04,582 | INFO | Data cleansing completed. Records: 1500 -> 1500
+2026-05-26 12:41:04,608 | INFO | Cleansed data saved to: dq_output\cleansed_data.csv
+2026-05-26 12:41:04,609 | INFO | Calculating quality score on cleansed data...
+2026-05-26 12:41:04,696 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:41:04,702 | INFO | Quality score after cleansing: 24.00%
+2026-05-26 12:41:04,703 | INFO | Quality improvement: +0.00%
+2026-05-26 12:41:04,879 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:41:04,953 | INFO | Good records file created: 360 clean records
+2026-05-26 12:41:04,989 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 12:41:04,989 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 12:41:05,000 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 12:41:05,001 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 12:41:05,009 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 12:41:05,010 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 12:41:05,011 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 12:41:05,013 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 12:41:05,014 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 12:41:05,014 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 12:41:05,020 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 12:41:05,021 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 12:41:05,022 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 12:41:05,023 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 12:41:05,025 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 12:41:05,031 | INFO | Aggregated metrics saved
+2026-05-26 12:41:05,032 | INFO | Generating quality dashboard...
+2026-05-26 12:41:05,969 | INFO | Dashboard saved to: dq_output\dq_dashboard.html
+2026-05-26 12:41:07,771 | INFO | Static charts saved to: dq_output\charts
+2026-05-26 12:41:07,789 | INFO | Executive summary report generated
+2026-05-26 12:41:07,790 | INFO | Generating executive dashboard...
+2026-05-26 12:41:07,804 | INFO | Executive dashboard saved to: dq_output\dq_executive_dashboard.html
+2026-05-26 12:41:07,818 | INFO | Data quality analysis completed successfully

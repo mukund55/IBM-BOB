@@ -1,0 +1,17 @@
+category,count,recommendation,testing_suggestion,preventive_control
+allowed_value_violations,0,Use lookup/reference validation for domain-controlled fields.,Add accepted-values tests for categorical columns.,Use governed master data and lookup-controlled values.
+business_rule_violations,0,Encode business rules in ETL tests and monitor failures over time.,Add custom rule-based assertions for cross-column logic.,Version-control business rules and test them automatically.
+datatype_violations,0,Introduce schema enforcement and pre-load casting tests.,Add datatype contract tests between stages.,Automate schema checks in CI/CD for ETL pipelines.
+duplicate_primary_keys,0,Enforce primary key uniqueness before load.,Add uniqueness tests for primary key columns in ETL.,Use unique key constraints in staging and target layers.
+duplicates,0,Apply deduplication logic and enforce unique row checks in ETL.,Add duplicate row detection tests after transformation and before load.,Implement dedupe keys and idempotent load design.
+invalid_dates,0,Standardize date formats and reject malformed date strings.,Add strict date parsing tests for date fields.,Force ISO date ingestion and date parser validation.
+invalid_emails,0,Validate email patterns at capture time and quarantine invalid rows.,Add regex validation tests for email fields.,Use field-level regex validation in UI/API layers.
+missing_mandatory_columns,0,Validate input schema before processing starts.,Add schema-presence tests before ETL execution.,Implement schema registry and contract validation.
+mixed_types,0,Cast columns explicitly and add type validation in ingestion stage.,Add schema conformance tests on typed columns.,Define contract-first schemas and ingestion validators.
+negative_values,0,Apply non-negative constraints for sensitive business metrics.,Add non-negative assertions for financial and demographic metrics.,Apply business constraints and reject invalid transactions early.
+null_blank,0,"Impute, backfill, or enforce non-null source validations.",Add row-level completeness tests for mandatory fields.,Add source mandatory-field controls and upstream completeness dashboards.
+outliers,0,Review business thresholds and validate source extraction anomalies.,Add threshold-based anomaly tests on sensitive numeric columns.,Add statistical threshold alerts and anomaly monitoring.
+pattern_violations,0,Use regex-based checks in source forms and ETL transformations.,Add regex rule tests for domain-formatted columns.,Centralize regex standards and re-use across pipelines.
+range_violations,0,Add min/max validation gates in ETL pipeline.,Add min/max validation tests for numeric fields.,Establish rule catalog for valid numeric boundaries.
+referential_integrity,0,Validate foreign keys against master/reference dataset before load.,Add foreign-key validation tests against reference data.,Maintain authoritative reference datasets and key synchronization.
+special_characters,0,Sanitize text inputs and apply regex cleansing rules.,Add regex sanitation tests for text fields.,Introduce input sanitization and approved character policies.

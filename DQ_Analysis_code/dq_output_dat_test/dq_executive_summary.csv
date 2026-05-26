@@ -1,0 +1,9 @@
+Category,Metric,Value,Percentage,Status
+PROCESSING METRICS,Total Records Processed,4,100.00%,INFO
+PROCESSING METRICS,Total Columns,4,-,INFO
+DATA QUALITY,Total Bad Data Detected,3,75.00%,CRITICAL
+DATA QUALITY,Bad Data Percentage,75.00%,-,CRITICAL
+DATA QUALITY,Total Clean Records,1,25.00%,CRITICAL
+DATA QUALITY,Data Quality Score,85.00,85.00%,GOOD
+ANOMALY ANALYSIS,Missing Mandatory Columns,3,75.00%,HIGH
+CLEANSING METRICS,Cleansing Status,Not Performed,-,INFO
