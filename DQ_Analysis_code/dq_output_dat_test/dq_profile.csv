@@ -1,0 +1,5 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values
+customer_id,integer,4,4,0,0,0.0,4,1.0,"{""1"": 1, ""2"": 1, ""3"": 1, ""4"": 1}"
+name,string,4,4,0,0,0.0,4,1.0,"{""John Doe"": 1, ""Jane Smith"": 1, ""Bob Johnson"": 1, ""Alice Williams"": 1}"
+email,string,4,4,0,0,0.0,4,1.0,"{""john@example.com"": 1, ""jane@example.com"": 1, ""bob@example.com"": 1, ""alice@example.com"": 1}"
+country,string,4,4,0,0,0.0,4,1.0,"{""USA"": 1, ""UK"": 1, ""Canada"": 1, ""Australia"": 1}"

@@ -1,0 +1,52 @@
+2026-05-26 13:12:14,628 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 13:12:14,629 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 13:12:14,629 | INFO | Loading input file: sample_customer_data.csv
+2026-05-26 13:12:14,653 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-05-26 13:12:14,653 | INFO | Calculating baseline quality score on original data...
+2026-05-26 13:12:14,903 | INFO | Good records: 0, Bad records: 27
+2026-05-26 13:12:14,909 | INFO | Baseline quality score: 0.00%
+2026-05-26 13:12:14,909 | INFO | Applying data cleansing...
+2026-05-26 13:12:14,909 | INFO | Starting data cleansing process...
+2026-05-26 13:12:14,912 | INFO | Normalized emails in EMAIL: 2 records
+2026-05-26 13:12:14,918 | INFO | Converted SALARY to numeric: 21 records affected
+2026-05-26 13:12:14,920 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-05-26 13:12:14,924 | INFO | Fixed negative values in AGE: 1 records
+2026-05-26 13:12:14,928 | INFO | Fixed negative values in SALARY: 1 records
+2026-05-26 13:12:14,931 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-05-26 13:12:14,933 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-05-26 13:12:14,934 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-05-26 13:12:14,937 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-05-26 13:12:14,949 | INFO | Removed 1 records with duplicate primary keys
+2026-05-26 13:12:14,949 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-05-26 13:12:14,950 | INFO | Original records: 21, Cleansed records: 20
+2026-05-26 13:12:14,950 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-05-26 13:12:14,963 | INFO | Cleansed data saved to: dq_output_customer_cleansed\cleansed_data.csv
+2026-05-26 13:12:14,963 | INFO | Calculating quality score on cleansed data...
+2026-05-26 13:12:15,056 | INFO | Good records: 1, Bad records: 19
+2026-05-26 13:12:15,060 | INFO | Quality score after cleansing: 5.00%
+2026-05-26 13:12:15,060 | INFO | Quality improvement: +5.00%
+2026-05-26 13:12:15,188 | INFO | Good records: 1, Bad records: 19
+2026-05-26 13:12:15,310 | INFO | Good records file created: 1 clean records
+2026-05-26 13:12:15,325 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 13:12:15,325 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 13:12:15,331 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 13:12:15,331 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 13:12:15,337 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 13:12:15,337 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 13:12:15,338 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 13:12:15,338 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 13:12:15,338 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 13:12:15,338 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 13:12:15,346 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 13:12:15,347 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 13:12:15,350 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-05-26 13:12:15,355 | INFO | Cleansing log saved: 10 operations logged
+2026-05-26 13:12:15,357 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 13:12:15,362 | INFO | Aggregated metrics saved
+2026-05-26 13:12:15,363 | INFO | Generating quality dashboard...
+2026-05-26 13:12:16,350 | INFO | Dashboard saved to: dq_output_customer_cleansed\dq_dashboard.html
+2026-05-26 13:12:17,729 | INFO | Static charts saved to: dq_output_customer_cleansed\charts
+2026-05-26 13:12:17,739 | INFO | Executive summary report generated
+2026-05-26 13:12:17,740 | INFO | Generating executive dashboard...
+2026-05-26 13:12:17,753 | INFO | Executive dashboard saved to: dq_output_customer_cleansed\dq_executive_dashboard.html
+2026-05-26 13:12:17,756 | INFO | Data quality analysis completed successfully

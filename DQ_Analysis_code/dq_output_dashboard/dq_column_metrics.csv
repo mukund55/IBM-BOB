@@ -1,0 +1,9 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,mixed_types,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+CUSTOMER_ID,string,21,21,0,0,0.0,20,0.9524,"{""1001"": 2, ""1002"": 1, ""1003"": 1, ""1004"": 1, ""1005"": 1}",0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,90.48
+CUSTOMER_NAME,string,21,21,0,0,0.0,21,1.0,"{""John Doe"": 1, ""Jane Smith"": 1, ""Bob Johnson"": 1, ""Alice Williams"": 1, ""Charlie Brown"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+EMAIL,string,21,19,2,0,9.52,19,0.9048,"{""john.doe@example.com"": 1, ""jane.smith@example.com"": 1, ""bob.johnson@example.com"": 1, ""charlie@invalid"": 1, ""diana.prince@example.com"": 1}",0,0,0,0,0,0,2,0,0,0,2,0,2,0,0,0,6,71.43
+AGE,string,21,21,0,0,0.0,18,0.8571,"{""35"": 2, ""31"": 2, ""29"": 2, ""28"": 1, ""42"": 1}",0,0,0,0,0,0,0,0,0,1,0,3,0,2,0,0,6,71.43
+SALARY,string,21,20,1,0,4.76,19,0.9048,"{""75000"": 2, ""65000"": 1, ""85000"": 1, ""70000"": 1, ""95000"": 1}",0,0,0,0,0,0,0,0,0,1,1,2,0,2,0,0,6,71.43
+JOIN_DATE,string,21,20,1,0,4.76,19,0.9048,"{""2020-01-15"": 2, ""2021-03-22"": 1, ""2019-07-10"": 1, ""2020-11-05"": 1, ""2018-05-20"": 1}",0,0,1,0,0,1,0,0,1,0,1,0,0,0,0,0,4,80.95
+COUNTRY_CODE,string,21,21,0,0,0.0,4,0.1905,"{""US"": 8, ""UK"": 6, ""IN"": 6, ""XX"": 1}",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,95.24
+STATUS,string,21,21,0,0,0.0,3,0.1429,"{""ACTIVE"": 18, ""INACTIVE"": 2, ""PENDING"": 1}",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,95.24

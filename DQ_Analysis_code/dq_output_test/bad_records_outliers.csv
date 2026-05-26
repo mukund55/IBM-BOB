@@ -1,0 +1,5 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+outliers,"Outliers detected in numeric column AGE using IQR method (IQR multiplier=1.5, lower=13.75, upper=53.75)",AGE,1005,Charlie Brown,charlie@invalid,120,95000.0,2018-05-20,US,ACTIVE
+outliers,"Outliers detected in numeric column AGE using IQR method (IQR multiplier=1.5, lower=13.75, upper=53.75)",AGE,1006,Diana Prince,diana.prince@example.com,5,60000.0,,,ACTIVE
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=31000.0, upper=111000.0)",SALARY,1012,Jack Anderson,jack.anderson@example.com,52,1000000.0,2016-04-12,US,ACTIVE
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=31000.0, upper=111000.0)",SALARY,1016,Noah Rodriguez,noah@test,36,10000.0,2019-11-15,IN,ACTIVE

@@ -1,0 +1,8 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,mandatory_field_violations,missing_mandatory_columns,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+customer_id,integer,3,3,0,0,0.0,3,1.0,"{""1"": 1, ""2"": 1, ""3"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+customer_name,string,3,3,0,0,0.0,3,1.0,"{""John Doe"": 1, ""Jane Smith"": 1, ""Bob Johnson"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+email,string,3,2,1,0,33.33,2,0.6667,"{""john@example.com"": 1, ""bob@example.com"": 1}",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,66.67
+purchase_amount,floating,3,3,0,0,0.0,3,1.0,"{""1500.5"": 1, ""2000.0"": 1, ""500.0"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+discount,floating,3,3,0,0,0.0,3,1.0,"{""10.0"": 1, ""-1.0"": 1, ""5.5"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+notes,string,3,2,1,0,33.33,2,0.6667,"{""VIP customer"": 1, ""Regular customer"": 1}",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,66.67
+is_active,integer,3,3,0,0,0.0,2,0.6667,"{""1"": 2, ""0"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0

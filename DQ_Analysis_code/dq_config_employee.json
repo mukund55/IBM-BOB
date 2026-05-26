@@ -1,0 +1,41 @@
+{
+  "general": {
+    "output_dir": "dq_output_employee",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "top_n_frequent_values": 5,
+    "excel_output": false,
+    "bad_records_prefix": "bad_records",
+    "generate_dashboard": true
+  },
+  "rules": {
+    "mandatory_columns": ["EMP_ID", "EMP_NAME", "DEPARTMENT", "SALARY", "JOIN_DATE"],
+    "primary_key": ["EMP_ID"],
+    "numeric_columns": ["SALARY"],
+    "date_columns": ["JOIN_DATE"],
+    "allowed_values": {
+      "DEPARTMENT": ["IT", "HR", "Finance", "Admin", "Support", "Marketing", "Sales"]
+    },
+    "range_checks": {
+      "SALARY": {"min": 30000, "max": 200000}
+    },
+    "pattern_checks": {
+      "EMP_ID": "^[0-9]+$",
+      "JOIN_DATE": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  },
+  "anomaly_detection": {
+    "check_nulls": true,
+    "check_duplicates": true,
+    "check_outliers": true,
+    "check_mixed_types": true,
+    "check_invalid_dates": true,
+    "check_negative_values": true,
+    "check_special_characters": false,
+    "outlier_method": "iqr",
+    "outlier_threshold": 1.5
+  }
+}

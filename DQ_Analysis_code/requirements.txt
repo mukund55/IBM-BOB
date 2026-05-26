@@ -1,0 +1,28 @@
+# Core Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Excel Support
+openpyxl>=3.1.0
+xlrd>=2.0.1
+
+# Database Connectivity
+cx_Oracle>=8.3.0          # Oracle Database
+pyodbc>=5.0.0             # SQL Server, MySQL via ODBC
+pymysql>=1.1.0            # MySQL
+psycopg2-binary>=2.9.0    # PostgreSQL
+sqlalchemy>=2.0.0         # Universal DB interface
+
+# Visualization & Dashboard
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+kaleido>=0.2.1            # For static image export
+
+# Reporting
+jinja2>=3.1.0             # HTML report templates
+fpdf>=1.7.2               # PDF generation
+
+# Additional utilities
+python-dateutil>=2.8.0
+pytz>=2023.3

@@ -1,0 +1,8 @@
+Category,Metric,Value,Percentage,Status
+PROCESSING METRICS,Total Records Processed,10,100.00%,INFO
+PROCESSING METRICS,Total Columns,1,-,INFO
+DATA QUALITY,Total Bad Data Detected,0,0.00%,OK
+DATA QUALITY,Bad Data Percentage,0.00%,-,OK
+DATA QUALITY,Total Clean Records,10,100.00%,GOOD
+DATA QUALITY,Data Quality Score,100.00,100.00%,EXCELLENT
+CLEANSING METRICS,Cleansing Status,Not Performed,-,INFO

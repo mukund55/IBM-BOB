@@ -1,0 +1,58 @@
+2026-05-26 12:10:54,675 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 12:10:54,706 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 12:10:54,707 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 12:10:54,845 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 12:10:54,845 | INFO | Calculating baseline quality score on original data...
+2026-05-26 12:10:55,015 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:10:55,030 | INFO | Baseline quality score: 24.00%
+2026-05-26 12:10:55,265 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:10:55,397 | INFO | Good records file created: 360 clean records
+2026-05-26 12:10:55,486 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 12:10:55,487 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 12:10:55,501 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 12:10:55,502 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 12:10:55,511 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 12:10:55,512 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 12:10:55,512 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 12:10:55,512 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 12:10:55,513 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 12:10:55,513 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 12:10:55,523 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 12:10:55,523 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 12:10:55,523 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 12:10:55,523 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 12:10:55,526 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 12:10:55,532 | INFO | Aggregated metrics saved
+2026-05-26 12:10:55,549 | INFO | Executive summary report generated
+2026-05-26 12:10:55,549 | INFO | Generating executive dashboard...
+2026-05-26 12:10:55,568 | INFO | Executive dashboard saved to: dq_output_electricity_simple\dq_executive_dashboard.html
+2026-05-26 12:10:55,572 | INFO | Data quality analysis completed successfully
+2026-05-26 12:18:19,770 | INFO | Starting ENHANCED data quality analysis
+2026-05-26 12:18:19,773 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-26 12:18:19,774 | INFO | Loading input file: electricity_board_anomalies.json
+2026-05-26 12:18:19,878 | INFO | Loaded dataset with 1500 rows and 8 columns
+2026-05-26 12:18:19,879 | INFO | Calculating baseline quality score on original data...
+2026-05-26 12:18:20,028 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:18:20,038 | INFO | Baseline quality score: 24.00%
+2026-05-26 12:18:20,263 | INFO | Good records: 360, Bad records: 1140
+2026-05-26 12:18:20,403 | INFO | Good records file created: 360 clean records
+2026-05-26 12:18:20,442 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-26 12:18:20,443 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-26 12:18:20,455 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-26 12:18:20,455 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-26 12:18:20,461 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-26 12:18:20,461 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-26 12:18:20,461 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-26 12:18:20,461 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-26 12:18:20,463 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-26 12:18:20,463 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-26 12:18:20,469 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-26 12:18:20,470 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-26 12:18:20,470 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-26 12:18:20,470 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-26 12:18:20,473 | WARNING | Excel export skipped or failed: No module named 'openpyxl'
+2026-05-26 12:18:20,477 | INFO | Aggregated metrics saved
+2026-05-26 12:18:20,490 | INFO | Executive summary report generated
+2026-05-26 12:18:20,491 | INFO | Generating executive dashboard...
+2026-05-26 12:18:20,499 | INFO | Executive dashboard saved to: dq_output_electricity_simple\dq_executive_dashboard.html
+2026-05-26 12:18:20,502 | INFO | Data quality analysis completed successfully

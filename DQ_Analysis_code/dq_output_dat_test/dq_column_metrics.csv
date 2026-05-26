@@ -1,0 +1,5 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,mandatory_field_violations,missing_mandatory_columns,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+customer_id,integer,4,4,0,0,0.0,4,1.0,"{""1"": 1, ""2"": 1, ""3"": 1, ""4"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+name,string,4,4,0,0,0.0,4,1.0,"{""John Doe"": 1, ""Jane Smith"": 1, ""Bob Johnson"": 1, ""Alice Williams"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+email,string,4,4,0,0,0.0,4,1.0,"{""john@example.com"": 1, ""jane@example.com"": 1, ""bob@example.com"": 1, ""alice@example.com"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+country,string,4,4,0,0,0.0,4,1.0,"{""USA"": 1, ""UK"": 1, ""Canada"": 1, ""Australia"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0

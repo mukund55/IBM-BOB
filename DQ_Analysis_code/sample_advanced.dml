@@ -1,0 +1,9 @@
+record
+  decimal(8) customer_id;
+  string(50) customer_name = NULL;
+  string(100) email = NULL("unknown@example.com");
+  decimal(10.2) purchase_amount;
+  decimal(10.2) discount = NULL("-1");
+  string(100) notes = NULL("");
+  decimal(1) is_active;
+end

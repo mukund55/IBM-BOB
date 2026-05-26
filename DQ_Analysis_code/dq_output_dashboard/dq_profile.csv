@@ -1,0 +1,9 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values
+CUSTOMER_ID,string,21,21,0,0,0.0,20,0.9524,"{""1001"": 2, ""1002"": 1, ""1003"": 1, ""1004"": 1, ""1005"": 1}"
+CUSTOMER_NAME,string,21,21,0,0,0.0,21,1.0,"{""John Doe"": 1, ""Jane Smith"": 1, ""Bob Johnson"": 1, ""Alice Williams"": 1, ""Charlie Brown"": 1}"
+EMAIL,string,21,19,2,0,9.52,19,0.9048,"{""john.doe@example.com"": 1, ""jane.smith@example.com"": 1, ""bob.johnson@example.com"": 1, ""charlie@invalid"": 1, ""diana.prince@example.com"": 1}"
+AGE,string,21,21,0,0,0.0,18,0.8571,"{""35"": 2, ""31"": 2, ""29"": 2, ""28"": 1, ""42"": 1}"
+SALARY,string,21,20,1,0,4.76,19,0.9048,"{""75000"": 2, ""65000"": 1, ""85000"": 1, ""70000"": 1, ""95000"": 1}"
+JOIN_DATE,string,21,20,1,0,4.76,19,0.9048,"{""2020-01-15"": 2, ""2021-03-22"": 1, ""2019-07-10"": 1, ""2020-11-05"": 1, ""2018-05-20"": 1}"
+COUNTRY_CODE,string,21,21,0,0,0.0,4,0.1905,"{""US"": 8, ""UK"": 6, ""IN"": 6, ""XX"": 1}"
+STATUS,string,21,21,0,0,0.0,3,0.1429,"{""ACTIVE"": 18, ""INACTIVE"": 2, ""PENDING"": 1}"

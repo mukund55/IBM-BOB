@@ -1,0 +1,21 @@
+CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+1001,John Doe,john.doe@example.com,35,75000.0,2020-01-15,US,ACTIVE
+1002,Jane Smith,jane.smith@example.com,28,65000.0,2021-03-22,UK,ACTIVE
+1003,Bob Johnson,bob.johnson@example.com,42,85000.0,2019-07-10,IN,ACTIVE
+1004,Alice Williams,,31,70000.0,2020-11-05,US,INACTIVE
+1005,Charlie Brown,charlie@invalid,120,95000.0,2018-05-20,US,ACTIVE
+1006,Diana Prince,diana.prince@example.com,5,60000.0,,,ACTIVE
+1007,Eve Davis,eve.davis@example.com,29,55000.0,2022-02-14,UK,
+1008,Frank Miller,frank.miller@example.com,38,80000.0,2019-09-30,IN,ACTIVE
+1009,Grace Lee,grace.lee@example.com,45,90000.0,2017-12-01,US,ACTIVE
+1010,Henry Wilson,henry.wilson@example.com,33,72000.0,2021-06-18,UK,ACTIVE
+1011,Iris Taylor,iris.taylor@example.com,27,58000.0,2022-08-25,IN,ACTIVE
+1012,Jack Anderson,jack.anderson@example.com,52,1000000.0,2016-04-12,US,ACTIVE
+1013,Kate Thomas,,25,62000.0,2023-01-10,UK,INACTIVE
+1014,Leo Martinez,leo.martinez@example.com,31,68000.0,2020-10-22,IN,ACTIVE
+1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE
+1016,Noah Rodriguez,noah@test,36,10000.0,2019-11-15,IN,ACTIVE
+1017,Olivia Hernandez,olivia.hernandez@example.com,41,82000.0,2018-03-28,UK,ACTIVE
+1018,Paul Lopez,paul.lopez@example.com,34,71000.0,2021-07-05,US,ACTIVE
+1019,Quinn Gonzalez,quinn.gonzalez@example.com,30,69000.0,2022-05-17,IN,ACTIVE
+1020,Rachel Perez,rachel.perez@example.com,26,59000.0,2023-02-20,UK,ACTIVE

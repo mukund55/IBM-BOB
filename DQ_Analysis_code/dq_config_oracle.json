@@ -1,0 +1,48 @@
+{
+  "general": {
+    "output_dir": "dq_output_oracle",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "top_n_frequent_values": 5,
+    "excel_output": true,
+    "bad_records_prefix": "bad_records",
+    "generate_dashboard": true
+  },
+  "database": {
+    "type": "oracle",
+    "host": "localhost",
+    "port": 1521,
+    "service_name": "XE",
+    "username": "dq_test",
+    "password": "dq_test123",
+    "query": "SELECT * FROM customers"
+  },
+  "rules": {
+    "mandatory_columns": ["customer_id", "customer_name", "email"],
+    "email_columns": ["email"],
+    "primary_key": ["customer_id"],
+    "numeric_columns": ["customer_id", "purchase_amount", "is_active"],
+    "date_columns": ["registration_date"],
+    "allowed_values": {
+      "is_active": [0, 1]
+    },
+    "range_checks": {
+      "purchase_amount": {"min": 0, "max": 100000}
+    }
+  },
+  "anomaly_detection": {
+    "check_nulls": true,
+    "check_duplicates": true,
+    "check_outliers": true,
+    "check_mixed_types": true,
+    "check_invalid_dates": true,
+    "check_invalid_emails": true,
+    "check_negative_values": true,
+    "check_special_characters": false,
+    "outlier_method": "iqr",
+    "outlier_threshold": 1.5
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "general": {
+    "output_dir": "dq_output",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "delimiter": ",",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "top_n_frequent_values": 5,
+    "excel_output": true,
+    "bad_records_prefix": "bad_records"
+  },
+  "input": {
+    "xml": {
+      "record_tag": "",
+      "flatten_attributes": true,
+      "include_root_text": false
+    }
+  },
+  "keys": {
+    "primary_keys": ["CUSTOMER_ID"]
+  },
+  "rules": {
+    "mandatory_columns": ["CUSTOMER_ID", "EMAIL", "STATUS"],
+    "mandatory_fields": ["CUSTOMER_ID", "CUSTOMER_NAME"],
+    "dtype_rules": {
+      "CUSTOMER_ID": "numeric",
+      "EMAIL": "string",
+      "AGE": "numeric",
+      "SALARY": "numeric",
+      "JOIN_DATE": "date",
+      "COUNTRY_CODE": "string",
+      "STATUS": "string"
+    },
+    "range_rules": {
+      "AGE": {"min": 0, "max": 120},
+      "SALARY": {"min": 0, "max": 1000000}
+    },
+    "regex_rules": {
+      "EMAIL": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+      "COUNTRY_CODE": "^[A-Z]{2,3}$",
+      "STATUS": "^[A-Z_]+$"
+    },
+    "allowed_values": {
+      "STATUS": ["ACTIVE", "INACTIVE"],
+      "COUNTRY_CODE": ["IN", "US", "UK"]
+    },
+    "date_columns": {
+      "JOIN_DATE": {"format": "%Y-%m-%d"}
+    },
+    "email_columns": ["EMAIL"],
+    "email_rules": {
+      "EMAIL": {
+        "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+        "allow_blank": true,
+        "normalize_case": true
+      }
+    },
+    "negative_not_allowed_columns": ["AGE", "SALARY"],
+    "special_character_rules": {
+      "CUSTOMER_NAME": "^[A-Za-z\\s.'-]*$"
+    },
+    "mixed_type_check_columns": ["CUSTOMER_ID", "AGE", "SALARY", "JOIN_DATE"],
+    "mixed_type_rules": {
+      "CUSTOMER_ID": {"expected_type": "numeric"},
+      "AGE": {"expected_type": "numeric"},
+      "SALARY": {"expected_type": "numeric"},
+      "JOIN_DATE": {"expected_type": "date", "format": "%Y-%m-%d"}
+    }
+  },
+  "anomaly_detection": {
+    "outlier_method": "iqr",
+    "iqr_multiplier": 1.5,
+    "zscore_threshold": 3.0,
+    "max_unique_ratio_for_categorical_consistency": 0.95,
+    "outlier_min_sample_size": 5,
+    "outlier_columns": ["AGE", "SALARY"],
+    "outlier_column_overrides": {}
+  },
+  "scoring": {
+    "weights": {
+      "null_blank": 15,
+      "duplicates": 10,
+      "duplicate_primary_keys": 15,
+      "outliers": 10,
+      "mixed_types": 10,
+      "invalid_dates": 10,
+      "invalid_emails": 10,
+      "negative_values": 10,
+      "special_characters": 5,
+      "datatype_violations": 10,
+      "range_violations": 10,
+      "pattern_violations": 10,
+      "allowed_value_violations": 10,
+      "missing_mandatory_columns": 20,
+      "mandatory_field_violations": 15,
+      "referential_integrity": 10,
+      "business_rule_violations": 10
+    }
+  },
+  "reference_integrity": {
+    "enabled": false,
+    "reference_file": "",
+    "source_column": "",
+    "reference_column": "",
+    "reference_delimiter": ",",
+    "reference_encoding": "utf-8"
+  },
+  "business_rules": [
+    {
+      "name": "active_customer_should_have_join_date",
+      "type": "conditional_required",
+      "if": {"column": "STATUS", "operator": "equals", "value": "ACTIVE"},
+      "then": {"required_column": "JOIN_DATE"}
+    }
+  ]
+}

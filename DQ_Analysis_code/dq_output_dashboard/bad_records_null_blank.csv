@@ -1,0 +1,5 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+null_blank,Null values detected in column EMAIL,EMAIL,1004,Alice Williams,,31,70000,2020-11-05,US,INACTIVE
+null_blank,Null values detected in column EMAIL,EMAIL,1013,Kate Thomas,,25,62000,2023-01-10,UK,INACTIVE
+null_blank,Null values detected in column SALARY,SALARY,1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE

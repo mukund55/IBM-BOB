@@ -1,0 +1,6 @@
+record
+string (",") customer_id;
+string (",") name;
+string (",") email;
+string ("\n") country;
+end

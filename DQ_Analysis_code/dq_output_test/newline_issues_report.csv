@@ -1,0 +1,2 @@
+file,issue,crlf_count,lf_count,cr_count,total_lines,predominant_type,recommendation
+test_mixed_newlines.dat,Mixed newline characters detected,1,2,1,4,LF (\n),Standardize to LF (\n)

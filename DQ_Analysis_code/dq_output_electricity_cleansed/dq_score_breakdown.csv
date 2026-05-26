@@ -1,0 +1,16 @@
+category,count,weight,weighted_penalty
+allowed_value_violations,0.0,10.0,0.0
+business_rule_violations,0.0,10.0,0.0
+datatype_violations,0.0,10.0,0.0
+duplicate_primary_keys,0.0,15.0,0.0
+duplicates,0.0,10.0,0.0
+invalid_dates,0.0,10.0,0.0
+invalid_emails,27.0,10.0,0.18
+missing_mandatory_columns,0.0,20.0,0.0
+negative_values,0.0,10.0,0.0
+null_blank,747.0,15.0,7.47
+outliers,339.0,10.0,2.26
+pattern_violations,27.0,10.0,0.18
+range_violations,0.0,10.0,0.0
+referential_integrity,0.0,10.0,0.0
+special_characters,0.0,5.0,0.0
