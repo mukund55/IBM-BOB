@@ -1,0 +1,84 @@
+{
+  "general": {
+    "output_dir": "dq_output_postgres",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "top_n_frequent_values": 5,
+    "excel_output": true,
+    "bad_records_prefix": "bad_records",
+    "generate_dashboard": true
+  },
+  "database": {
+    "enabled": true,
+    "type": "postgresql",
+    "connection_string": "postgresql://dq_user:postgres123@localhost:5432/dq_test",
+    "query": "SELECT * FROM customers"
+  },
+  "keys": {
+    "primary_keys": ["CUSTOMER_ID"]
+  },
+  "rules": {
+    "mandatory_columns": ["CUSTOMER_ID", "CUSTOMER_NAME", "EMAIL"],
+    "email_columns": ["EMAIL"],
+    "email_rules": {
+      "EMAIL": {
+        "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+        "allow_blank": false,
+        "normalize_case": true
+      }
+    },
+    "dtype_rules": {
+      "CUSTOMER_ID": "numeric",
+      "PURCHASE_AMOUNT": "numeric",
+      "IS_ACTIVE": "numeric",
+      "REGISTRATION_DATE": "date"
+    },
+    "date_columns": {
+      "REGISTRATION_DATE": {
+        "format": "%Y-%m-%d",
+        "allow_future": true
+      }
+    },
+    "negative_not_allowed_columns": ["PURCHASE_AMOUNT"],
+    "range_rules": {
+      "PURCHASE_AMOUNT": {
+        "min": 0,
+        "max": 100000
+      },
+      "IS_ACTIVE": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "allowed_values": {},
+    "regex_rules": {
+      "PHONE": "^\\d{3}-\\d{4}$",
+      "EMAIL": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+    },
+    "business_rules": []
+  },
+  "anomaly_detection": {
+    "check_nulls": true,
+    "check_duplicates": true,
+    "check_outliers": true,
+    "check_mixed_types": true,
+    "check_invalid_dates": true,
+    "check_invalid_emails": true,
+    "check_negative_values": true,
+    "check_special_characters": false,
+    "check_pattern_violations": true,
+    "check_referential_integrity": false,
+    "check_business_rules": false,
+    "outlier_method": "iqr",
+    "outlier_threshold": 3.0,
+    "iqr_multiplier": 3.0
+  },
+  "profiling": {
+    "enabled": true,
+    "include_value_counts": true,
+    "include_statistics": true
+  }
+}
