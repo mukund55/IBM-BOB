@@ -457,10 +457,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
             "COUNTRY_CODE": r"^[A-Z]{2,3}$",
             "STATUS": r"^[A-Z_]+$",
         },
-        "allowed_values": {
-            "STATUS": ["ACTIVE", "INACTIVE"],
-            "COUNTRY_CODE": ["IN", "US", "UK"],
-        },
+        "allowed_values": {},
         "date_columns": {
             "JOIN_DATE": {"format": "%Y-%m-%d"}
         },
@@ -486,7 +483,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     },
     "anomaly_detection": {
         "outlier_method": "iqr",
-        "iqr_multiplier": 1.5,
+        "iqr_multiplier": 3.0,
         "zscore_threshold": 3.0,
         "max_unique_ratio_for_categorical_consistency": 0.95,
         "outlier_min_sample_size": 5,
@@ -2823,12 +2820,34 @@ def run_all_checks(df: pd.DataFrame, config: Dict[str, Any]) -> Dict[str, Any]:
 
     # Identify good records (records without any issues)
     good_records_df = df.copy()
+    unique_bad_records_count = 0
     if not combined_issues_df.empty:
-        # Get unique indices of bad records
-        bad_indices = combined_issues_df.index.unique() if 'index' not in combined_issues_df.columns else combined_issues_df['index'].unique()
+        # Get unique indices of bad records by dropping issue metadata columns
+        # The combined_issues_df has columns: issue_type, issue_detail, columns_involved, + all original data columns
+        data_columns = [col for col in combined_issues_df.columns if col not in ['issue_type', 'issue_detail', 'columns_involved']]
+        if data_columns:
+            # Count unique bad records based on all data columns
+            unique_bad_records_count = combined_issues_df[data_columns].drop_duplicates().shape[0]
+        else:
+            # Fallback: use index if available
+            bad_indices = combined_issues_df.index.unique() if 'index' not in combined_issues_df.columns else combined_issues_df['index'].unique()
+            unique_bad_records_count = len(bad_indices)
+        
         # Filter out bad records to get good records
-        good_records_df = df[~df.index.isin(bad_indices)]
-        logging.info(f"Good records: {len(good_records_df)}, Bad records: {len(bad_indices)}")
+        # We need to identify bad records by comparing data columns
+        if data_columns:
+            # Create a key from data columns for matching
+            bad_records_keys = combined_issues_df[data_columns].drop_duplicates()
+            # Merge to find matching records in original df
+            df_with_key = df.copy()
+            df_with_key['_temp_index'] = df_with_key.index
+            merged = df_with_key.merge(bad_records_keys, on=data_columns, how='left', indicator=True)
+            good_records_df = df[merged['_merge'] == 'left_only']
+        else:
+            bad_indices = combined_issues_df.index.unique() if 'index' not in combined_issues_df.columns else combined_issues_df['index'].unique()
+            good_records_df = df[~df.index.isin(bad_indices)]
+        
+        logging.info(f"Good records: {len(good_records_df)}, Bad records: {unique_bad_records_count}")
     else:
         logging.info(f"All {len(good_records_df)} records are clean (no issues found)")
 
@@ -2837,6 +2856,7 @@ def run_all_checks(df: pd.DataFrame, config: Dict[str, Any]) -> Dict[str, Any]:
         "anomaly_summary_df": anomaly_summary_df,
         "combined_issues_df": combined_issues_df,
         "good_records_df": good_records_df,
+        "unique_bad_records_count": unique_bad_records_count,
     }
 
 
@@ -3883,7 +3903,7 @@ def main() -> int:
         logging.info("Calculating baseline quality score on original data...")
         original_results = run_all_checks(df, config)
         original_anomaly_summary_df = original_results["anomaly_summary_df"]
-        original_bad_records_count = len(original_results["combined_issues_df"]) if not original_results["combined_issues_df"].empty else 0
+        original_bad_records_count = original_results.get("unique_bad_records_count", 0)
         quality_score_before, _ = compute_quality_score(original_anomaly_summary_df, config, total_rows, original_bad_records_count)
         logging.info(f"Baseline quality score: {quality_score_before:.2f}%")
         
@@ -3907,7 +3927,7 @@ def main() -> int:
             logging.info("Calculating quality score on cleansed data...")
             cleansed_results = run_all_checks(cleansed_df, config)
             cleansed_anomaly_summary_df = cleansed_results["anomaly_summary_df"]
-            cleansed_bad_records_count = len(cleansed_results["combined_issues_df"]) if not cleansed_results["combined_issues_df"].empty else 0
+            cleansed_bad_records_count = cleansed_results.get("unique_bad_records_count", 0)
             quality_score_after, _ = compute_quality_score(cleansed_anomaly_summary_df, config, len(cleansed_df), cleansed_bad_records_count)
             
             # Calculate improvement
@@ -3927,7 +3947,7 @@ def main() -> int:
 
         # Calculate quality metrics (use after-cleansing score if available, otherwise before)
         quality_score = quality_score_after if quality_score_after is not None else quality_score_before
-        bad_records_count = len(combined_issues_df) if not combined_issues_df.empty else 0
+        bad_records_count = results.get("unique_bad_records_count", 0)
         _, score_df = compute_quality_score(anomaly_summary_df, config, total_rows if not args.cleanse_data else len(cleansed_df), bad_records_count)
         column_metrics_df = build_column_quality_metrics(profile_df, anomaly_summary_df, total_rows if not args.cleanse_data else len(cleansed_df))
         recommendations_df = generate_recommendations(anomaly_summary_df)

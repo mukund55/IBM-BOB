@@ -1,0 +1,60 @@
+{
+  "database": {
+    "connection_string": "postgresql://dq_user:postgres123@localhost:5432/dq_test",
+    "query": "SELECT * FROM customer_data",
+    "type": "postgresql"
+  },
+  "output_directory": "dq_output_postgres_customer",
+  "primary_key": ["CUSTOMER_ID"],
+  "mandatory_columns": ["CUSTOMER_ID", "CUSTOMER_NAME", "EMAIL", "AGE", "SALARY", "JOIN_DATE", "COUNTRY_CODE", "STATUS"],
+  "data_types": {
+    "CUSTOMER_ID": "decimal",
+    "CUSTOMER_NAME": "string",
+    "EMAIL": "string",
+    "AGE": "integer",
+    "SALARY": "decimal",
+    "JOIN_DATE": "date",
+    "COUNTRY_CODE": "string",
+    "STATUS": "string"
+  },
+  "date_columns": ["JOIN_DATE"],
+  "date_format": "%Y-%m-%d",
+  "email_columns": ["EMAIL"],
+  "numeric_columns": ["AGE", "SALARY"],
+  "allowed_values": {
+    "COUNTRY_CODE": ["IN", "US", "UK"],
+    "STATUS": ["ACTIVE", "INACTIVE"]
+  },
+  "range_checks": {
+    "AGE": {"min": 18, "max": 100},
+    "SALARY": {"min": 1, "max": 1000000}
+  },
+  "pattern_checks": {
+    "COUNTRY_CODE": "^[A-Z]{2,3}$"
+  },
+  "business_rules": [
+    {
+      "name": "Valid Age Range",
+      "description": "Age should be between 18 and 65 for active employees",
+      "condition": "STATUS != 'ACTIVE' OR (AGE >= 18 AND AGE <= 65)",
+      "severity": "warning"
+    }
+  ],
+  "outlier_detection": {
+    "method": "iqr",
+    "columns": ["AGE", "SALARY"],
+    "iqr_multiplier": 3.0
+  },
+  "duplicate_check": {
+    "enabled": true,
+    "columns": ["CUSTOMER_ID"]
+  },
+  "null_check": {
+    "enabled": true,
+    "treat_empty_as_null": true
+  },
+  "generate_dashboard": true,
+  "export_bad_records": true,
+  "export_good_records": true,
+  "enable_cleansing": false
+}

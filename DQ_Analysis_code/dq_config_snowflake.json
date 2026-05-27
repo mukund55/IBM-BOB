@@ -1,0 +1,44 @@
+{
+  "general": {
+    "output_dir": "dq_output_snowflake",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "generate_dashboard": true
+  },
+  "database": {
+    "enabled": true,
+    "type": "snowflake",
+    "connection_string": "snowflake://username:password@account.region.snowflakecomputing.com/database/schema?warehouse=warehouse_name&role=role_name",
+    "query": "SELECT * FROM your_table LIMIT 10000"
+  },
+  "keys": {
+    "primary_keys": ["id"]
+  },
+  "rules": {
+    "mandatory_columns": ["id", "name", "email"],
+    "email_columns": ["email"],
+    "dtype_rules": {
+      "id": "numeric",
+      "amount": "numeric",
+      "created_date": "date"
+    },
+    "negative_not_allowed_columns": ["amount"],
+    "range_rules": {
+      "amount": {
+        "min": 0,
+        "max": 1000000
+      }
+    }
+  },
+  "anomaly_detection": {
+    "check_nulls": true,
+    "check_duplicates": true,
+    "check_outliers": true,
+    "check_invalid_emails": true,
+    "outlier_method": "iqr",
+    "outlier_threshold": 1.5
+  }
+}
