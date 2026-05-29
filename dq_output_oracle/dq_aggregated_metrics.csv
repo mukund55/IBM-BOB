@@ -1,0 +1,18 @@
+dimension,group,total_records,total_columns,total_issues,issue_rate
+Overall,All Data,12,10,11,91.66666666666666
+Category,allowed_value_violations,12,10,0,0.0
+Category,business_rule_violations,12,10,0,0.0
+Category,datatype_violations,12,10,0,0.0
+Category,duplicate_primary_keys,12,10,0,0.0
+Category,duplicates,12,10,0,0.0
+Category,invalid_dates,12,10,0,0.0
+Category,invalid_emails,12,10,0,0.0
+Category,missing_mandatory_columns,12,10,3,25.0
+Category,mixed_types,12,10,0,0.0
+Category,negative_values,12,10,0,0.0
+Category,null_blank,12,10,5,41.66666666666667
+Category,outliers,12,10,1,8.333333333333332
+Category,pattern_violations,12,10,2,16.666666666666664
+Category,range_violations,12,10,0,0.0
+Category,referential_integrity,12,10,0,0.0
+Category,special_characters,12,10,0,0.0

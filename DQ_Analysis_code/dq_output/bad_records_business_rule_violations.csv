@@ -1,1 +1,3 @@
-
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+business_rule_violations,Business rule 'active_customer_should_have_join_date' failed,"STATUS,JOIN_DATE",1006,Diana Prince,diana.prince@example.com,5,60000.0,,,ACTIVE
+business_rule_violations,Business rule 'active_customer_should_have_join_date' failed,"STATUS,JOIN_DATE",1015,Mia Garcia,mia.garcia@example.com,29,,,US,ACTIVE

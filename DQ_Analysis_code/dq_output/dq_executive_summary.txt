@@ -6,28 +6,31 @@ DATA QUALITY EXECUTIVE SUMMARY REPORT
 --------------------------------------------------------------------------------
 PROCESSING METRICS
 --------------------------------------------------------------------------------
-  [i] Total Records Processed                       :         1500  (100.00%)
-  [i] Total Columns                                 :            8
+  [i] Total Records Processed                       :            5  (100.00%)
+  [i] Total Columns                                 :            9
 
 --------------------------------------------------------------------------------
 DATA QUALITY
 --------------------------------------------------------------------------------
-  [X] Total Bad Data Detected                       :         1140  (76.00%)
-  [X] Bad Data Percentage                           :       76.00%
-  [X] Total Clean Records                           :          360  (24.00%)
-  [X] Data Quality Score                            :        24.00  (24.00%)
+  [!] Total Bad Data Detected                       :            1  (20.00%)
+  [!] Bad Data Percentage                           :       20.00%
+  [!] Total Clean Records                           :            4  (80.00%)
+  [+] Data Quality Score                            :        80.00  (80.00%)
 
 --------------------------------------------------------------------------------
 ANOMALY ANALYSIS
 --------------------------------------------------------------------------------
-  [H] Null Blank                                    :          747  (49.80%)
-  [H] Outliers                                      :          339  (22.60%)
-  [L] Invalid Emails                                :           27  (1.80%)
-  [L] Pattern Violations                            :           27  (1.80%)
+  [H] Invalid Emails                                :            1  (20.00%)
+  [H] Null Blank                                    :            1  (20.00%)
+  [H] Outliers                                      :            1  (20.00%)
 
 --------------------------------------------------------------------------------
 CLEANSING METRICS
 --------------------------------------------------------------------------------
-  [i] Cleansing Status                              : Not Performed
+  [i] Cleansing Operations Performed                :            3
+  [i] Total Records Affected by Cleansing           :            3  (60.00%)
+  [i] Records Removed (Duplicates)                  :            0  (0.00%)
+  [++] Cleansing Success Rate                        :      400.00%
+  [i] Records After Cleansing                       :            5  (100.00%)
 
 ================================================================================

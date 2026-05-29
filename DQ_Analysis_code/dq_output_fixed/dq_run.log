@@ -1,0 +1,43 @@
+2026-05-27 17:08:44,998 | INFO | Starting ENHANCED data quality analysis
+2026-05-27 17:08:44,998 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-27 17:08:44,998 | INFO | Loading input file: sample data/customer_data_diff_with_header.dat
+2026-05-27 17:08:44,999 | INFO | Loading .dat file as delimited text: sample data/customer_data_diff_with_header.dat
+2026-05-27 17:08:44,999 | INFO | Auto-detected delimiter: '|'
+2026-05-27 17:08:45,011 | INFO | Loaded dataset with 5 rows and 9 columns
+2026-05-27 17:08:45,012 | INFO | Calculating baseline quality score on original data...
+2026-05-27 17:08:45,068 | INFO | Good records: 2, Bad records: 3
+2026-05-27 17:08:45,076 | INFO | Baseline quality score: 40.00%
+2026-05-27 17:08:45,078 | INFO | Applying data cleansing...
+2026-05-27 17:08:45,078 | INFO | Starting data cleansing process...
+2026-05-27 17:08:45,086 | INFO | Enforced allowed values in GENDER: 1 invalid values set to NaN
+2026-05-27 17:08:45,090 | INFO | Removed 1 records with duplicate primary keys
+2026-05-27 17:08:45,092 | INFO | Data cleansing completed: 2 operations, 2 total records affected
+2026-05-27 17:08:45,092 | INFO | Original records: 5, Cleansed records: 4
+2026-05-27 17:08:45,092 | INFO | Data cleansing completed. Records: 5 -> 4
+2026-05-27 17:08:45,098 | INFO | Cleansed data saved to: dq_output_fixed\cleansed_data.csv
+2026-05-27 17:08:45,099 | INFO | Calculating quality score on cleansed data...
+2026-05-27 17:08:45,173 | INFO | Good records: 2, Bad records: 2
+2026-05-27 17:08:45,179 | INFO | Quality score after cleansing: 50.00%
+2026-05-27 17:08:45,179 | INFO | Quality improvement: +10.00%
+2026-05-27 17:08:45,258 | INFO | Good records: 2, Bad records: 2
+2026-05-27 17:08:45,308 | INFO | Good records file created: 2 clean records
+2026-05-27 17:08:45,313 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-27 17:08:45,313 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-27 17:08:45,313 | INFO | Skipping empty bad records file for category: outliers
+2026-05-27 17:08:45,314 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-27 17:08:45,314 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-27 17:08:45,317 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-27 17:08:45,317 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-27 17:08:45,317 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-27 17:08:45,320 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-27 17:08:45,320 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-27 17:08:45,324 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-27 17:08:45,324 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-27 17:08:45,324 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-27 17:08:45,324 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-27 17:08:45,326 | INFO | Cleansing log saved: 2 operations logged
+2026-05-27 17:08:45,995 | INFO | Aggregated metrics saved
+2026-05-27 17:08:46,005 | INFO | Executive summary report generated
+2026-05-27 17:08:46,006 | INFO | Generating executive dashboard...
+2026-05-27 17:08:46,013 | INFO | Executive dashboard saved to: dq_output_fixed\dq_executive_dashboard.html
+2026-05-27 17:08:46,016 | INFO | Data quality analysis completed successfully

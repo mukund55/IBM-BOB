@@ -1,0 +1,95 @@
+2026-05-28 13:17:41,514 | INFO | Starting ENHANCED data quality analysis
+2026-05-28 13:17:41,514 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-28 13:17:41,514 | INFO | Loading data from database...
+2026-05-28 13:17:41,514 | ERROR | Data quality analysis failed: Database connection_string is required in config
+2026-05-28 13:17:41,517 | ERROR | Traceback (most recent call last):
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 3965, in main
+    df = load_input_data_enhanced(None, config)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 906, in load_input_data_enhanced
+    return load_from_database(config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 859, in load_from_database
+    raise ValueError("Database connection_string is required in config")
+ValueError: Database connection_string is required in config
+
+2026-05-28 13:18:10,865 | INFO | Starting ENHANCED data quality analysis
+2026-05-28 13:18:10,865 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-28 13:18:10,865 | INFO | Loading data from database...
+2026-05-28 13:18:10,865 | INFO | Connecting to oracle database...
+2026-05-28 13:18:11,691 | INFO | Successfully loaded 12 rows from database
+2026-05-28 13:18:11,702 | INFO | Loaded dataset with 12 rows and 10 columns
+2026-05-28 13:18:11,702 | INFO | Calculating baseline quality score on original data...
+2026-05-28 13:18:11,743 | ERROR | Data quality analysis failed: 'list' object has no attribute 'items'
+2026-05-28 13:18:11,747 | ERROR | Traceback (most recent call last):
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 3995, in main
+    original_results = run_all_checks(df, config)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 2845, in run_all_checks
+    invalid_dates_df, invalid_dates_summary = detect_invalid_dates(df, config)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\000QVU744\BoB\DQ_Analysis_code\data_quality_analysis.py", line 1722, in detect_invalid_dates
+    for col, settings in date_columns.items():
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'items'
+
+2026-05-28 13:18:35,911 | INFO | Starting ENHANCED data quality analysis
+2026-05-28 13:18:35,911 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-28 13:18:35,911 | INFO | Loading data from database...
+2026-05-28 13:18:35,911 | INFO | Connecting to oracle database...
+2026-05-28 13:18:36,101 | INFO | Successfully loaded 12 rows from database
+2026-05-28 13:18:36,112 | INFO | Loaded dataset with 12 rows and 10 columns
+2026-05-28 13:18:36,112 | INFO | Calculating baseline quality score on original data...
+2026-05-28 13:18:36,156 | INFO | Good records: 5, Bad records: 7
+2026-05-28 13:18:36,159 | INFO | Baseline quality score: 41.67%
+2026-05-28 13:18:36,257 | INFO | Good records: 5, Bad records: 7
+2026-05-28 13:18:36,308 | INFO | Good records file created: 5 clean records
+2026-05-28 13:18:36,314 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-28 13:18:36,314 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-28 13:18:36,318 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-28 13:18:36,318 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-28 13:18:36,318 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-05-28 13:18:36,318 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-28 13:18:36,318 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-28 13:18:36,321 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-28 13:18:36,322 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-28 13:18:36,322 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-28 13:18:36,323 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-28 13:18:36,323 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-28 13:18:36,323 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-28 13:18:36,324 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-28 13:18:37,024 | INFO | Aggregated metrics saved
+2026-05-28 13:18:37,031 | INFO | Executive summary report generated
+2026-05-28 13:18:37,031 | INFO | Generating executive dashboard...
+2026-05-28 13:18:37,034 | INFO | Executive dashboard saved to: dq_output_oracle\dq_executive_dashboard.html
+2026-05-28 13:18:37,035 | INFO | Data quality analysis completed successfully
+2026-05-28 13:33:05,741 | INFO | Starting ENHANCED data quality analysis
+2026-05-28 13:33:05,741 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-28 13:33:05,741 | INFO | Loading data from database...
+2026-05-28 13:33:05,741 | INFO | Connecting to oracle database...
+2026-05-28 13:33:06,318 | INFO | Successfully loaded 12 rows from database
+2026-05-28 13:33:06,325 | INFO | Loaded dataset with 12 rows and 10 columns
+2026-05-28 13:33:06,325 | INFO | Calculating baseline quality score on original data...
+2026-05-28 13:33:06,362 | INFO | Good records: 5, Bad records: 7
+2026-05-28 13:33:06,364 | INFO | Baseline quality score: 41.67%
+2026-05-28 13:33:06,421 | INFO | Good records: 5, Bad records: 7
+2026-05-28 13:33:06,451 | INFO | Good records file created: 5 clean records
+2026-05-28 13:33:06,454 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-28 13:33:06,454 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-28 13:33:06,456 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-28 13:33:06,456 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-28 13:33:06,456 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-05-28 13:33:06,457 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-28 13:33:06,457 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-28 13:33:06,458 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-05-28 13:33:06,459 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-28 13:33:06,459 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-28 13:33:06,461 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-28 13:33:06,461 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-28 13:33:06,461 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-28 13:33:06,462 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-28 13:33:06,903 | INFO | Aggregated metrics saved
+2026-05-28 13:33:06,924 | INFO | Executive summary report generated
+2026-05-28 13:33:06,925 | INFO | Generating executive dashboard...
+2026-05-28 13:33:06,931 | INFO | Executive dashboard saved to: dq_output_oracle\dq_executive_dashboard.html
+2026-05-28 13:33:06,935 | INFO | Data quality analysis completed successfully

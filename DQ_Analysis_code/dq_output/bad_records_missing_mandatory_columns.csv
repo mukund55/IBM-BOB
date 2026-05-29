@@ -1,1 +1,2 @@
-
+issue_type,issue_detail,columns_involved
+missing_mandatory_columns,Mandatory column missing,STATUS

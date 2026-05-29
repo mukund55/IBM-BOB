@@ -1,0 +1,108 @@
+{
+  "general": {
+    "output_dir": "dq_output",
+    "log_file": "dq_run.log",
+    "encoding": "utf-8",
+    "delimiter": ",",
+    "normalize_column_names": true,
+    "treat_blank_as_null": true,
+    "trim_whitespace": true,
+    "top_n_frequent_values": 5,
+    "excel_output": true,
+    "bad_records_prefix": "bad_records"
+  },
+  "input": {
+    "xml": {
+      "record_tag": "",
+      "flatten_attributes": true,
+      "include_root_text": false
+    }
+  },
+  "keys": {
+    "primary_keys": ["CUSTOMER_ID"]
+  },
+  "rules": {
+    "mandatory_columns": ["CUSTOMER_ID", "EMAIL"],
+    "mandatory_fields": ["CUSTOMER_ID", "FIRST_NAME", "LAST_NAME"],
+    "dtype_rules": {
+      "CUSTOMER_ID": "numeric",
+      "EMAIL": "string",
+      "PHONE": "string",
+      "GENDER": "string",
+      "DOB": "date",
+      "CITY": "string",
+      "SALARY": "numeric"
+    },
+    "range_rules": {
+      "SALARY": {"min": 10000, "max": 1000000}
+    },
+    "regex_rules": {
+      "EMAIL": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+      "PHONE": "^[0-9]{10}$"
+    },
+    "allowed_values": {
+      "GENDER": ["Male", "Female", "Other"]
+    },
+    "date_columns": {
+      "DOB": {"format": "%Y-%m-%d"}
+    },
+    "email_columns": ["EMAIL"],
+    "email_rules": {
+      "EMAIL": {
+        "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+        "allow_blank": false,
+        "normalize_case": true
+      }
+    },
+    "negative_not_allowed_columns": ["SALARY"],
+    "special_character_rules": {
+      "FIRST_NAME": "^[A-Za-z\\s.'-]*$",
+      "LAST_NAME": "^[A-Za-z\\s.'-]*$"
+    },
+    "mixed_type_check_columns": ["CUSTOMER_ID", "SALARY", "DOB"],
+    "mixed_type_rules": {
+      "CUSTOMER_ID": {"expected_type": "numeric"},
+      "SALARY": {"expected_type": "numeric"},
+      "DOB": {"expected_type": "date", "format": "%Y-%m-%d"}
+    }
+  },
+  "anomaly_detection": {
+    "outlier_method": "iqr",
+    "iqr_multiplier": 1.5,
+    "zscore_threshold": 3.0,
+    "max_unique_ratio_for_categorical_consistency": 0.95,
+    "outlier_min_sample_size": 5,
+    "outlier_columns": ["SALARY"],
+    "outlier_column_overrides": {}
+  },
+  "scoring": {
+    "weights": {
+      "null_blank": 15,
+      "duplicates": 10,
+      "duplicate_primary_keys": 15,
+      "outliers": 10,
+      "mixed_types": 10,
+      "invalid_dates": 10,
+      "invalid_emails": 10,
+      "negative_values": 10,
+      "special_characters": 5,
+      "datatype_violations": 10,
+      "range_violations": 10,
+      "pattern_violations": 10,
+      "allowed_value_violations": 10,
+      "missing_mandatory_columns": 20,
+      "mandatory_field_violations": 15,
+      "referential_integrity": 10,
+      "business_rule_violations": 10
+    }
+  },
+  "reference_integrity": {
+    "enabled": false,
+    "reference_file": "",
+    "source_column": "",
+    "reference_column": "",
+    "reference_delimiter": ",",
+    "reference_encoding": "utf-8"
+  },
+  "business_rules": []
+}

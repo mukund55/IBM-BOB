@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers>
+
+    <customer>
+        <customer_id>5001</customer_id>
+        <first_name>Manoj</first_name>
+        <last_name>Kulkarni</last_name>
+        <email>manoj.k@gmail.com</email>
+        <phone>9988000001</phone>
+        <gender>Male</gender>
+        <dob>1992-06-15</dob>
+        <city>Pune</city>
+        <salary>75000</salary>
+    </customer>
+
+    <customer>
+        <customer_id>5002</customer_id>
+        <first_name>Priyanka</first_name>
+        <last_name>More</last_name>
+        <email>priyanka.moregmail.com</email>
+        <phone>9988000002</phone>
+        <gender>Female</gender>
+        <dob>2030-10-10</dob>
+        <city>Mumbai</city>
+        <salary>-12000</salary>
+    </customer>
+
+    <customer>
+        <customer_id>5003</customer_id>
+        <first_name>R@jesh</first_name>
+        <last_name>P#til</last_name>
+        <email>rajesh@gmail.com</email>
+        <phone>99XX000003</phone>
+        <gender>Unknown</gender>
+        <dob>1991-01-01</dob>
+        <city>Nashik</city>
+        <salary>58000</salary>
+    </customer>
+
+</customers>

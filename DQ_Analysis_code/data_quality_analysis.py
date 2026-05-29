@@ -74,7 +74,11 @@ try:
     import cx_Oracle  # type: ignore[import-not-found]
     ORACLE_AVAILABLE = True
 except ImportError:
-    ORACLE_AVAILABLE = False
+    try:
+        import oracledb  # type: ignore[import-not-found]
+        ORACLE_AVAILABLE = True
+    except ImportError:
+        ORACLE_AVAILABLE = False
 
 try:
     import pyodbc  # type: ignore[import-not-found]
@@ -858,7 +862,7 @@ def load_from_database(config: Dict[str, Any]) -> pd.DataFrame:
     
     # Check for specific database driver availability
     if db_type == "oracle" and not ORACLE_AVAILABLE:
-        raise ImportError("cx_Oracle is required for Oracle connectivity. Install: pip install cx_Oracle")
+        raise ImportError("Oracle driver is required for Oracle connectivity. Install: pip install oracledb or pip install cx_Oracle")
     elif db_type == "sqlserver" and not ODBC_AVAILABLE:
         raise ImportError("pyodbc is required for SQL Server connectivity. Install: pip install pyodbc")
     elif db_type == "mysql" and not MYSQL_AVAILABLE:
@@ -1223,6 +1227,57 @@ def aggregate_quality_metrics(
 
 
 
+def infer_and_convert_datatypes(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Infer and convert data types for DataFrame columns.
+    Useful for XML data where everything is initially text.
+    Attempts to convert to numeric, datetime, or keeps as string.
+    """
+    df_converted = df.copy()
+    
+    for col in df_converted.columns:
+        # Skip if column is already non-object type
+        if df_converted[col].dtype != 'object':
+            continue
+            
+        # Try to convert to numeric first
+        try:
+            # Attempt numeric conversion
+            numeric_series = pd.to_numeric(df_converted[col], errors='coerce')
+            # If more than 50% of non-null values are successfully converted, use numeric
+            non_null_count = df_converted[col].notna().sum()
+            if non_null_count > 0:
+                # Type check: ensure numeric_series is a Series
+                if isinstance(numeric_series, pd.Series):
+                    converted_count = numeric_series.notna().sum()
+                    if converted_count / non_null_count > 0.5:
+                        df_converted[col] = numeric_series
+                        logging.debug(f"Column '{col}' converted to numeric")
+                        continue
+        except Exception:
+            pass
+        
+        # Try to convert to datetime
+        try:
+            # Attempt datetime conversion
+            datetime_series = pd.to_datetime(df_converted[col], errors='coerce')
+            # If more than 50% of non-null values are successfully converted, use datetime
+            non_null_count = df_converted[col].notna().sum()
+            if non_null_count > 0:
+                converted_count = datetime_series.notna().sum()
+                if converted_count / non_null_count > 0.5:
+                    df_converted[col] = datetime_series
+                    logging.debug(f"Column '{col}' converted to datetime")
+                    continue
+        except Exception:
+            pass
+        
+        # Keep as string/object if no conversion worked
+        logging.debug(f"Column '{col}' kept as string/object")
+    
+    return df_converted
+
+
 def load_xml(file_path: str, config: Dict[str, Any]) -> pd.DataFrame:
     path = Path(file_path)
     if not path.exists():
@@ -1262,6 +1317,10 @@ def load_xml(file_path: str, config: Dict[str, Any]) -> pd.DataFrame:
         df = normalize_columns(df)
 
     df = preprocess_dataframe(df, config)
+    
+    # Infer and convert data types for XML data (since XML stores everything as text)
+    df = infer_and_convert_datatypes(df)
+    
     return df
 
 
@@ -1427,11 +1486,27 @@ def build_issue_records(
     return issue_df
 
 
-def detect_null_and_blank_values(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
+def detect_null_and_blank_values(df: pd.DataFrame, config: Optional[Dict[str, Any]] = None) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
     issue_frames: List[pd.DataFrame] = []
     summary_rows: List[Dict[str, Any]] = []
+    
+    # Get columns to exclude from null checks
+    exclude_columns = []
+    if config:
+        exclude_columns = config.get("general", {}).get("null_check_exclude_columns", [])
 
     for col in df.columns:
+        # Skip excluded columns
+        if col in exclude_columns:
+            summary_rows.append(
+                {
+                    "category": "null_blank",
+                    "column_name": col,
+                    "count": 0,
+                }
+            )
+            continue
+            
         null_mask = df[col].isna()
         blank_mask = df[col].astype(str).str.strip().eq("") & df[col].notna()
 
@@ -1464,7 +1539,7 @@ def detect_null_and_blank_values(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[D
             }
         )
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1581,7 +1656,7 @@ def detect_outliers(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFr
 
         summary_rows.append({"category": "outliers", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1635,7 +1710,7 @@ def detect_mixed_datatypes(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd
 
         summary_rows.append({"category": "mixed_types", "column_name": col, "count": int(invalid_mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1667,7 +1742,7 @@ def detect_invalid_dates(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.D
 
         summary_rows.append({"category": "invalid_dates", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1720,7 +1795,7 @@ def detect_invalid_emails(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.
 
         summary_rows.append({"category": "invalid_emails", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1750,7 +1825,7 @@ def detect_negative_values(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd
 
         summary_rows.append({"category": "negative_values", "column_name": col, "count": int(mask.fillna(False).sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1780,7 +1855,7 @@ def detect_special_characters(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple
 
         summary_rows.append({"category": "special_characters", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1834,7 +1909,7 @@ def validate_mandatory_fields(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple
 
         summary_rows.append({"category": "mandatory_field_violations", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1874,7 +1949,7 @@ def validate_datatype_rules(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[p
 
         summary_rows.append({"category": "datatype_violations", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1913,7 +1988,7 @@ def validate_range_rules(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.D
 
         summary_rows.append({"category": "range_violations", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1943,7 +2018,7 @@ def validate_pattern_rules(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd
 
         summary_rows.append({"category": "pattern_violations", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -1974,7 +2049,7 @@ def validate_allowed_values(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[p
 
         summary_rows.append({"category": "allowed_value_violations", "column_name": col, "count": int(mask.sum())})
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -2112,7 +2187,7 @@ def validate_business_rules(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[p
             }
         )
 
-    issues_df = pd.concat(issue_frames, ignore_index=True) if issue_frames else pd.DataFrame()
+    issues_df = pd.concat(issue_frames, ignore_index=False) if issue_frames else pd.DataFrame()
     return issues_df, summary_rows
 
 
@@ -2649,15 +2724,20 @@ def cleanse_data(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFrame
         if col not in cleansed_df.columns:
             continue
         
-        original_values = cleansed_df[col].copy()
-        # Create a mapping of lowercase to proper case
+        # Create a case-insensitive mapping to standardize values
         value_map = {str(v).lower(): v for v in allowed_vals}
         
-        # Apply case-insensitive mapping
-        cleansed_df[col] = cleansed_df[col].astype(str).str.upper()
+        # Standardize values using case-insensitive matching
+        def standardize_value(val):
+            if pd.isna(val):
+                return val
+            val_lower = str(val).lower().strip()
+            return value_map.get(val_lower, val)  # Return original if not in map
         
-        # Replace values not in allowed list with NaN
-        mask = ~cleansed_df[col].isin(allowed_vals)
+        cleansed_df[col] = cleansed_df[col].apply(standardize_value)
+        
+        # Now check which values are not in the allowed list (after standardization)
+        mask = ~cleansed_df[col].isin(allowed_vals) & cleansed_df[col].notna()
         invalid_count = mask.sum()
         if invalid_count > 0:
             cleansed_df.loc[mask, col] = np.nan
@@ -2702,7 +2782,7 @@ def cleanse_data(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFrame
     duplicate_mask = cleansed_df.duplicated(keep='first')
     duplicate_count = duplicate_mask.sum()
     if duplicate_count > 0:
-        cleansed_df = cleansed_df[~duplicate_mask].reset_index(drop=True)
+        cleansed_df = cleansed_df[~duplicate_mask].copy()  # Don't reset index to preserve row tracking
         cleansing_log.append({
             'column': 'ALL',
             'operation': 'remove_duplicates',
@@ -2717,7 +2797,7 @@ def cleanse_data(df: pd.DataFrame, config: Dict[str, Any]) -> Tuple[pd.DataFrame
         pk_duplicate_mask = cleansed_df.duplicated(subset=primary_keys, keep='first')  # type: ignore
         pk_duplicate_count = pk_duplicate_mask.sum()
         if pk_duplicate_count > 0:
-            cleansed_df = cleansed_df[~pk_duplicate_mask].reset_index(drop=True)  # type: ignore
+            cleansed_df = cleansed_df[~pk_duplicate_mask].copy()  # Don't reset index to preserve row tracking
             cleansing_log.append({
                 'column': ', '.join(primary_keys),
                 'operation': 'remove_duplicate_primary_keys',
@@ -2741,7 +2821,7 @@ def run_all_checks(df: pd.DataFrame, config: Dict[str, Any]) -> Dict[str, Any]:
     all_issue_frames: Dict[str, pd.DataFrame] = {}
     anomaly_summary_rows: List[Dict[str, Any]] = []
 
-    null_blank_df, null_blank_summary = detect_null_and_blank_values(df)
+    null_blank_df, null_blank_summary = detect_null_and_blank_values(df, config)
     all_issue_frames["null_blank"] = null_blank_df
     anomaly_summary_rows.extend(null_blank_summary)
 
@@ -2818,14 +2898,14 @@ def run_all_checks(df: pd.DataFrame, config: Dict[str, Any]) -> Dict[str, Any]:
 
     combined_issues_df = pd.concat(
         [issue_df for issue_df in all_issue_frames.values() if issue_df is not None and not issue_df.empty],
-        ignore_index=True,
+        ignore_index=False,
     ) if any(not df_part.empty for df_part in all_issue_frames.values()) else pd.DataFrame()
 
     # Identify good records (records without any issues)
     good_records_df = df.copy()
     if not combined_issues_df.empty:
-        # Get unique indices of bad records
-        bad_indices = combined_issues_df.index.unique() if 'index' not in combined_issues_df.columns else combined_issues_df['index'].unique()
+        # Get unique indices of bad records from the original DataFrame index
+        bad_indices = combined_issues_df.index.unique()
         # Filter out bad records to get good records
         good_records_df = df[~df.index.isin(bad_indices)]
         logging.info(f"Good records: {len(good_records_df)}, Bad records: {len(bad_indices)}")
@@ -3156,10 +3236,13 @@ def generate_executive_dashboard(
     quality_score_before: Optional[float] = None,
     quality_score_after: Optional[float] = None,
     quality_improvement_pct: Optional[float] = None,
+    source_file: Optional[str] = None,
+    cleansed_file: Optional[str] = None,
 ) -> None:
     """
     Generate comprehensive executive dashboard with all key metrics.
     Includes before/after cleansing comparison if cleansing was performed.
+    Also displays source file and cleansed file information.
     """
     if not PLOTLY_AVAILABLE:
         logging.warning("Plotly not available. Install plotly for dashboard: pip install plotly")
@@ -3168,6 +3251,16 @@ def generate_executive_dashboard(
     logging.info("Generating executive dashboard...")
     
     # Create HTML dashboard
+    # Prepare file information
+    file_info_html = ""
+    if source_file or cleansed_file:
+        file_info_html = '<div class="file-info">'
+        if source_file:
+            file_info_html += f'<div class="file-item"><strong>📁 Source File:</strong> {source_file}</div>'
+        if cleansed_file:
+            file_info_html += f'<div class="file-item"><strong>✨ Cleansed File:</strong> {cleansed_file}</div>'
+        file_info_html += '</div>'
+    
     html_content = f"""
 <!DOCTYPE html>
 <html>
@@ -3196,6 +3289,23 @@ def generate_executive_dashboard(
         .header p {{
             margin: 10px 0 0 0;
             opacity: 0.9;
+        }}
+        .file-info {{
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }}
+        .file-item {{
+            padding: 8px 0;
+            font-size: 14px;
+            color: #333;
+        }}
+        .file-item strong {{
+            color: #667eea;
+            margin-right: 10px;
         }}
         .metrics-grid {{
             display: grid;
@@ -3288,6 +3398,7 @@ def generate_executive_dashboard(
         <p>Comprehensive Data Quality Analysis & Recommendations</p>
         <p style="font-size: 14px; margin-top: 10px;">Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     </div>
+    {file_info_html}
 """
     
     # Add Key Metrics Cards
@@ -3883,7 +3994,8 @@ def main() -> int:
         logging.info("Calculating baseline quality score on original data...")
         original_results = run_all_checks(df, config)
         original_anomaly_summary_df = original_results["anomaly_summary_df"]
-        original_bad_records_count = len(original_results["combined_issues_df"]) if not original_results["combined_issues_df"].empty else 0
+        # Count unique bad records (not individual field violations)
+        original_bad_records_count = len(original_results["combined_issues_df"].index.unique()) if not original_results["combined_issues_df"].empty else 0
         quality_score_before, _ = compute_quality_score(original_anomaly_summary_df, config, total_rows, original_bad_records_count)
         logging.info(f"Baseline quality score: {quality_score_before:.2f}%")
         
@@ -3892,6 +4004,7 @@ def main() -> int:
         cleansed_df = df
         quality_score_after = None
         quality_improvement_pct = None
+        cleanse_output_path = None  # Initialize to avoid unbound variable error
         
         if args.cleanse_data:
             logging.info("Applying data cleansing...")
@@ -3907,8 +4020,16 @@ def main() -> int:
             logging.info("Calculating quality score on cleansed data...")
             cleansed_results = run_all_checks(cleansed_df, config)
             cleansed_anomaly_summary_df = cleansed_results["anomaly_summary_df"]
-            cleansed_bad_records_count = len(cleansed_results["combined_issues_df"]) if not cleansed_results["combined_issues_df"].empty else 0
-            quality_score_after, _ = compute_quality_score(cleansed_anomaly_summary_df, config, len(cleansed_df), cleansed_bad_records_count)
+            # Count unique bad records (not individual field violations)
+            cleansed_bad_records_count = len(cleansed_results["combined_issues_df"].index.unique()) if not cleansed_results["combined_issues_df"].empty else 0
+            
+            # Add removed records (duplicates) to bad records count
+            # Records removed during cleansing are also data quality issues
+            records_removed = len(df) - len(cleansed_df)
+            total_bad_records = cleansed_bad_records_count + records_removed
+            
+            # Use original total_rows for quality score calculation (removed duplicates are bad records)
+            quality_score_after, _ = compute_quality_score(cleansed_anomaly_summary_df, config, total_rows, total_bad_records)
             
             # Calculate improvement
             quality_improvement_pct = quality_score_after - quality_score_before
@@ -3927,7 +4048,8 @@ def main() -> int:
 
         # Calculate quality metrics (use after-cleansing score if available, otherwise before)
         quality_score = quality_score_after if quality_score_after is not None else quality_score_before
-        bad_records_count = len(combined_issues_df) if not combined_issues_df.empty else 0
+        # Count unique bad records (not individual field violations)
+        bad_records_count = len(combined_issues_df.index.unique()) if not combined_issues_df.empty else 0
         _, score_df = compute_quality_score(anomaly_summary_df, config, total_rows if not args.cleanse_data else len(cleansed_df), bad_records_count)
         column_metrics_df = build_column_quality_metrics(profile_df, anomaly_summary_df, total_rows if not args.cleanse_data else len(cleansed_df))
         recommendations_df = generate_recommendations(anomaly_summary_df)
@@ -3974,17 +4096,11 @@ def main() -> int:
         export_dataframe(aggregated_metrics_df, output_dir / "dq_aggregated_metrics.csv")
         logging.info("Aggregated metrics saved")
         
-        # Generate dashboard if requested
-        if args.generate_dashboard or config.get("general", {}).get("generate_dashboard", False):
-            generate_quality_dashboard(
-                output_dir=output_dir,
-                quality_score=quality_score,
-                anomaly_summary_df=anomaly_summary_df,
-                profile_df=profile_df,
-                column_metrics_df=column_metrics_df,
-                total_rows=total_rows,
-            )
-
+        # Calculate total bad records including removed duplicates
+        bad_records_in_analysis = len(combined_issues_df.index.unique()) if not combined_issues_df.empty else 0
+        records_removed_during_cleansing = (len(df) - len(cleansed_df)) if args.cleanse_data else 0
+        total_bad_records_count = bad_records_in_analysis + records_removed_during_cleansing
+        
         # Generate Executive Summary Report
         executive_summary_df = generate_executive_summary(
             output_dir=output_dir,
@@ -3994,7 +4110,7 @@ def main() -> int:
             quality_score=quality_score,
             cleansing_log_df=cleansing_log_df,
             good_records_count=len(good_records_df),
-            bad_records_count=len(combined_issues_df) if not combined_issues_df.empty else 0,
+            bad_records_count=total_bad_records_count,
         )
         
         # Generate Executive Dashboard (always generate)
@@ -4004,12 +4120,14 @@ def main() -> int:
             quality_score=quality_score,
             anomaly_summary_df=anomaly_summary_df,
             cleansing_log_df=cleansing_log_df,
-            total_rows=total_rows,
+            total_rows=total_rows,  # Always use original source file count
             good_records_count=len(good_records_df),
-            bad_records_count=len(combined_issues_df) if not combined_issues_df.empty else 0,
+            bad_records_count=total_bad_records_count,
             quality_score_before=quality_score_before,
             quality_score_after=quality_score_after,
             quality_improvement_pct=quality_improvement_pct,
+            source_file=args.input_file if args.input_file else "Database",
+            cleansed_file=str(cleanse_output_path) if args.cleanse_data else None,
         )
 
         print_console_summary(
