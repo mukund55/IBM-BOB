@@ -1,0 +1,59 @@
+{
+  "data_source": {
+    "type": "json",
+    "path": "electricity_board_anomalies.json"
+  },
+  "output_directory": "dq_output_electricity",
+  "primary_key": ["METERID"],
+  "mandatory_columns": ["METERID", "CONSUMERNAME", "UNITCONSUMED", "BILLAMOUNT", "BILLINGDATE", "EMAIL", "REGION"],
+  "data_types": {
+    "METERID": "string",
+    "CONSUMERNAME": "string",
+    "UNITCONSUMED": "integer",
+    "BILLAMOUNT": "integer",
+    "BILLINGDATE": "date",
+    "EMAIL": "string",
+    "REGION": "string",
+    "ISSUEFLAG": "string"
+  },
+  "date_columns": ["BILLINGDATE"],
+  "date_format": "%Y-%m-%d",
+  "email_columns": ["EMAIL"],
+  "numeric_columns": ["UNITCONSUMED", "BILLAMOUNT"],
+  "allowed_values": {
+    "REGION": ["North", "South", "East", "West"],
+    "ISSUEFLAG": ["YES", "NO"]
+  },
+  "range_checks": {
+    "UNITCONSUMED": {"min": 0, "max": 10000},
+    "BILLAMOUNT": {"min": 0, "max": 100000}
+  },
+  "pattern_checks": {
+    "METERID": "^MTR\\d+$"
+  },
+  "business_rules": [
+    {
+      "name": "Bill Amount Consistency",
+      "description": "Bill amount should be proportional to units consumed (approx 5-10 per unit)",
+      "condition": "(BILLAMOUNT / UNITCONSUMED) >= 3 AND (BILLAMOUNT / UNITCONSUMED) <= 15",
+      "severity": "warning"
+    }
+  ],
+  "outlier_detection": {
+    "method": "iqr",
+    "columns": ["UNITCONSUMED", "BILLAMOUNT"],
+    "iqr_multiplier": 3.0
+  },
+  "duplicate_check": {
+    "enabled": true,
+    "columns": ["METERID"]
+  },
+  "null_check": {
+    "enabled": true,
+    "treat_empty_as_null": true
+  },
+  "generate_dashboard": true,
+  "export_bad_records": true,
+  "export_good_records": true,
+  "enable_cleansing": false
+}

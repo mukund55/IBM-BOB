@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ab Initio Code Analysis Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card-title {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .card-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .card-subtitle {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .score-card .card-title,
+        .score-card .card-subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .score-card .card-value {
+            color: white;
+            font-size: 3em;
+        }
+        
+        .score-gauge {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .components-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .component-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .component-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .component-type {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .component-params {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .param-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .param-key {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .param-value {
+            color: #333;
+            word-break: break-word;
+        }
+        
+        .issues-container {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .issue-card {
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 5px solid;
+        }
+        
+        .issue-critical {
+            background: #fee;
+            border-color: #dc2626;
+        }
+        
+        .issue-high {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+        
+        .issue-medium {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+        
+        .issue-low {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+        
+        .issue-info {
+            background: #f3f4f6;
+            border-color: #6b7280;
+        }
+        
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .issue-severity {
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+        
+        .severity-critical {
+            background: #dc2626;
+            color: white;
+        }
+        
+        .severity-high {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .severity-medium {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .severity-low {
+            background: #10b981;
+            color: white;
+        }
+        
+        .severity-info {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .issue-component {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .issue-category {
+            display: inline-block;
+            background: rgba(0,0,0,0.1);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        
+        .issue-message {
+            margin: 15px 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .issue-suggestion {
+            background: rgba(255,255,255,0.7);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid #10b981;
+        }
+        
+        .suggestion-title {
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+        
+        .suggestion-text {
+            color: #555;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+        
+        .insights-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .insights-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        
+        .insights-list {
+            list-style: none;
+        }
+        
+        .insights-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .insights-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .timestamp {
+            font-size: 0.9em;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .param-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .issue-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Ab Initio Code Analysis Dashboard</h1>
+            <p>Comprehensive Analysis & Optimization Recommendations</p>
+        </div>
+        
+        <div class="summary-cards">
+            <div class="card score-card">
+                <div class="card-title">Optimization Score</div>
+                <div class="card-value">100.0/100</div>
+                <div class="score-gauge">
+                    <div class="score-fill" style="width: 100.0%"></div>
+                </div>
+                <div class="card-subtitle">Excellent</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Graph Name</div>
+                <div class="card-value" style="font-size: 1.5em;">paralleldesign_keep_keys_together</div>
+                <div class="card-subtitle">MP File</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Components</div>
+                <div class="card-value">2</div>
+                <div class="card-subtitle">Analyzed</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Total Issues</div>
+                <div class="card-value">5</div>
+                <div class="card-subtitle">0 Critical, 0 High</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section"><h2 class="section-title">🔧 Components</h2><div class="components-grid">
+        <div class="component-card">
+            <div class="component-header">
+                <div class="component-name">Rollup</div>
+                <div class="component-type">rollup</div>
+            </div>
+            <div class="component-params">
+        
+                <div class="param-row">
+                    <div class="param-key">sorted_input</div>
+                    <div class="param-value">True</div>
+                </div>
+            
+                <div class="param-row">
+                    <div class="param-key">key</div>
+                    <div class="param-value">product_cd</div>
+                </div>
+            
+                <div class="param-row">
+                    <div class="param-key">transform</div>
+                    <div class="param-value">Unknown</div>
+                </div>
+            
+                <div class="param-row">
+                    <div class="param-key">max_core</div>
+                    <div class="param-value">67108864</div>
+                </div>
+            </div></div>
+        <div class="component-card">
+            <div class="component-header">
+                <div class="component-name">Input File (Transactions)</div>
+                <div class="component-type">input_file</div>
+            </div>
+            <div class="component-params">
+        
+                <div class="param-row">
+                    <div class="param-key">Layout</div>
+                    <div class="param-value">file:$AI_SERIAL/transactions.dat</div>
+                </div>
+            
+                <div class="param-row">
+                    <div class="param-key">read_metadata</div>
+                    <div class="param-value">$AI_DML/transactions.dml</div>
+                </div>
+            </div></div></div></div>
+            
+            <div class="section">
+                <h2 class="section-title">📊 Issues by Severity</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterIssues('all')">All Issues</button>
+                    <button class="filter-btn" onclick="filterIssues('CRITICAL')">Critical (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('HIGH')">High (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('LOW')">Low (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (5)</button>
+                </div>
+                
+                <div class="issues-container">
+                    
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">Configuration</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Rollup is configured for sorted input processing</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Sorted rollup is memory-efficient for large datasets. Ensure input data is properly sorted by the key field(s).</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Input File (Transactions)</span>
+                    <span class="issue-category">Configuration</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Using parameter $AI_SERIAL for file path</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Using parameters for file paths enables environment flexibility. Ensure $AI_SERIAL is properly defined in your environment.</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Input File (Transactions)</span>
+                    <span class="issue-category">Configuration</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Using parameterized DML path ($AI_DML)</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Centralized DML management improves maintainability.</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Performance</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Partitioning configuration not visible in MP file</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Ensure appropriate partitioning is set in graph properties:
+  - For in-memory rollup: 1-2 partitions (to maximize memory per partition)
+  - For sorted rollup: 2-8 partitions (for parallel processing)
+  - Consider data volume and available system resources</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">Optimization</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Sorted rollup optimization strategy</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Sorted rollup advantages:
+  + Memory-efficient for large datasets
+  + Predictable memory usage
+  + Deterministic output order
+
+Optimization tips:
+  - Ensure input is properly sorted by key
+  - Use parallel sort with appropriate partitions
+  - Consider in-memory rollup for smaller datasets
+  - Enable check-sort to validate input order</div>
+            </div>
+            </div>
+                </div>
+            </div>
+            
+            
+    <div class="insights-box">
+        <h3 class="insights-title">💡 Key Optimization Insights</h3>
+        <ul class="insights-list">
+    <li>In-memory rollup is optimized for small to medium datasets</li><li>Adjust max-core parameter based on actual data volume</li><li>Monitor memory usage to prevent disk spilling</li><li>Use parameterized paths for environment flexibility</li><li>Implement reject ports for robust error handling</li><li>Consider sorted rollup for very large datasets (>10M records)</li></ul></div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Generated by Ab Initio Code Analyzer</strong></p>
+            <p class="timestamp">Analysis Date: 2026-05-27 16:34:43</p>
+            <p class="timestamp">File: Performance_Optimization\Abinitio_code\paralleldesign_keep_keys_together.mp</p>
+        </div>
+    </div>
+    
+    <script>
+        function filterIssues(severity) {
+            const issues = document.querySelectorAll('.issue-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            issues.forEach(issue => {
+                if (severity === 'all' || issue.dataset.severity === severity) {
+                    issue.style.display = 'block';
+                } else {
+                    issue.style.display = 'none';
+                }
+            });
+        }
+        
+        // Animate score gauge on load
+        window.addEventListener('load', () => {
+            const fill = document.querySelector('.score-fill');
+            const width = fill.style.width;
+            fill.style.width = '0%';
+            setTimeout(() => {
+                fill.style.width = width;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
