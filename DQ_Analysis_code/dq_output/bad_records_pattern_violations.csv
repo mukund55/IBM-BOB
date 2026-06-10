@@ -1,28 +1,3 @@
-issue_type,issue_detail,columns_involved,METERID,CONSUMERNAME,UNITSCONSUMED,BILLAMOUNT,BILLINGDATE,EMAIL,REGION,ISSUEFLAG
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR55,Ravi,250,-200,2025-05-01,invalidmail,North,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR110,Ravi,100,1500,2025-05-01,@gmail.com,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR165,Neha,-50,500,2025-05-01,test@@gmail.com,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR220,,999999,500,2025-05-01,@gmail.com,InvalidRegion,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR275,Neha,-50,9999999,2025-05-01,invalidmail,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR330,Priya,999999,-200,2025-05-01,invalidmail,North,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR385,Priya,100,9999999,2025-05-01,missingdomain@,InvalidRegion,YES
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR440,,999999,9999999,2025-05-01,missingdomain@,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR495,Priya,250,1500,2025-05-01,missingdomain@,InvalidRegion,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR550,Priya,250,1500,2025-05-01,missingdomain@,North,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR605,Ravi,100,1500,2025-05-01,@gmail.com,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR660,Neha,100,-200,2025-05-01,missingdomain@,InvalidRegion,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR715,,999999,500,2025-05-01,@gmail.com,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR770,,999999,9999999,2025-05-01,@gmail.com,,YES
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR825,,999999,-200,2025-05-01,invalidmail,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR880,Priya,100,500,2025-05-01,invalidmail,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR935,Priya,250,-200,2025-05-01,@gmail.com,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR990,Ravi,250,1500,2100-01-01,@gmail.com,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1045,Neha,-50,1500,2025-05-01,invalidmail,InvalidRegion,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1100,Ravi,999999,500,2025-05-01,invalidmail,North,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1155,Priya,100,-200,2025-05-01,missingdomain@,North,YES
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1210,Neha,100,1500,2025-05-01,invalidmail,InvalidRegion,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1265,,250,9999999,2025-05-01,missingdomain@,,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1320,Ravi,100,9999999,2025-05-01,test@@gmail.com,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1375,,-50,-200,2025-05-01,invalidmail,South,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR50,Ravi,-50,-200,2025-05-01,test@@gmail.com,North,NO
-pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,MTR1485,Ravi,100,-200,2025-05-01,test@@gmail.com,North,NO
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,1005,Charlie Brown,charlie@invalid,120,95000.0,2018-05-20,US,ACTIVE
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,1016,Noah Rodriguez,noah@test,36,10000.0,2019-11-15,IN,ACTIVE

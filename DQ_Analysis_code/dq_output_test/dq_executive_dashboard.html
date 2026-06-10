@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Quality Executive Dashboard</title>
+    <title>Data Quality Analysis Report</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
@@ -26,6 +26,23 @@
         .header p {
             margin: 10px 0 0 0;
             opacity: 0.9;
+        }
+        .file-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .file-item {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .file-item strong {
+            color: #667eea;
+            margin-right: 10px;
         }
         .metrics-grid {
             display: grid;
@@ -114,59 +131,113 @@
 </head>
 <body>
     <div class="header">
-        <h1>📊 Data Quality Executive Dashboard</h1>
-        <p>Comprehensive Data Quality Analysis Report</p>
-        <p style="font-size: 14px; margin-top: 10px;">Generated: 2026-05-25 15:29:05</p>
+        <h1>📊 Data Quality Analysis Report</h1>
+        <p>Comprehensive Data Quality Analysis & Recommendations</p>
+        <p style="font-size: 14px; margin-top: 10px;">Generated: 2026-05-27 17:07:09</p>
     </div>
+    <div class="file-info"><div class="file-item"><strong>📁 Source File:</strong> sample data/customer_data_diff_with_header.dat</div><div class="file-item"><strong>✨ Cleansed File:</strong> dq_output_test\cleansed_data.csv</div></div>
 
     <div class="metrics-grid">
         <div class="metric-card">
             <div class="metric-label">Total Records Processed</div>
-            <div class="metric-value">21</div>
+            <div class="metric-value">5</div>
             <div class="metric-subtitle">Input dataset size</div>
         </div>
         
-        <div class="metric-card excellent">
+        <div class="metric-card critical">
             <div class="metric-label">Data Quality Score</div>
-            <div class="metric-value">90.2%</div>
-            <span class="status-badge status-excellent">EXCELLENT</span>
+            <div class="metric-value">50.0%</div>
+            <span class="status-badge status-critical">CRITICAL</span>
         </div>
         
         <div class="metric-card critical">
             <div class="metric-label">Bad Data Detected</div>
-            <div class="metric-value">17</div>
-            <div class="metric-subtitle">81.0% of total records</div>
+            <div class="metric-value">5</div>
+            <div class="metric-subtitle">100.0% of total records</div>
         </div>
         
         <div class="metric-card good">
             <div class="metric-label">Clean Records</div>
-            <div class="metric-value">3</div>
-            <div class="metric-subtitle">14.3% of total records</div>
+            <div class="metric-value">2</div>
+            <div class="metric-subtitle">40.0% of total records</div>
         </div>
     </div>
 
     <div class="chart-container">
-        <div class="chart-title">🔧 Data Cleansing Summary</div>
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-label">Operations Performed</div>
-                <div class="metric-value">10</div>
+        <div class="chart-title">🔧 Data Cleansing Status</div>
+        <div style="padding: 15px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <div style="font-size: 14px; color: #666;">Cleansing Operations</div>
+                    <div style="font-size: 28px; font-weight: bold; color: #2e7d32;">2</div>
+                </div>
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <div style="font-size: 14px; color: #666;">Records Affected</div>
+                    <div style="font-size: 28px; font-weight: bold; color: #1565c0;">2</div>
+                </div>
+                <div style="background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                    <div style="font-size: 14px; color: #666;">Quality Improvement</div>
+                    <div style="font-size: 28px; font-weight: bold; color: #e65100;">10.00%</div>
+                </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-label">Records Affected</div>
-                <div class="metric-value">31</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Success Rate</div>
-                <div class="metric-value">17.6%</div>
-            </div>
+            <table style="width: 100%; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Operation</th>
+                        <th>Records Affected</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><strong>GENDER</strong></td>
+                        <td>Enforce Allowed Values</td>
+                        <td>1</td>
+                        <td>Set invalid values to NaN (allowed: ['Male', 'Female'])</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>CUSTOMER_ID</strong></td>
+                        <td>Remove Duplicate Primary Keys</td>
+                        <td>1</td>
+                        <td>Removed records with duplicate primary keys (kept first occurrence)</td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
-<div class="chart-container"><div class="chart-title">📈 Quality Score Gauge</div><div id="gauge-chart"></div></div><div class="chart-container"><div class="chart-title">📊 Issues by Category</div><div id="category-chart"></div></div><div class="chart-container"><div class="chart-title">📋 Detailed Metrics Table</div><table><thead><tr><th>Category</th><th>Metric</th><th>Value</th><th>Percentage</th><th>Status</th></tr></thead><tbody>
+
+    <div class="chart-container">
+        <div class="chart-title">📈 Quality Score Gauge</div>
+        <div id="gauge-chart"></div>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-title">📊 Issues by Category</div>
+        <div id="category-chart"></div>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-title">📋 Detailed Metrics Table</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
         <tr>
             <td><strong>PROCESSING METRICS</strong></td>
             <td>Total Records Processed</td>
-            <td>21</td>
+            <td>5</td>
             <td>100.00%</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
@@ -174,7 +245,7 @@
         <tr>
             <td><strong>PROCESSING METRICS</strong></td>
             <td>Total Columns</td>
-            <td>8</td>
+            <td>9</td>
             <td>-</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
@@ -182,15 +253,15 @@
         <tr>
             <td><strong>DATA QUALITY</strong></td>
             <td>Total Bad Data Detected</td>
-            <td>17</td>
-            <td>80.95%</td>
+            <td>5</td>
+            <td>100.00%</td>
             <td><span class="status-badge status-critical">CRITICAL</span></td>
         </tr>
 
         <tr>
             <td><strong>DATA QUALITY</strong></td>
             <td>Bad Data Percentage</td>
-            <td>80.95%</td>
+            <td>100.00%</td>
             <td>-</td>
             <td><span class="status-badge status-critical">CRITICAL</span></td>
         </tr>
@@ -198,63 +269,55 @@
         <tr>
             <td><strong>DATA QUALITY</strong></td>
             <td>Total Clean Records</td>
-            <td>3</td>
-            <td>14.29%</td>
+            <td>2</td>
+            <td>40.00%</td>
             <td><span class="status-badge status-critical">CRITICAL</span></td>
         </tr>
 
         <tr>
             <td><strong>DATA QUALITY</strong></td>
             <td>Data Quality Score</td>
-            <td>90.24</td>
-            <td>90.24%</td>
-            <td><span class="status-badge status-excellent">EXCELLENT</span></td>
-        </tr>
-
-        <tr>
-            <td><strong>ANOMALY ANALYSIS</strong></td>
-            <td>Null Blank</td>
-            <td>7</td>
-            <td>33.33%</td>
-            <td><span class="status-badge ">HIGH</span></td>
-        </tr>
-
-        <tr>
-            <td><strong>ANOMALY ANALYSIS</strong></td>
-            <td>Outliers</td>
-            <td>4</td>
-            <td>19.05%</td>
-            <td><span class="status-badge ">HIGH</span></td>
-        </tr>
-
-        <tr>
-            <td><strong>ANOMALY ANALYSIS</strong></td>
-            <td>Business Rule Violations</td>
-            <td>2</td>
-            <td>9.52%</td>
-            <td><span class="status-badge ">MEDIUM</span></td>
-        </tr>
-
-        <tr>
-            <td><strong>ANOMALY ANALYSIS</strong></td>
-            <td>Invalid Emails</td>
-            <td>2</td>
-            <td>9.52%</td>
-            <td><span class="status-badge ">MEDIUM</span></td>
+            <td>50.00</td>
+            <td>50.00%</td>
+            <td><span class="status-badge status-critical">CRITICAL</span></td>
         </tr>
 
         <tr>
             <td><strong>ANOMALY ANALYSIS</strong></td>
             <td>Pattern Violations</td>
             <td>2</td>
-            <td>9.52%</td>
-            <td><span class="status-badge ">MEDIUM</span></td>
+            <td>40.00%</td>
+            <td><span class="status-badge ">HIGH</span></td>
+        </tr>
+
+        <tr>
+            <td><strong>ANOMALY ANALYSIS</strong></td>
+            <td>Invalid Emails</td>
+            <td>1</td>
+            <td>20.00%</td>
+            <td><span class="status-badge ">HIGH</span></td>
+        </tr>
+
+        <tr>
+            <td><strong>ANOMALY ANALYSIS</strong></td>
+            <td>Mandatory Field Violations</td>
+            <td>1</td>
+            <td>20.00%</td>
+            <td><span class="status-badge ">HIGH</span></td>
+        </tr>
+
+        <tr>
+            <td><strong>ANOMALY ANALYSIS</strong></td>
+            <td>Null Blank</td>
+            <td>1</td>
+            <td>20.00%</td>
+            <td><span class="status-badge ">HIGH</span></td>
         </tr>
 
         <tr>
             <td><strong>CLEANSING METRICS</strong></td>
             <td>Cleansing Operations Performed</td>
-            <td>10</td>
+            <td>2</td>
             <td>-</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
@@ -262,8 +325,8 @@
         <tr>
             <td><strong>CLEANSING METRICS</strong></td>
             <td>Total Records Affected by Cleansing</td>
-            <td>31</td>
-            <td>147.62%</td>
+            <td>2</td>
+            <td>40.00%</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
 
@@ -271,14 +334,14 @@
             <td><strong>CLEANSING METRICS</strong></td>
             <td>Records Removed (Duplicates)</td>
             <td>1</td>
-            <td>4.76%</td>
+            <td>20.00%</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
 
         <tr>
             <td><strong>CLEANSING METRICS</strong></td>
             <td>Cleansing Success Rate</td>
-            <td>17.65%</td>
+            <td>40.00%</td>
             <td>-</td>
             <td><span class="status-badge status-warning">WARNING</span></td>
         </tr>
@@ -286,17 +349,21 @@
         <tr>
             <td><strong>CLEANSING METRICS</strong></td>
             <td>Records After Cleansing</td>
-            <td>20</td>
-            <td>95.24%</td>
+            <td>4</td>
+            <td>80.00%</td>
             <td><span class="status-badge ">INFO</span></td>
         </tr>
-</tbody></table></div>
+
+            </tbody>
+        </table>
+    </div>
+
     <script>
         // Quality Score Gauge
         var gaugeData = [{
             type: "indicator",
             mode: "gauge+number+delta",
-            value: 90.24,
+            value: 50.0,
             title: { text: "Quality Score", font: { size: 24 } },
             delta: { reference: 90, increasing: { color: "green" } },
             gauge: {
@@ -331,16 +398,16 @@
 
         // Issues by Category
         var categoryData = [{
-            x: [7, 4, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            y: ['Null Blank', 'Outliers', 'Pattern Violations', 'Business Rule Violations', 'Invalid Emails', 'Allowed Value Violations', 'Duplicates', 'Duplicate Primary Keys', 'Datatype Violations', 'Missing Mandatory Columns', 'Mandatory Field Violations', 'Invalid Dates', 'Negative Values', 'Mixed Types', 'Range Violations', 'Referential Integrity', 'Special Characters'],
+            x: [2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            y: ['Pattern Violations', 'Mandatory Field Violations', 'Null Blank', 'Invalid Emails', 'Duplicates', 'Duplicate Primary Keys', 'Allowed Value Violations', 'Datatype Violations', 'Missing Mandatory Columns', 'Invalid Dates', 'Negative Values', 'Mixed Types', 'Outliers', 'Range Violations', 'Referential Integrity', 'Special Characters'],
             type: 'bar',
             orientation: 'h',
             marker: {
-                color: [7, 4, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                color: [2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 colorscale: 'Reds',
                 showscale: true
             },
-            text: [7, 4, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            text: [2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             textposition: 'auto',
         }];
         

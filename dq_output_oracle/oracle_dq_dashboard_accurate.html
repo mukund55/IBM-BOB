@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle DQ Dashboard - CUSTOMERS Table</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 32px; margin-bottom: 10px; }
+        .header .table-name { font-size: 24px; font-weight: bold; margin: 15px 0; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 5px; display: inline-block; }
+        .header .report-info { margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3); }
+        .header .report-info p { opacity: 0.9; font-size: 14px; margin: 5px 0; }
+        .header .timestamp { font-size: 16px; font-weight: bold; margin-top: 10px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metric-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; }
+        .metric-card .value { font-size: 36px; font-weight: bold; color: #333; }
+        .metric-card .subtext { color: #999; font-size: 12px; margin-top: 5px; }
+        .score-good { color: #10b981; }
+        .score-medium { color: #f59e0b; }
+        .score-bad { color: #ef4444; }
+        .section { background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .section h2 { color: #333; margin-bottom: 20px; font-size: 24px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; color: #666; }
+        tr:hover { background: #f8f9fa; }
+        .issue-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin: 2px; }
+        .badge-high { background: #fee2e2; color: #991b1b; }
+        .badge-medium { background: #fef3c7; color: #92400e; }
+        .badge-low { background: #dbeafe; color: #1e40af; }
+        .chart-container { margin: 20px 0; }
+        .bar { background: #667eea; height: 30px; border-radius: 4px; margin: 10px 0; position: relative; }
+        .bar-label { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white; font-weight: bold; font-size: 12px; }
+        .bar-value { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: white; font-size: 12px; }
+        .timestamp { color: #999; font-size: 12px; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Oracle Data Quality Dashboard</h1>
+            <div class="table-name">📊 Table: CUSTOMERS</div>
+            <div class="report-info">
+                <p><strong>Database:</strong> XEPDB1 (Oracle 21c Express Edition)</p>
+                <p><strong>Schema:</strong> dq_test</p>
+                <div class="timestamp">
+                    📅 Report Generated: 2026-05-28 at 13:42:26
+                </div>
+            </div>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Total Records</h3>
+                <div class="value">12</div>
+                <div class="subtext">All customer records</div>
+            </div>
+            <div class="metric-card">
+                <h3>Data Quality Score</h3>
+                <div class="value score-medium">41.67%</div>
+                <div class="subtext">5 good / 7 bad records</div>
+            </div>
+            <div class="metric-card">
+                <h3>Total Issues</h3>
+                <div class="value score-bad">18</div>
+                <div class="subtext">Across all categories</div>
+            </div>
+            <div class="metric-card">
+                <h3>Issue Categories</h3>
+                <div class="value">8</div>
+                <div class="subtext">Out of 16 categories</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Issues by Category</h2>
+            <div class="chart-container">
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Null Blank</div>
+                    <div class="bar" style="width: 100.0%;">
+                        <span class="bar-label">5 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Duplicates</div>
+                    <div class="bar" style="width: 80.0%;">
+                        <span class="bar-label">4 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Invalid Emails</div>
+                    <div class="bar" style="width: 40.0%;">
+                        <span class="bar-label">2 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Missing Mandatory Columns</div>
+                    <div class="bar" style="width: 40.0%;">
+                        <span class="bar-label">2 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Pattern Violations</div>
+                    <div class="bar" style="width: 40.0%;">
+                        <span class="bar-label">2 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Allowed Value Violations</div>
+                    <div class="bar" style="width: 20.0%;">
+                        <span class="bar-label">1 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Negative Values</div>
+                    <div class="bar" style="width: 20.0%;">
+                        <span class="bar-label">1 records</span>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Outliers</div>
+                    <div class="bar" style="width: 20.0%;">
+                        <span class="bar-label">1 records</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Detailed Issue Breakdown</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue Category</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Null Blank</td>
+                        <td><strong>5</strong></td>
+                        <td>41.7%</td>
+                        <td><span class="issue-badge badge-high">HIGH</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Duplicates</td>
+                        <td><strong>4</strong></td>
+                        <td>33.3%</td>
+                        <td><span class="issue-badge badge-high">HIGH</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invalid Emails</td>
+                        <td><strong>2</strong></td>
+                        <td>16.7%</td>
+                        <td><span class="issue-badge badge-medium">MEDIUM</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Missing Mandatory Columns</td>
+                        <td><strong>2</strong></td>
+                        <td>16.7%</td>
+                        <td><span class="issue-badge badge-medium">MEDIUM</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Pattern Violations</td>
+                        <td><strong>2</strong></td>
+                        <td>16.7%</td>
+                        <td><span class="issue-badge badge-medium">MEDIUM</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Allowed Value Violations</td>
+                        <td><strong>1</strong></td>
+                        <td>8.3%</td>
+                        <td><span class="issue-badge badge-low">LOW</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Negative Values</td>
+                        <td><strong>1</strong></td>
+                        <td>8.3%</td>
+                        <td><span class="issue-badge badge-low">LOW</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Outliers</td>
+                        <td><strong>1</strong></td>
+                        <td>8.3%</td>
+                        <td><span class="issue-badge badge-low">LOW</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>🔍 Bad Records Detail</h2>
+            <p style="color: #666; margin-bottom: 20px;">Records with data quality issues (7 total)</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Issues</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Alice Williams</td>
+                        <td>null_blank, missing_mandatory_columns</td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>Charlie Brown</td>
+                        <td>null_blank, invalid_emails, negative_values</td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td><em>NULL</em></td>
+                        <td>null_blank, missing_mandatory_columns</td>
+                    </tr>
+
+                    <tr>
+                        <td>7</td>
+                        <td>David Lee</td>
+                        <td>null_blank</td>
+                    </tr>
+
+                    <tr>
+                        <td>8</td>
+                        <td>Eve Martinez</td>
+                        <td>null_blank</td>
+                    </tr>
+
+                    <tr>
+                        <td>9</td>
+                        <td>Frank Wilson</td>
+                        <td>invalid_emails, allowed_value_violations</td>
+                    </tr>
+
+                    <tr>
+                        <td>10</td>
+                        <td>Grace Taylor</td>
+                        <td>outliers</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>📈 Summary Statistics</h2>
+            <table>
+                <tr>
+                    <td><strong>Total Records Analyzed</strong></td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td><strong>Good Records</strong></td>
+                    <td style="color: #10b981;">5 (41.7%)</td>
+                </tr>
+                <tr>
+                    <td><strong>Bad Records</strong></td>
+                    <td style="color: #ef4444;">7 (58.3%)</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Quality Score</strong></td>
+                    <td><strong>41.67%</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Total Issue Instances</strong></td>
+                    <td>18</td>
+                </tr>
+                <tr>
+                    <td><strong>Duplicate Records</strong></td>
+                    <td>4</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="timestamp">
+            <strong>Report Details:</strong> Table: CUSTOMERS | Generated: 2026-05-28 13:42:26 |
+            Database: Oracle 21c Express Edition (XEPDB1) | Schema: dq_test
+        </div>
+    </div>
+</body>
+</html>

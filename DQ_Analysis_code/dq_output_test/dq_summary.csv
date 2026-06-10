@@ -1,7 +1,7 @@
 metric,value
-row_count,20
-column_count,8
-generated_at,2026-05-25T09:59:05.145927+00:00
-quality_score,90.24
-total_anomaly_records,17
+row_count,4
+column_count,9
+generated_at,2026-05-27T11:37:09.040694+00:00
+quality_score,50.0
+total_anomaly_records,5
 trend_summary,Use persisted dq_summary.csv files from prior runs to compare trends over time.

@@ -1,0 +1,4 @@
+column,operation,records_affected,description
+EMAIL,normalize_email,1,Converted to lowercase and removed invalid entries
+SALARY,fix_negative_values,1,Converted negative values to absolute values
+SALARY,apply_range_constraints,1,"Clipped values to range [10000, 1000000]"

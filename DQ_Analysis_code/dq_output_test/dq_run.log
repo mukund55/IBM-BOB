@@ -300,3 +300,46 @@ ValueError: Unsupported input file type: .dat. Supported types are: .csv, .xml, 
 2026-05-25 15:47:46,926 | INFO |   Output saved to: test_mixed_newlines_fixed.dat
 2026-05-25 15:47:46,943 | INFO | Fix report saved to: dq_output_test\newline_fix_report.csv
 2026-05-25 15:47:46,943 | INFO | Newline fixing completed. Exiting.
+2026-05-27 17:07:08,861 | INFO | Starting ENHANCED data quality analysis
+2026-05-27 17:07:08,861 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-05-27 17:07:08,862 | INFO | Loading input file: sample data/customer_data_diff_with_header.dat
+2026-05-27 17:07:08,862 | INFO | Loading .dat file as delimited text: sample data/customer_data_diff_with_header.dat
+2026-05-27 17:07:08,862 | INFO | Auto-detected delimiter: '|'
+2026-05-27 17:07:08,870 | INFO | Loaded dataset with 5 rows and 9 columns
+2026-05-27 17:07:08,871 | INFO | Calculating baseline quality score on original data...
+2026-05-27 17:07:08,926 | INFO | Good records: 2, Bad records: 3
+2026-05-27 17:07:08,929 | INFO | Baseline quality score: 40.00%
+2026-05-27 17:07:08,929 | INFO | Applying data cleansing...
+2026-05-27 17:07:08,929 | INFO | Starting data cleansing process...
+2026-05-27 17:07:08,935 | INFO | Enforced allowed values in GENDER: 1 invalid values set to NaN
+2026-05-27 17:07:08,939 | INFO | Removed 1 records with duplicate primary keys
+2026-05-27 17:07:08,940 | INFO | Data cleansing completed: 2 operations, 2 total records affected
+2026-05-27 17:07:08,940 | INFO | Original records: 5, Cleansed records: 4
+2026-05-27 17:07:08,940 | INFO | Data cleansing completed. Records: 5 -> 4
+2026-05-27 17:07:08,970 | INFO | Cleansed data saved to: dq_output_test\cleansed_data.csv
+2026-05-27 17:07:08,970 | INFO | Calculating quality score on cleansed data...
+2026-05-27 17:07:09,038 | INFO | Good records: 2, Bad records: 2
+2026-05-27 17:07:09,040 | INFO | Quality score after cleansing: 50.00%
+2026-05-27 17:07:09,040 | INFO | Quality improvement: +10.00%
+2026-05-27 17:07:09,115 | INFO | Good records: 2, Bad records: 2
+2026-05-27 17:07:09,148 | INFO | Good records file created: 2 clean records
+2026-05-27 17:07:09,152 | INFO | Skipping empty bad records file for category: duplicates
+2026-05-27 17:07:09,152 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-05-27 17:07:09,152 | INFO | Skipping empty bad records file for category: outliers
+2026-05-27 17:07:09,153 | INFO | Skipping empty bad records file for category: mixed_types
+2026-05-27 17:07:09,153 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-05-27 17:07:09,155 | INFO | Skipping empty bad records file for category: negative_values
+2026-05-27 17:07:09,156 | INFO | Skipping empty bad records file for category: special_characters
+2026-05-27 17:07:09,156 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-05-27 17:07:09,158 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-05-27 17:07:09,158 | INFO | Skipping empty bad records file for category: range_violations
+2026-05-27 17:07:09,161 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-05-27 17:07:09,161 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-05-27 17:07:09,161 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-05-27 17:07:09,161 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-05-27 17:07:09,164 | INFO | Cleansing log saved: 2 operations logged
+2026-05-27 17:07:09,691 | INFO | Aggregated metrics saved
+2026-05-27 17:07:09,700 | INFO | Executive summary report generated
+2026-05-27 17:07:09,700 | INFO | Generating executive dashboard...
+2026-05-27 17:07:09,704 | INFO | Executive dashboard saved to: dq_output_test\dq_executive_dashboard.html
+2026-05-27 17:07:09,705 | INFO | Data quality analysis completed successfully

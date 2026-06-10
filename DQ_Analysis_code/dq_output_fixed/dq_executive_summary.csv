@@ -1,0 +1,16 @@
+Category,Metric,Value,Percentage,Status
+PROCESSING METRICS,Total Records Processed,5,100.00%,INFO
+PROCESSING METRICS,Total Columns,9,-,INFO
+DATA QUALITY,Total Bad Data Detected,2,40.00%,CRITICAL
+DATA QUALITY,Bad Data Percentage,40.00%,-,CRITICAL
+DATA QUALITY,Total Clean Records,2,40.00%,CRITICAL
+DATA QUALITY,Data Quality Score,50.00,50.00%,CRITICAL
+ANOMALY ANALYSIS,Pattern Violations,2,40.00%,HIGH
+ANOMALY ANALYSIS,Invalid Emails,1,20.00%,HIGH
+ANOMALY ANALYSIS,Mandatory Field Violations,1,20.00%,HIGH
+ANOMALY ANALYSIS,Null Blank,1,20.00%,HIGH
+CLEANSING METRICS,Cleansing Operations Performed,2,-,INFO
+CLEANSING METRICS,Total Records Affected by Cleansing,2,40.00%,INFO
+CLEANSING METRICS,Records Removed (Duplicates),1,20.00%,INFO
+CLEANSING METRICS,Cleansing Success Rate,100.00%,-,EXCELLENT
+CLEANSING METRICS,Records After Cleansing,4,80.00%,INFO

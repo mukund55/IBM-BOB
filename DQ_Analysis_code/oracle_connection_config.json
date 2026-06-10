@@ -1,0 +1,89 @@
+{
+  "general": {
+    "output_dir": "dq_output_oracle_test",
+    "log_file": "dq_oracle_run.log",
+    "log_level": "INFO"
+  },
+  "database": {
+    "type": "oracle",
+    "connection_string": "oracle+oracledb://dq_test:dq_test123@localhost:1521/?service_name=XE",
+    "host": "localhost",
+    "port": 1521,
+    "service_name": "XE",
+    "username": "dq_test",
+    "password": "dq_test123",
+    "query": "SELECT * FROM customer_data",
+    "connection_timeout": 30,
+    "fetch_size": 1000
+  },
+  "rules": {
+    "mandatory_columns": ["customer_id", "customer_name", "email"],
+    "email_columns": ["email"],
+    "email_rules": {
+      "email": {
+        "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+        "allow_blank": false,
+        "normalize_case": true
+      }
+    },
+    "primary_key": ["customer_id"],
+    "numeric_columns": ["customer_id", "purchase_amount"],
+    "date_columns": {
+      "registration_date": {
+        "format": "%Y-%m-%d"
+      },
+      "created_date": {
+        "format": "%Y-%m-%d"
+      },
+      "updated_date": {
+        "format": "%Y-%m-%d"
+      }
+    },
+    "pattern_rules": {
+      "phone": "^\\d{10}$",
+      "country": "^[A-Za-z\\s]+$"
+    },
+    "range_rules": {
+      "purchase_amount": {
+        "min": 0,
+        "max": 100000
+      },
+      "is_active": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "referential_integrity": {
+      "orders": {
+        "foreign_key": "customer_id",
+        "reference_table": "customers",
+        "reference_column": "customer_id"
+      }
+    }
+  },
+  "anomaly_detection": {
+    "outlier_method": "iqr",
+    "iqr_multiplier": 1.5,
+    "zscore_threshold": 3.0,
+    "outlier_columns": ["purchase_amount"],
+    "outlier_min_sample_size": 5
+  },
+  "data_cleansing": {
+    "enabled": true,
+    "trim_whitespace": true,
+    "remove_duplicates": false,
+    "fill_missing_values": false,
+    "standardize_case": {
+      "email": "lower",
+      "country": "title"
+    }
+  },
+  "output": {
+    "generate_dashboard": true,
+    "export_good_records": true,
+    "export_bad_records": true,
+    "export_summary": true,
+    "export_profile": true,
+    "export_recommendations": true
+  }
+}

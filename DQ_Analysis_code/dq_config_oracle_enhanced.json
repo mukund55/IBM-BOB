@@ -1,0 +1,38 @@
+{
+  "general": {
+    "output_dir": "dq_output_oracle",
+    "log_file": "dq_run.log"
+  },
+  "database": {
+    "enabled": true,
+    "type": "oracle",
+    "connection_string": "oracle+oracledb://dq_test:dq_test123@localhost:1521/?service_name=XEPDB1",
+    "query": "SELECT * FROM customers"
+  },
+  "rules": {
+    "mandatory_columns": ["customer_id", "customer_name", "email"],
+    "email_columns": ["email"],
+    "primary_key": ["customer_id"],
+    "numeric_columns": ["customer_id", "purchase_amount", "is_active"],
+    "date_columns": {
+      "registration_date": {"format": "%Y-%m-%d"},
+      "created_date": {"format": "%Y-%m-%d"},
+      "updated_date": {"format": "%Y-%m-%d"}
+    },
+    "allowed_values": {
+      "is_active": ["0", "1"]
+    },
+    "range_checks": {
+      "purchase_amount": {"min": 0, "max": 100000},
+      "is_active": {"min": 0, "max": 1}
+    },
+    "pattern_checks": {
+      "email": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      "phone": "^[0-9]{10}$"
+    },
+    "check_duplicates": true,
+    "duplicate_columns": ["customer_name", "email", "phone"],
+    "check_negative_values": true,
+    "negative_value_columns": ["purchase_amount"]
+  }
+}
