@@ -1,0 +1,14 @@
+Category,Metric,Value,Percentage,Status
+PROCESSING METRICS,Total Records Processed,20000,100.00%,INFO
+PROCESSING METRICS,Total Columns,7,-,INFO
+DATA QUALITY,Total Bad Data Detected,1000,5.00%,OK
+DATA QUALITY,Bad Data Percentage,5.00%,-,OK
+DATA QUALITY,Total Clean Records,19000,95.00%,GOOD
+DATA QUALITY,Data Quality Score,95.00,95.00%,EXCELLENT
+ANOMALY ANALYSIS,Null Blank,350,1.75%,LOW
+ANOMALY ANALYSIS,Invalid Emails,300,1.50%,LOW
+ANOMALY ANALYSIS,Pattern Violations,300,1.50%,LOW
+ANOMALY ANALYSIS,Outliers,250,1.25%,LOW
+ANOMALY ANALYSIS,Negative Values,100,0.50%,LOW
+ANOMALY ANALYSIS,Range Violations,100,0.50%,LOW
+CLEANSING METRICS,Cleansing Status,Not Performed,-,INFO

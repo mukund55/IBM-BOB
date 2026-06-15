@@ -1,0 +1,26 @@
+2026-06-15 18:31:35,252 | INFO | Starting ENHANCED data quality analysis
+2026-06-15 18:31:35,263 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-15 18:31:35,263 | INFO | Loading input file: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\uploads\b3cd3bd2_DQ_Test_20K.csv
+2026-06-15 18:31:35,904 | INFO | Loaded dataset with 20000 rows and 7 columns
+2026-06-15 18:31:35,904 | INFO | Calculating baseline quality score on original data...
+2026-06-15 18:31:37,035 | INFO | Good records: 19000, Bad records: 1000
+2026-06-15 18:31:37,045 | INFO | Baseline quality score: 95.00%
+2026-06-15 18:31:38,788 | INFO | Good records: 19000, Bad records: 1000
+2026-06-15 18:31:39,051 | INFO | Good records file created: 19000 clean records
+2026-06-15 18:31:39,101 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-15 18:31:39,101 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-15 18:31:39,118 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-15 18:31:39,119 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-15 18:31:39,135 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-15 18:31:39,135 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-06-15 18:31:39,135 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-15 18:31:39,135 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-15 18:31:39,151 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-15 18:31:39,164 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-15 18:31:39,165 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-06-15 18:31:39,166 | INFO | Bad record files: 6 created, 11 skipped (no issues found)
+2026-06-15 18:31:40,165 | INFO | Aggregated metrics saved
+2026-06-15 18:31:40,181 | INFO | Executive summary report generated
+2026-06-15 18:31:40,181 | INFO | Generating executive dashboard...
+2026-06-15 18:31:40,192 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\b3cd3bd2\dq_executive_dashboard.html
+2026-06-15 18:31:40,193 | INFO | Data quality analysis completed successfully

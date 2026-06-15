@@ -1,0 +1,48 @@
+2026-06-15 19:47:06,384 | INFO | Starting ENHANCED data quality analysis
+2026-06-15 19:47:06,384 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-15 19:47:06,384 | INFO | Loading input file: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\uploads\63114b6c_sample_customer_data.csv
+2026-06-15 19:47:06,430 | INFO | Loaded dataset with 21 rows and 8 columns
+2026-06-15 19:47:06,430 | INFO | Calculating baseline quality score on original data...
+2026-06-15 19:47:06,494 | INFO | Good records: 11, Bad records: 10
+2026-06-15 19:47:06,496 | INFO | Baseline quality score: 52.38%
+2026-06-15 19:47:06,496 | INFO | Applying data cleansing...
+2026-06-15 19:47:06,496 | INFO | Starting data cleansing process...
+2026-06-15 19:47:06,500 | INFO | Normalized emails in EMAIL: 2 records
+2026-06-15 19:47:06,502 | INFO | Converted SALARY to numeric: 21 records affected
+2026-06-15 19:47:06,504 | INFO | Converted JOIN_DATE to date: 1 invalid dates found
+2026-06-15 19:47:06,505 | INFO | Fixed negative values in AGE: 1 records
+2026-06-15 19:47:06,506 | INFO | Fixed negative values in SALARY: 1 records
+2026-06-15 19:47:06,509 | INFO | Enforced allowed values in STATUS: 1 invalid values set to NaN
+2026-06-15 19:47:06,509 | INFO | Enforced allowed values in COUNTRY_CODE: 1 invalid values set to NaN
+2026-06-15 19:47:06,510 | INFO | Applied range constraints to AGE: 1 records clipped
+2026-06-15 19:47:06,511 | INFO | Applied range constraints to SALARY: 1 records clipped
+2026-06-15 19:47:06,515 | INFO | Removed 1 records with duplicate primary keys
+2026-06-15 19:47:06,516 | INFO | Data cleansing completed: 10 operations, 31 total records affected
+2026-06-15 19:47:06,516 | INFO | Original records: 21, Cleansed records: 20
+2026-06-15 19:47:06,516 | INFO | Data cleansing completed. Records: 21 -> 20
+2026-06-15 19:47:06,521 | INFO | Cleansed data saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\63114b6c\cleansed_data.csv
+2026-06-15 19:47:06,521 | INFO | Calculating quality score on cleansed data...
+2026-06-15 19:47:06,603 | INFO | Good records: 12, Bad records: 8
+2026-06-15 19:47:06,605 | INFO | Quality score after cleansing: 57.14%
+2026-06-15 19:47:06,605 | INFO | Quality improvement: +4.76%
+2026-06-15 19:47:06,745 | INFO | Good records: 12, Bad records: 8
+2026-06-15 19:47:06,845 | INFO | Good records file created: 12 clean records
+2026-06-15 19:47:06,860 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-15 19:47:06,860 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-15 19:47:06,868 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-15 19:47:06,868 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-15 19:47:06,876 | INFO | Skipping empty bad records file for category: negative_values
+2026-06-15 19:47:06,877 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-15 19:47:06,877 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-06-15 19:47:06,878 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-15 19:47:06,878 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-15 19:47:06,878 | INFO | Skipping empty bad records file for category: range_violations
+2026-06-15 19:47:06,885 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-15 19:47:06,885 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-15 19:47:06,892 | INFO | Bad record files: 5 created, 12 skipped (no issues found)
+2026-06-15 19:47:06,899 | INFO | Cleansing log saved: 10 operations logged
+2026-06-15 19:47:08,030 | INFO | Aggregated metrics saved
+2026-06-15 19:47:08,062 | INFO | Executive summary report generated
+2026-06-15 19:47:08,062 | INFO | Generating executive dashboard...
+2026-06-15 19:47:08,076 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\63114b6c\dq_executive_dashboard.html
+2026-06-15 19:47:08,078 | INFO | Data quality analysis completed successfully

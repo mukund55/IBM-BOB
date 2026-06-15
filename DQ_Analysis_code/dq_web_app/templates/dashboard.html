@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Enterprise DQ Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .hero-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .upload-card {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+        .upload-icon {
+            font-size: 5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+        .upload-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .upload-description {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .drop-zone {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 50px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+            margin-bottom: 25px;
+        }
+        .drop-zone:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+            transform: scale(1.02);
+        }
+        .drop-zone.dragover {
+            border-color: #764ba2;
+            background: #e8ebff;
+            transform: scale(1.05);
+        }
+        .drop-zone-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .drop-zone-text {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .drop-zone-hint {
+            font-size: 0.9rem;
+            color: #999;
+        }
+        .file-info {
+            background: #f0f2ff;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .file-info.show {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .file-name {
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-analyze {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            width: 100%;
+        }
+        .btn-analyze:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        .btn-analyze:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .progress-container.show {
+            display: block;
+        }
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .feature-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .nav-link {
+            color: #667eea !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #764ba2 !important;
+        }
+        .btn-logout {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 8px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .spinner-border-sm {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fas fa-chart-line"></i> Data Quality Platform
+            </a>
+            <div class="navbar-nav ms-auto align-items-center">
+                <span class="navbar-text me-3" style="color: #667eea; font-weight: 600;">
+                    <i class="fas fa-user-circle"></i> {{ current_user.username }}
+                </span>
+                <a class="btn btn-logout" href="{{ url_for('auth.logout') }}">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="hero-section">
+            <h1 class="hero-title">
+                <i class="fas fa-shield-alt"></i> Data Quality Analysis
+            </h1>
+            <p class="hero-subtitle">
+                Upload your data file and get instant quality insights
+            </p>
+        </div>
+
+        <div class="upload-card">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h2 class="upload-title">Upload & Analyze</h2>
+            <p class="upload-description">
+                Drag and drop your file or click to browse
+            </p>
+
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <div class="drop-zone-text">
+                        <strong>Drop your file here</strong> or click to browse
+                    </div>
+                    <div class="drop-zone-hint">
+                        Supports CSV, Excel, JSON, XML, DAT files
+                    </div>
+                    <input type="file" id="fileInput" name="file" accept=".csv,.xlsx,.xls,.json,.xml,.dat,.txt" style="display: none;">
+                </div>
+
+                <div class="file-info" id="fileInfo">
+                    <div>
+                        <i class="fas fa-file me-2" style="color: #667eea;"></i>
+                        <span class="file-name" id="fileName"></span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-danger" id="removeFile">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <button type="submit" class="btn btn-analyze" id="analyzeBtn" disabled>
+                    <i class="fas fa-play-circle me-2"></i> Analyze Data Quality
+                </button>
+
+                <div class="progress-container" id="progressContainer">
+                    <div class="text-center mb-2">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted" id="progressText">Analyzing your data...</p>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card" style="cursor: pointer;" onclick="viewFullDashboard()">
+                <div class="feature-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="feature-title">Anomaly Report</h3>
+                <p class="feature-description">
+                    Click to view data quality issues
+                </p>
+            </div>
+            <div class="feature-card" style="cursor: pointer;" onclick="viewCleansedData()">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="feature-title">Cleansed Data</h3>
+                <p class="feature-description">
+                    Click to view & download good records
+                </p>
+            </div>
+            <div class="feature-card" style="cursor: pointer;" onclick="viewVisualReports()">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="feature-title">Visual Reports</h3>
+                <p class="feature-description">
+                    Click to view charts & visualizations
+                </p>
+            </div>
+            <div class="feature-card" style="cursor: pointer;" onclick="viewRecommendations()">
+                <div class="feature-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="feature-title">Smart Recommendations</h3>
+                <p class="feature-description">
+                    Click to view DQ improvement tips
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const removeFileBtn = document.getElementById('removeFile');
+        const uploadForm = document.getElementById('uploadForm');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressText = document.getElementById('progressText');
+
+        let selectedFile = null;
+
+        // Click to browse
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Handle file selection
+        function handleFile(file) {
+            selectedFile = file;
+            fileName.textContent = file.name;
+            fileInfo.classList.add('show');
+            analyzeBtn.disabled = false;
+        }
+
+        // Remove file
+        removeFileBtn.addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+            analyzeBtn.disabled = true;
+        });
+
+        // Form submission
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!selectedFile) return;
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            // Show progress
+            analyzeBtn.disabled = true;
+            progressContainer.classList.add('show');
+            progressText.textContent = 'Uploading and analyzing your data...';
+
+            try {
+                const response = await fetch('/api/analysis/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Store run_id in sessionStorage
+                    sessionStorage.setItem('lastRunId', result.run_id);
+                    
+                    // Show success message with button instead of auto-redirect
+                    progressContainer.classList.remove('show');
+                    
+                    // Create success message
+                    const successDiv = document.createElement('div');
+                    successDiv.className = 'alert alert-success text-center';
+                    successDiv.style.cssText = 'margin-top: 20px; padding: 30px; border-radius: 15px; animation: fadeInUp 0.5s;';
+                    successDiv.innerHTML = `
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <h4 class="mb-3">✅ Data Quality Analysis Completed!</h4>
+                        <p class="mb-4">Your data has been analyzed successfully. DQ Score: <strong>${result.dq_score || 'N/A'}</strong></p>
+                        <button onclick="window.location.href='/api/analysis/results/${result.run_id}'" class="btn btn-success btn-lg">
+                            <i class="fas fa-chart-bar"></i> View Dashboard
+                        </button>
+                    `;
+                    
+                    // Insert after upload card
+                    document.querySelector('.upload-card').appendChild(successDiv);
+                    
+                    // Keep file info visible and enable button
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.innerHTML = '<i class="fas fa-chart-bar me-2"></i> View Dashboard Report';
+                    analyzeBtn.onclick = () => window.location.href = `/api/analysis/results/${result.run_id}`;
+                } else {
+                    throw new Error(result.error || 'Analysis failed');
+                }
+            } catch (error) {
+                progressContainer.classList.remove('show');
+                analyzeBtn.disabled = false;
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Helper function to get latest run_id
+        async function getLatestRunId() {
+            // First check sessionStorage
+            const storedRunId = sessionStorage.getItem('lastRunId');
+            if (storedRunId) {
+                return storedRunId;
+            }
+            
+            // Otherwise fetch from API
+            try {
+                const response = await fetch('/api/analysis/list');
+                const runs = await response.json();
+                const latestRun = runs.find(run => run.status === 'completed');
+                if (latestRun) {
+                    sessionStorage.setItem('lastRunId', latestRun.run_id);
+                    return latestRun.run_id;
+                }
+            } catch (error) {
+                console.error('Error fetching runs:', error);
+            }
+            return null;
+        }
+
+        // Function to view anomaly report (data quality issues only)
+        async function viewFullDashboard() {
+            const runId = await getLatestRunId();
+            if (runId) {
+                window.location.href = `/api/analysis/anomaly-report/${runId}`;
+            } else {
+                alert('No completed analysis found. Please upload and analyze a file first.');
+            }
+        }
+
+        // Function to view recommendations only
+        async function viewRecommendations() {
+            const runId = await getLatestRunId();
+            if (runId) {
+                window.location.href = `/api/analysis/recommendations/${runId}`;
+            } else {
+                alert('No completed analysis found. Please upload and analyze a file first.');
+            }
+        }
+
+        // Function to view visual reports only
+        async function viewVisualReports() {
+            const runId = await getLatestRunId();
+            if (runId) {
+                window.location.href = `/api/analysis/visual-reports/${runId}`;
+            } else {
+                alert('No completed analysis found. Please upload and analyze a file first.');
+            }
+        }
+
+        // Function to view cleansed data
+        async function viewCleansedData() {
+            const runId = await getLatestRunId();
+            if (runId) {
+                window.location.href = `/api/analysis/cleansed-data/${runId}`;
+            } else {
+                alert('No completed analysis found. Please upload and analyze a file first.');
+            }
+        }
+
+        // Clear session when removing file
+        removeFileBtn.addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fas fa-play-circle me-2"></i> Analyze Data Quality';
+            analyzeBtn.onclick = null;
+            sessionStorage.removeItem('lastRunId');
+        });
+    </script>
+</body>
+</html>

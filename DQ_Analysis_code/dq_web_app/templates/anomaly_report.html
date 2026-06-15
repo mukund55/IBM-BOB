@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Anomaly Report - {{ run.dataset_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .anomaly-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .severity-badge {
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+    .severity-HIGH {
+        background: #dc3545;
+        color: white;
+    }
+    .severity-MEDIUM {
+        background: #ffc107;
+        color: #000;
+    }
+    .severity-LOW {
+        background: #28a745;
+        color: white;
+    }
+    .anomaly-table {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .anomaly-table th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px;
+        text-align: left;
+    }
+    .anomaly-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .anomaly-table tr:hover {
+        background: #f8f9fa;
+    }
+    .stats-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .stats-box h2 {
+        font-size: 3rem;
+        margin: 0;
+    }
+    .stats-box p {
+        margin: 0;
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2><i class="fas fa-exclamation-triangle text-danger"></i> Anomaly Report - Data Quality Issues</h2>
+                    <p class="text-muted mb-0">Dataset: <strong>{{ run.dataset_name }}</strong></p>
+                    <p class="text-muted mb-0">Analysis Date: {{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('analysis.view_results', run_id=run.run_id) }}" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i> Full Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h2>{{ total_issues }}</h2>
+                <p>Total Issues Found</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-box" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                <h2>{{ run.total_records - total_issues if run.total_records else 0 }}</h2>
+                <p>Good Records</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-box" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
+                <h2>{{ "%.2f"|format(run.dq_score|float) if run.dq_score else 'N/A' }}%</h2>
+                <p>Data Quality Score</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anomalies Table -->
+    <div class="anomaly-card">
+        <h4 class="mb-4"><i class="fas fa-list"></i> Detailed Anomaly Breakdown</h4>
+        
+        {% if anomalies %}
+        <div class="table-responsive">
+            <table class="anomaly-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Issue Type</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for anomaly in anomalies %}
+                    <tr>
+                        <td><strong>{{ anomaly.category }}</strong></td>
+                        <td>{{ anomaly.issue_type }}</td>
+                        <td><span class="badge bg-danger">{{ anomaly.count }}</span></td>
+                        <td>{{ "%.2f"|format(anomaly.percentage|float) }}%</td>
+                        <td>
+                            <span class="severity-badge severity-{{ anomaly.severity }}">
+                                {{ anomaly.severity }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-success text-center">
+            <i class="fas fa-check-circle fa-3x mb-3"></i>
+            <h4>No Data Quality Issues Found!</h4>
+            <p>Your data appears to be clean and meets all quality standards.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Info Note -->
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> <strong>Note:</strong> 
+        This report shows all data quality issues found during analysis. 
+        For detailed visualizations and recommendations, visit the full dashboard.
+    </div>
+</div>
+{% endblock %}

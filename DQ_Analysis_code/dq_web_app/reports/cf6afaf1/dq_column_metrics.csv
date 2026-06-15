@@ -1,0 +1,10 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,mixed_types,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+CUSTOMER_ID,integer,5,5,0,0,0.0,5,1.0,"{""3001"": 1, ""3002"": 1, ""3003"": 1, ""3004"": 1, ""3005"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+FIRST_NAME,string,5,5,0,0,0.0,5,1.0,"{""Arjun"": 1, ""Kavya"": 1, ""Sameer"": 1, ""Neha"": 1, ""Rakesh"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+LAST_NAME,string,5,5,0,0,0.0,5,1.0,"{""Mehta"": 1, ""Rao"": 1, ""Patel"": 1, ""Joshi"": 1, ""Verma"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+EMAIL,string,5,4,1,0,20.0,4,0.8,"{""arjun.mehta@gmail.com"": 1, ""kavya.rao@yahoo.com"": 1, ""sameer.patel@company.com"": 1, ""neha.joshi@gmail.com"": 1}",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,80.0
+PHONE,string,5,5,0,0,0.0,5,1.0,"{""9876500001"": 1, ""9876500002"": 1, ""9876500003"": 1, ""9876500004"": 1, ""9876500005"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+GENDER,string,5,5,0,0,0.0,2,0.4,"{""Male"": 3, ""Female"": 2}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+DOB,string,5,5,0,0,0.0,5,1.0,"{""1993-04-12"": 1, ""1995-08-21"": 1, ""1991-11-11"": 1, ""1997-02-28"": 1, ""2032-01-01"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+CITY,string,5,5,0,0,0.0,5,1.0,"{""Pune"": 1, ""Bangalore"": 1, ""Ahmedabad"": 1, ""Mumbai"": 1, ""Delhi"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+SALARY,integer,5,5,0,0,0.0,5,1.0,"{""65000"": 1, ""72000"": 1, ""58000"": 1, ""61000"": 1, ""5000"": 1}",0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,80.0

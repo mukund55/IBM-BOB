@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Enterprise DQ Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .dashboard-container iframe {
+            width: 100%;
+            min-height: 800px;
+            border: none;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stats-card h3 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .stats-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">🎯 DQ Platform</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('upload') }}">
+                    <i class="fas fa-upload"></i> New Analysis
+                </a>
+                <span class="navbar-text text-white me-3 ms-3">{{ current_user.username }}</span>
+                <a class="btn btn-outline-light btn-sm" href="{{ url_for('auth.logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h2><i class="fas fa-chart-line"></i> Data Quality Analysis Results</h2>
+                <p class="text-muted">{{ run.dataset_name }} - Analyzed on {{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <p>DQ Score</p>
+                    <h3>{{ "%.2f"|format(run.dq_score|float) if run.dq_score else 'N/A' }}%</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <p>Total Records</p>
+                    <h3>{{ "{:,}".format(run.total_records) if run.total_records else 'N/A' }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <p>Total Columns</p>
+                    <h3>{{ run.total_columns if run.total_columns else 'N/A' }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <p>Execution Time</p>
+                    <h3>{{ "%.2f"|format(run.execution_time|float) if run.execution_time else 'N/A' }}s</h3>
+                </div>
+            </div>
+        </div>
+
+        {% if run.status == 'completed' and dashboard_html %}
+        
+        <!-- Full Dashboard Section -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dashboard-container">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4><i class="fas fa-chart-bar"></i> Complete Interactive Dashboard</h4>
+                        <div>
+                            <button class="btn btn-primary btn-sm" onclick="openFullscreen()">
+                                <i class="fas fa-expand"></i> Fullscreen
+                            </button>
+                            <a href="{{ url_for('analysis.view_results', run_id=run.run_id) }}" 
+                               class="btn btn-secondary btn-sm" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Open in New Tab
+                            </a>
+                        </div>
+                    </div>
+                    <div id="dashboardFrame">
+                        {{ dashboard_html|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif run.status == 'running' %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-spinner fa-spin"></i> Analysis in Progress</h5>
+                    <p>Please wait while we analyze your data...</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif run.status == 'failed' %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Analysis Failed</h5>
+                    <p>{{ run.error_message or 'An error occurred during analysis.' }}</p>
+                    <a href="{{ url_for('upload') }}" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Try Again
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Analysis Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th width="200">Run ID</th>
+                                <td>{{ run.run_id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dataset Name</th>
+                                <td>{{ run.dataset_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>File Type</th>
+                                <td>{{ run.file_type|upper }}</td>
+                            </tr>
+                            <tr>
+                                <th>File Size</th>
+                                <td>{{ "%.2f"|format(run.file_size / 1024 / 1024) if run.file_size else 'N/A' }} MB</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>
+                                    {% if run.status == 'completed' %}
+                                        <span class="badge bg-success">Completed</span>
+                                    {% elif run.status == 'running' %}
+                                        <span class="badge bg-warning">Running</span>
+                                    {% elif run.status == 'failed' %}
+                                        <span class="badge bg-danger">Failed</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ run.status }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Started At</th>
+                                <td>{{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') if run.started_at else 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Completed At</th>
+                                <td>{{ run.completed_at.strftime('%Y-%m-%d %H:%M:%S') if run.completed_at else 'N/A' }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openFullscreen() {
+            const elem = document.getElementById('dashboardFrame');
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Auto-refresh if status is running
+        {% if run.status == 'running' %}
+        setTimeout(() => {
+            location.reload();
+        }, 5000);
+        {% endif %}
+    </script>
+</body>
+</html>

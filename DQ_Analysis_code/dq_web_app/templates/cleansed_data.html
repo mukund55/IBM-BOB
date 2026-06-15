@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Cleansed Data - {{ run.dataset_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2><i class="fas fa-check-circle text-success"></i> Cleansed Data (Good Records)</h2>
+                    <p class="text-muted mb-0">Dataset: <strong>{{ run.dataset_name }}</strong></p>
+                    <p class="text-muted mb-0">Analysis Date: {{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('analysis.download_cleansed_data', run_id=run.run_id) }}" class="btn btn-success">
+                        <i class="fas fa-download"></i> Download CSV
+                    </a>
+                    <a href="{{ url_for('analysis.view_results', run_id=run.run_id) }}" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i> Full Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <i class="fas fa-database fa-3x text-success mb-3"></i>
+                    <h3 class="mb-0">{{ total_records }}</h3>
+                    <p class="text-muted mb-0">Total Good Records</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info">
+                <div class="card-body text-center">
+                    <i class="fas fa-columns fa-3x text-info mb-3"></i>
+                    <h3 class="mb-0">{{ columns|length }}</h3>
+                    <p class="text-muted mb-0">Columns</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <i class="fas fa-percentage fa-3x text-primary mb-3"></i>
+                    <h3 class="mb-0">{{ "%.1f"|format((total_records / run.total_records * 100) if run.total_records else 0) }}%</h3>
+                    <p class="text-muted mb-0">Data Quality Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if records %}
+    <!-- Data Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-table"></i> Cleansed Data Preview 
+                        <span class="badge bg-light text-dark">Showing first 100 records</span>
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-success sticky-top">
+                                <tr>
+                                    <th class="text-center" style="width: 50px;">#</th>
+                                    {% for col in columns %}
+                                    <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in records %}
+                                <tr>
+                                    <td class="text-center text-muted">{{ loop.index }}</td>
+                                    {% for col in columns %}
+                                    <td>{{ record[col] if record[col] is not none else '<span class="text-muted">NULL</span>' }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <i class="fas fa-info-circle"></i> 
+                    Showing {{ records|length }} of {{ total_records }} total records. 
+                    {% if total_records > 100 %}
+                    Download the full CSV file to see all records.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Usage Instructions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb"></i> How to Use Cleansed Data</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-download text-success"></i> Download</h6>
+                            <p class="text-muted">Click the "Download CSV" button to get the complete cleansed dataset.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-upload text-primary"></i> Load to Target</h6>
+                            <p class="text-muted">Import the cleansed data into your target database or data warehouse.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-sync text-warning"></i> Automate</h6>
+                            <p class="text-muted">Integrate this cleansing process into your ETL pipeline for continuous quality.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- No Good Records -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-warning">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-exclamation-triangle fa-5x text-warning mb-3"></i>
+                    <h3 class="text-warning">No Good Records Found</h3>
+                    <p class="lead">All records in the dataset have data quality issues.</p>
+                    <p class="text-muted">Please review the recommendations and fix the data quality issues before proceeding.</p>
+                    <a href="{{ url_for('analysis.view_recommendations', run_id=run.run_id) }}" class="btn btn-warning mt-3">
+                        <i class="fas fa-lightbulb"></i> View Recommendations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.table {
+    font-size: 0.9rem;
+}
+.table thead th {
+    background-color: #198754;
+    color: white;
+    font-weight: 600;
+    border-bottom: 2px solid #146c43;
+}
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.table-responsive {
+    border: 1px solid #dee2e6;
+}
+</style>
+{% endblock %}

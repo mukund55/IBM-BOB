@@ -1,0 +1,10 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,mixed_types,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+CUSTOMER_ID,integer,10000,10000,0,0,0.0,10000,1.0,"{""1001"": 1, ""1002"": 1, ""1003"": 1, ""1004"": 1, ""1005"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+FIRST_NAME,string,10000,10000,0,0,0.0,10,0.001,"{""Arjun"": 1053, ""Anjali"": 1034, ""Priya"": 1021, ""Amit"": 1017, ""Sameer"": 996}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+LAST_NAME,string,10000,10000,0,0,0.0,10,0.001,"{""Sharma"": 1027, ""Reddy"": 1023, ""Joshi"": 1003, ""Rao"": 1001, ""Patel"": 998}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+EMAIL,string,10000,9750,250,0,2.5,9501,0.9501,"{""invalid@"": 250, ""user1@example.com"": 1, ""user2@example.com"": 1, ""user3@example.com"": 1, ""user4@example.com"": 1}",0,0,0,0,0,0,250,0,0,0,250,0,250,0,0,0,750,92.5
+PHONE,string,10000,9800,200,0,2.0,9601,0.9601,"{""123"": 200, ""9876500001"": 1, ""9876500002"": 1, ""9876500003"": 1, ""9876500004"": 1}",0,0,0,0,0,0,0,0,0,0,200,200,0,0,0,0,400,96.0
+GENDER,string,10000,5839,4161,0,41.61,3,0.0003,"{""Other"": 1969, ""Male"": 1939, ""Female"": 1931}",0,0,0,0,0,0,0,0,0,0,4161,0,0,0,0,0,4161,58.39
+DOB,string,10000,10000,0,0,0.0,7416,0.7416,"{""2050-01-01"": 164, ""invalid"": 146, ""1971-10-08"": 5, ""2000-08-14"": 5, ""1971-05-12"": 4}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+CITY,string,10000,10000,0,0,0.0,8,0.0008,"{""Delhi"": 1328, ""Pune"": 1277, ""Kolkata"": 1265, ""Hyderabad"": 1251, ""Ahmedabad"": 1232}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+SALARY,integer,10000,10000,0,0,0.0,9081,0.9081,"{""1000"": 333, ""1000000"": 15, ""59883"": 3, ""57119"": 3, ""51309"": 3}",0,0,0,0,0,0,0,0,0,0,0,684,0,0,0,0,684,93.16

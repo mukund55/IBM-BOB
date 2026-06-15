@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}Visual Reports - {{ run.dataset_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2><i class="fas fa-chart-pie text-info"></i> Visual Data Quality Reports</h2>
+                    <p class="text-muted mb-0">Dataset: <strong>{{ run.dataset_name }}</strong></p>
+                    <p class="text-muted mb-0">Analysis Date: {{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('analysis.view_results', run_id=run.run_id) }}" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i> Full Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if anomalies %}
+    <!-- Charts Row 1 -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Issues by Category</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-chart-pie"></i> Issue Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="distributionChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Top Issues by Column</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="columnChart" height="150"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-table"></i> Detailed Anomaly Breakdown</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Column Name</th>
+                                    <th class="text-end">Issue Count</th>
+                                    <th class="text-center">Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for anomaly in anomalies %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ anomaly.category.replace('_', ' ').title() }}</span></td>
+                                    <td><code>{{ anomaly.column_name }}</code></td>
+                                    <td class="text-end"><strong class="text-danger">{{ anomaly.count }}</strong></td>
+                                    <td class="text-center">
+                                        {% if anomaly.count > 500 %}
+                                        <span class="badge bg-danger">Critical</span>
+                                        {% elif anomaly.count > 100 %}
+                                        <span class="badge bg-warning">High</span>
+                                        {% else %}
+                                        <span class="badge bg-info">Medium</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- No Issues Found -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-success">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                    <h3 class="text-success">Perfect Data Quality!</h3>
+                    <p class="lead">No anomalies detected in your dataset.</p>
+                    <p class="text-muted">All data quality checks passed successfully.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if anomalies %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+// Prepare data
+const anomalies = {{ anomalies | tojson }};
+
+// Group by category
+const categoryData = {};
+anomalies.forEach(item => {
+    if (!categoryData[item.category]) {
+        categoryData[item.category] = 0;
+    }
+    categoryData[item.category] += item.count;
+});
+
+// Category Bar Chart
+const ctxCategory = document.getElementById('categoryChart').getContext('2d');
+new Chart(ctxCategory, {
+    type: 'bar',
+    data: {
+        labels: Object.keys(categoryData).map(k => k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())),
+        datasets: [{
+            label: 'Issue Count',
+            data: Object.values(categoryData),
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    }
+});
+
+// Distribution Pie Chart
+const ctxDistribution = document.getElementById('distributionChart').getContext('2d');
+new Chart(ctxDistribution, {
+    type: 'doughnut',
+    data: {
+        labels: Object.keys(categoryData).map(k => k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())),
+        datasets: [{
+            data: Object.values(categoryData),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(199, 199, 199, 0.6)',
+                'rgba(83, 102, 255, 0.6)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right'
+            }
+        }
+    }
+});
+
+// Column-wise issues (top 10)
+const columnData = {};
+anomalies.forEach(item => {
+    const key = `${item.column_name}`;
+    if (!columnData[key]) {
+        columnData[key] = 0;
+    }
+    columnData[key] += item.count;
+});
+
+// Sort and get top 10
+const sortedColumns = Object.entries(columnData)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+
+const ctxColumn = document.getElementById('columnChart').getContext('2d');
+new Chart(ctxColumn, {
+    type: 'horizontalBar',
+    data: {
+        labels: sortedColumns.map(item => item[0]),
+        datasets: [{
+            label: 'Total Issues',
+            data: sortedColumns.map(item => item[1]),
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    }
+});
+</script>
+{% endif %}
+
+<style>
+.table code {
+    background-color: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+</style>
+{% endblock %}

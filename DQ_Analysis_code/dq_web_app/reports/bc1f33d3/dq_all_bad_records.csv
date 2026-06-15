@@ -1,0 +1,3 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE,GENDER,DOB,CITY,SALARY
+null_blank,Null values detected in column EMAIL,EMAIL,3005,Rakesh,Verma,,9876500005,Male,2032-01-01,Delhi,5000
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=47500.0, upper=75500.0)",SALARY,3005,Rakesh,Verma,,9876500005,Male,2032-01-01,Delhi,5000
