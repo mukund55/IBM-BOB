@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Ab Initio Code Analyzer v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .upload-area:hover {
+            background: #e9ecef;
+            border-color: #764ba2;
+        }
+        
+        .upload-area.dragover {
+            background: #e7f3ff;
+            border-color: #0066cc;
+        }
+        
+        .upload-icon {
+            font-size: 4em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .upload-hint {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .result-title {
+            font-size: 1.8em;
+            color: #333;
+        }
+        
+        .score-badge {
+            font-size: 2.5em;
+            font-weight: bold;
+            padding: 20px 30px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .detail-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .detail-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .detail-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .dashboards-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-top: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .dashboard-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .dashboard-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .dashboard-item:hover {
+            transform: translateX(5px);
+            background: #e9ecef;
+        }
+        
+        .dashboard-info {
+            flex: 1;
+        }
+        
+        .dashboard-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .dashboard-date {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fee;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Ab Initio Code Analyzer</h1>
+            <p>Upload your Ab Initio files (.mp, .plan, .log) for instant analysis</p>
+        </div>
+        
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">Drop your file here or click to browse</div>
+                <div class="upload-hint">Supported formats: .mp, .plan, .log (Max 16MB)</div>
+            </div>
+            <input type="file" id="fileInput" accept=".mp,.plan,.log">
+            <div style="text-align: center;">
+                <button class="btn" id="uploadBtn" disabled>Analyze File</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing your code... This may take a moment.</p>
+            </div>
+            
+            <div class="error" id="error"></div>
+        </div>
+        
+        <div class="results" id="results">
+            <div class="result-header">
+                <div>
+                    <div class="result-title" id="graphName">Graph Name</div>
+                    <div style="color: #666; margin-top: 5px;" id="fileName">filename.mp</div>
+                </div>
+                <div class="score-badge" id="score">0/100</div>
+            </div>
+            
+            <div class="result-details" id="details"></div>
+            
+            <div class="action-buttons">
+                <button class="btn" id="viewDashboard">📊 View Dashboard</button>
+                <button class="btn" id="updateMapping" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">🔄 Update Mapping</button>
+                <button class="btn" id="downloadOptimized">📥 Download Optimized Code</button>
+                <button class="btn" id="downloadReport">📄 Download Report</button>
+                <button class="btn" id="uploadAnother">🔁 Analyze Another File</button>
+            </div>
+            
+            <div id="updateSuccess" style="display:none; background: #d1fae5; border: 2px solid #10b981; color: #065f46; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center;">
+                <h3 style="margin-bottom: 10px;">✅ Mapping Updated Successfully!</h3>
+                <p id="updateMessage"></p>
+            </div>
+        </div>
+        
+        <div class="dashboards-section">
+            <h2 class="section-title">📊 Recent Dashboards</h2>
+            <div class="dashboard-list" id="dashboardList">
+                <p style="text-align: center; color: #666;">Loading dashboards...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const results = document.getElementById('results');
+        const updateSuccess = document.getElementById('updateSuccess');
+        let selectedFile = null;
+        let currentDashboard = null;
+        let currentFilename = null;
+        let optimizedFile = null;
+        let reportFile = null;
+        
+        // Drag and drop
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        function handleFileSelect(file) {
+            selectedFile = file;
+            uploadBtn.disabled = false;
+            uploadArea.querySelector('.upload-text').textContent = `Selected: ${file.name}`;
+        }
+        
+        uploadBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+            
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            
+            loading.classList.add('show');
+            error.classList.remove('show');
+            results.classList.remove('show');
+            uploadBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                displayResults(data);
+                loadDashboards();
+            } catch (err) {
+                error.textContent = `Error: ${err.message}`;
+                error.classList.add('show');
+            } finally {
+                loading.classList.remove('show');
+                uploadBtn.disabled = false;
+            }
+        });
+        
+        function displayResults(data) {
+            document.getElementById('graphName').textContent = data.graph_name;
+            document.getElementById('fileName').textContent = data.filename;
+            document.getElementById('score').textContent = `${data.optimization_score.toFixed(1)}/100`;
+            
+            const details = document.getElementById('details');
+            details.innerHTML = '';
+            
+            const summary = data.summary || {};
+            const items = [
+                { label: 'Critical', value: summary.CRITICAL || 0 },
+                { label: 'High', value: summary.HIGH || 0 },
+                { label: 'Medium', value: summary.MEDIUM || 0 },
+                { label: 'Low', value: summary.LOW || 0 },
+                { label: 'Info', value: summary.INFO || 0 }
+            ];
+            
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'detail-card';
+                card.innerHTML = `
+                    <div class="detail-label">${item.label}</div>
+                    <div class="detail-value">${item.value}</div>
+                `;
+                details.appendChild(card);
+            });
+            
+            currentDashboard = data.dashboard_file;
+            currentFilename = data.filename;
+            optimizedFile = data.optimized_file;
+            reportFile = data.optimization_report;
+            
+            // All buttons are now always visible
+            // No need to hide/show based on optimization availability
+            
+            updateSuccess.style.display = 'none';
+            results.classList.add('show');
+        }
+        
+        document.getElementById('viewDashboard').addEventListener('click', () => {
+            if (currentDashboard) {
+                window.open(`/dashboard/${currentDashboard}`, '_blank');
+            }
+        });
+        
+        document.getElementById('updateMapping').addEventListener('click', async () => {
+            if (!currentFilename) return;
+            
+            if (!confirm('⚠️ This will update the original file in Abinitio_code folder with optimizations.\n\nA backup will be created (.backup extension).\n\nDo you want to continue?')) {
+                return;
+            }
+            
+            loading.classList.add('show');
+            error.classList.remove('show');
+            updateSuccess.style.display = 'none';
+            
+            try {
+                const response = await fetch('/update-mapping', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ filename: currentFilename })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                // Show success message
+                document.getElementById('updateMessage').innerHTML = `
+                    <strong>${data.message}</strong><br>
+                    New optimized version: <strong>${data.versioned_file}</strong><br>
+                    Original file preserved. Version ${data.version} created with all optimizations.
+                `;
+                updateSuccess.style.display = 'block';
+                
+                // Keep the update button visible for next file
+                // User might want to update another file
+                
+            } catch (err) {
+                error.textContent = `Update failed: ${err.message}`;
+                error.classList.add('show');
+            } finally {
+                loading.classList.remove('show');
+            }
+        });
+        
+        document.getElementById('downloadOptimized').addEventListener('click', () => {
+            if (optimizedFile) {
+                window.location.href = `/download/${optimizedFile}`;
+            }
+        });
+        
+        document.getElementById('downloadReport').addEventListener('click', () => {
+            if (reportFile) {
+                window.location.href = `/download/${reportFile}`;
+            }
+        });
+        
+        document.getElementById('uploadAnother').addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            uploadArea.querySelector('.upload-text').textContent = 'Drop your file here or click to browse';
+            uploadBtn.disabled = true;
+            results.classList.remove('show');
+            updateSuccess.style.display = 'none';
+            currentFilename = null;
+            optimizedFile = null;
+            reportFile = null;
+        });
+        
+        async function loadDashboards() {
+            try {
+                const response = await fetch('/list-dashboards');
+                const data = await response.json();
+                
+                const list = document.getElementById('dashboardList');
+                list.innerHTML = '';
+                
+                if (data.dashboards && data.dashboards.length > 0) {
+                    data.dashboards.forEach(dash => {
+                        const item = document.createElement('div');
+                        item.className = 'dashboard-item';
+                        item.innerHTML = `
+                            <div class="dashboard-info">
+                                <div class="dashboard-name">${dash.name}</div>
+                                <div class="dashboard-date">Modified: ${dash.modified}</div>
+                            </div>
+                            <button class="btn" onclick="window.open('/dashboard/${dash.name}', '_blank')">View</button>
+                        `;
+                        list.appendChild(item);
+                    });
+                } else {
+                    list.innerHTML = '<p style="text-align: center; color: #666;">No dashboards available yet.</p>';
+                }
+            } catch (err) {
+                console.error('Error loading dashboards:', err);
+            }
+        }
+        
+        // Load dashboards on page load
+        loadDashboards();
+    </script>
+</body>
+</html>

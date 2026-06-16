@@ -1,10 +1,3 @@
-################################################################################
-# OPTIMIZED Ab Initio Code
-# Original: casting_join_keys.mp
-# Optimized: 2026-06-16 17:24:11
-# Optimizations Applied: 0
-################################################################################
-
 @
 {18|Type|XXGrepository|Primary_Name|XXGgraph|_ab_object_schema|0|_ab_semantic_schema|6|eme_flatten_format|1|schema_version|34|root_id|0|ent_count|85|rel_count|176|}
 {2010001002|XXGdirectory|0|1|1|0|{@{}@}}

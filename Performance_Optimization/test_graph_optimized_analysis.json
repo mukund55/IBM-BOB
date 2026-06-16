@@ -1,0 +1,125 @@
+{
+  "file_path": "Abinitio_code\\test_graph_optimized.mp",
+  "graph_name": "test_graph_optimized",
+  "optimization_score": 97.5,
+  "checkpoints_passed": 13,
+  "checkpoints_applicable": 13,
+  "checkpoints_total": 60,
+  "completion_percentage": 100.0,
+  "checklist_score": {
+    "partitioning": 90.0,
+    "sorting": 100.0,
+    "join_efficiency": 100.0,
+    "aggregation_strategy": 100.0,
+    "resource_utilization": 100.0,
+    "pdl_quality": 100.0,
+    "maintainability": 100.0
+  },
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 1,
+    "LOW": 0,
+    "INFO": 10
+  },
+  "components": [
+    {
+      "name": "Input File",
+      "type": "input_file",
+      "parameters": {
+        "Layout": "file:$AI_SERIAL/no_dup_file.dat",
+        "read_metadata": "record\n  string('\\\\n') dup_field;\nend"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "severity": "INFO",
+      "category": "Graph Architecture",
+      "checkpoint": "Graph has clear logical flow",
+      "component": "Graph",
+      "message": "Graph contains 1 components",
+      "suggestion": "Ensure components are organized logically and parallel processing is utilized where possible"
+    },
+    {
+      "severity": "INFO",
+      "category": "Metadata Standards",
+      "checkpoint": "Data types correctly defined",
+      "component": "Input File",
+      "message": "Verify data types match source system",
+      "suggestion": "Review DML to ensure decimal precision, string lengths, and date formats are correct"
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Partitioning Strategy",
+      "checkpoint": "Partitioning chosen appropriately",
+      "component": "Graph",
+      "message": "Partitioning configuration not visible in MP file",
+      "suggestion": "Review graph properties:\n  \u2022 For sorted rollup: 2-8 partitions (parallel processing)\n  \u2022 For in-memory rollup: 1-2 partitions (maximize memory per partition)\n  \u2022 Consider data volume and system resources\n  \u2022 Maintain partition preservation where possible"
+    },
+    {
+      "severity": "INFO",
+      "category": "Partitioning Strategy",
+      "checkpoint": "Unnecessary repartitioning avoided",
+      "component": "Graph",
+      "message": "Review partition flow to avoid unnecessary repartitioning",
+      "suggestion": "Use 'Same' partitioning to preserve partitions between components when possible"
+    },
+    {
+      "severity": "INFO",
+      "category": "Join Optimization",
+      "checkpoint": "Join optimization review",
+      "component": "Graph",
+      "message": "Join components not detected in MP file",
+      "suggestion": "If graph contains joins, ensure:\n  \u2022 Join keys are indexed/sorted\n  \u2022 Smaller datasets joined first\n  \u2022 Appropriate join type selected\n  \u2022 Partition compatibility verified\n  \u2022 Consider lookup alternatives for small reference data"
+    },
+    {
+      "severity": "INFO",
+      "category": "File Handling",
+      "checkpoint": "File naming standards followed",
+      "component": "Input File",
+      "message": "Using parameterized file paths",
+      "suggestion": "Good practice: Parameters enable environment flexibility"
+    },
+    {
+      "severity": "INFO",
+      "category": "File Handling",
+      "checkpoint": "File compression strategy reviewed",
+      "component": "Graph",
+      "message": "Review file compression settings",
+      "suggestion": "Consider compression for large files to reduce I/O and storage costs"
+    },
+    {
+      "severity": "INFO",
+      "category": "Error Handling",
+      "checkpoint": "Reject records captured",
+      "component": "Graph",
+      "message": "Reject port handling detected",
+      "suggestion": "Good practice: Capture and analyze rejected records for data quality monitoring"
+    },
+    {
+      "severity": "INFO",
+      "category": "Error Handling",
+      "checkpoint": "Logging sufficient",
+      "component": "Graph",
+      "message": "Review logging configuration",
+      "suggestion": "Ensure adequate logging for troubleshooting: record counts, error messages, timing information"
+    },
+    {
+      "severity": "INFO",
+      "category": "Production Readiness",
+      "checkpoint": "Parameterization implemented",
+      "component": "Graph",
+      "message": "Found 82 parameter references",
+      "suggestion": "Good practice: Parameterization enables environment-independent deployment"
+    },
+    {
+      "severity": "INFO",
+      "category": "Production Readiness",
+      "checkpoint": "Environment-independent design",
+      "component": "Graph",
+      "message": "Verify graph works across environments",
+      "suggestion": "Test in DEV, QA, and PROD environments to ensure portability"
+    }
+  ]
+}

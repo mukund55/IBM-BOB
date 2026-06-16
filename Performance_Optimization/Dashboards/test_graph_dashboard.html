@@ -1,17 +1,4 @@
-#!/usr/bin/env python3
-"""
-Ab Initio Analysis Dashboard Generator
-Creates interactive HTML dashboards for plan and MP file analysis results
-"""
-
-import json
-import argparse
-from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Any
-
-
-HTML_TEMPLATE = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -418,58 +405,261 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         <div class="summary-cards">
             <div class="card score-card">
                 <div class="card-title">Optimization Score</div>
-                <div class="card-value">{optimization_score}/100</div>
+                <div class="card-value">97.5/100</div>
                 <div class="score-gauge">
-                    <div class="score-fill" style="width: {optimization_score}%"></div>
+                    <div class="score-fill" style="width: 97.5%"></div>
                 </div>
-                <div class="card-subtitle">{score_rating}</div>
+                <div class="card-subtitle">Excellent</div>
             </div>
             
             <div class="card">
                 <div class="card-title">Graph Name</div>
-                <div class="card-value" style="font-size: 1.5em;">{graph_name}</div>
-                <div class="card-subtitle">{file_type} File</div>
+                <div class="card-value" style="font-size: 1.5em;">test_graph</div>
+                <div class="card-subtitle">MP File</div>
             </div>
             
             <div class="card">
                 <div class="card-title">Components</div>
-                <div class="card-value">{total_components}</div>
+                <div class="card-value">1</div>
                 <div class="card-subtitle">Analyzed</div>
             </div>
             
             <div class="card">
+                <div class="card-title">Checkpoints</div>
+                <div class="card-value">13/13</div>
+                <div class="card-subtitle">100.0% Complete</div>
+            </div>
+            
+            <div class="card">
                 <div class="card-title">Total Issues</div>
-                <div class="card-value">{total_issues}</div>
-                <div class="card-subtitle">{critical_count} Critical, {high_count} High</div>
+                <div class="card-value">11</div>
+                <div class="card-subtitle">0 Critical, 0 High</div>
             </div>
         </div>
         
         <div class="content">
-            {components_section}
+            <div class="section"><h2 class="section-title">🔧 Components</h2><div class="components-grid">
+        <div class="component-card">
+            <div class="component-header">
+                <div class="component-name">Input File</div>
+                <div class="component-type">input_file</div>
+            </div>
+            <div class="component-params">
+        
+                <div class="param-row">
+                    <div class="param-key">Layout</div>
+                    <div class="param-value">file:$AI_SERIAL/no_dup_file.dat</div>
+                </div>
+            
+                <div class="param-row">
+                    <div class="param-key">read_metadata</div>
+                    <div class="param-value">record
+  string('\\n') dup_field;
+end</div>
+                </div>
+            </div></div></div></div>
             
             <div class="section">
                 <h2 class="section-title">📊 Issues by Severity</h2>
                 <div class="filter-buttons">
                     <button class="filter-btn active" onclick="filterIssues('all')">All Issues</button>
-                    <button class="filter-btn" onclick="filterIssues('CRITICAL')">Critical ({critical_count})</button>
-                    <button class="filter-btn" onclick="filterIssues('HIGH')">High ({high_count})</button>
-                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium ({medium_count})</button>
-                    <button class="filter-btn" onclick="filterIssues('LOW')">Low ({low_count})</button>
-                    <button class="filter-btn" onclick="filterIssues('INFO')">Info ({info_count})</button>
+                    <button class="filter-btn" onclick="filterIssues('CRITICAL')">Critical (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('HIGH')">High (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (1)</button>
+                    <button class="filter-btn" onclick="filterIssues('LOW')">Low (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (10)</button>
                 </div>
                 
                 <div class="issues-container">
-                    {issues_html}
+                    
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Graph Architecture</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Graph contains 1 components</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Ensure components are organized logically and parallel processing is utilized where possible</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Input File</span>
+                    <span class="issue-category">Metadata Standards</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Verify data types match source system</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Review DML to ensure decimal precision, string lengths, and date formats are correct</div>
+            </div>
+            </div>
+        <div class="issue-card issue-medium" data-severity="MEDIUM">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Partitioning Strategy</span>
+                </div>
+                <span class="issue-severity severity-medium">MEDIUM</span>
+            </div>
+            <div class="issue-message">Partitioning configuration not visible in MP file</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Review graph properties:
+  • For sorted rollup: 2-8 partitions (parallel processing)
+  • For in-memory rollup: 1-2 partitions (maximize memory per partition)
+  • Consider data volume and system resources
+  • Maintain partition preservation where possible</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Partitioning Strategy</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Review partition flow to avoid unnecessary repartitioning</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Use 'Same' partitioning to preserve partitions between components when possible</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Join Optimization</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Join components not detected in MP file</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">If graph contains joins, ensure:
+  • Join keys are indexed/sorted
+  • Smaller datasets joined first
+  • Appropriate join type selected
+  • Partition compatibility verified
+  • Consider lookup alternatives for small reference data</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Input File</span>
+                    <span class="issue-category">File Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Using parameterized file paths</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Parameters enable environment flexibility</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">File Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Review file compression settings</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Consider compression for large files to reduce I/O and storage costs</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Error Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Reject port handling detected</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Capture and analyze rejected records for data quality monitoring</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Error Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Review logging configuration</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Ensure adequate logging for troubleshooting: record counts, error messages, timing information</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Production Readiness</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Found 82 parameter references</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Parameterization enables environment-independent deployment</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Production Readiness</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Verify graph works across environments</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Test in DEV, QA, and PROD environments to ensure portability</div>
+            </div>
+            </div>
                 </div>
             </div>
             
-            {insights_section}
+            
+    <div class="insights-box">
+        <h3 class="insights-title">💡 Key Optimization Insights</h3>
+        <ul class="insights-list">
+    <li>In-memory rollup is optimized for small to medium datasets</li><li>Adjust max-core parameter based on actual data volume</li><li>Monitor memory usage to prevent disk spilling</li><li>Use parameterized paths for environment flexibility</li><li>Implement reject ports for robust error handling</li><li>Consider sorted rollup for very large datasets (>10M records)</li></ul></div>
         </div>
         
         <div class="footer">
             <p><strong>Generated by Ab Initio Code Analyzer</strong></p>
-            <p class="timestamp">Analysis Date: {timestamp}</p>
-            <p class="timestamp">File: {file_path}</p>
+            <p class="timestamp">Analysis Date: 2026-06-16 18:15:05</p>
+            <p class="timestamp">File: Abinitio_code\test_graph.mp</p>
         </div>
     </div>
     
@@ -502,222 +692,3 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     </script>
 </body>
 </html>
-"""
-
-
-def get_score_rating(score: float) -> str:
-    """Get rating based on score"""
-    if score >= 90:
-        return "Excellent"
-    elif score >= 75:
-        return "Good"
-    elif score >= 60:
-        return "Fair"
-    elif score >= 40:
-        return "Needs Improvement"
-    else:
-        return "Critical Issues"
-
-
-def generate_components_html(components: List[Dict]) -> str:
-    """Generate HTML for components section"""
-    if not components:
-        return ""
-    
-    html = '<div class="section"><h2 class="section-title">🔧 Components</h2><div class="components-grid">'
-    
-    for comp in components:
-        html += f'''
-        <div class="component-card">
-            <div class="component-header">
-                <div class="component-name">{comp['name']}</div>
-                <div class="component-type">{comp['type']}</div>
-            </div>
-            <div class="component-params">
-        '''
-        
-        for key, value in comp.get('parameters', {}).items():
-            # Truncate long values
-            display_value = str(value)
-            if len(display_value) > 100:
-                display_value = display_value[:97] + "..."
-            
-            html += f'''
-                <div class="param-row">
-                    <div class="param-key">{key}</div>
-                    <div class="param-value">{display_value}</div>
-                </div>
-            '''
-        
-        html += '</div></div>'
-    
-    html += '</div></div>'
-    return html
-
-
-def generate_issues_html(issues: List[Dict]) -> str:
-    """Generate HTML for issues"""
-    if not issues:
-        return '<p style="text-align: center; color: #10b981; font-size: 1.2em; padding: 40px;">✓ No issues found! Code follows best practices.</p>'
-    
-    html = ""
-    
-    for issue in issues:
-        severity = issue['severity']
-        severity_class = severity.lower()
-        
-        html += f'''
-        <div class="issue-card issue-{severity_class}" data-severity="{severity}">
-            <div class="issue-header">
-                <div>
-                    <span class="issue-component">{issue['component']}</span>
-                    <span class="issue-category">{issue['category']}</span>
-                </div>
-                <span class="issue-severity severity-{severity_class}">{severity}</span>
-            </div>
-            <div class="issue-message">{issue['message']}</div>
-        '''
-        
-        if issue.get('suggestion'):
-            html += f'''
-            <div class="issue-suggestion">
-                <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">{issue['suggestion']}</div>
-            </div>
-            '''
-        
-        html += '</div>'
-    
-    return html
-
-
-def generate_insights_html(file_type: str) -> str:
-    """Generate insights section"""
-    if file_type == "MP":
-        insights = [
-            "In-memory rollup is optimized for small to medium datasets",
-            "Adjust max-core parameter based on actual data volume",
-            "Monitor memory usage to prevent disk spilling",
-            "Use parameterized paths for environment flexibility",
-            "Implement reject ports for robust error handling",
-            "Consider sorted rollup for very large datasets (>10M records)"
-        ]
-    else:
-        insights = [
-            "Enable parallel processing with appropriate partitioning",
-            "Use broadcast joins for small reference data",
-            "Replace hardcoded paths with parameters",
-            "Implement reject ports for error handling",
-            "Consolidate multiple reformat operations",
-            "Ensure inputs are sorted before joins"
-        ]
-    
-    html = '''
-    <div class="insights-box">
-        <h3 class="insights-title">💡 Key Optimization Insights</h3>
-        <ul class="insights-list">
-    '''
-    
-    for insight in insights:
-        html += f'<li>{insight}</li>'
-    
-    html += '</ul></div>'
-    return html
-
-
-def generate_dashboard(json_file: Path, output_file: Path) -> None:
-    """Generate HTML dashboard from JSON analysis results"""
-    
-    # Read JSON data with encoding detection
-    try:
-        with open(json_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except UnicodeDecodeError:
-        # Try UTF-16 encoding
-        with open(json_file, 'r', encoding='utf-16') as f:
-            data = json.load(f)
-    
-    # Determine file type
-    file_type = "MP" if "inmemory" in str(json_file).lower() or ".mp" in data.get('file_path', '') else "Plan"
-    
-    # Extract data
-    graph_name = data.get('graph_name', 'Unknown')
-    optimization_score = data.get('optimization_score', 0)
-    components = data.get('components', [])
-    issues = data.get('issues', [])
-    summary = data.get('summary', {})
-    file_path = data.get('file_path', 'Unknown')
-    
-    # Calculate totals
-    total_components = len(components) if components else data.get('total_components', 0)
-    total_issues = sum(summary.values())
-    
-    # Generate HTML sections
-    components_html = generate_components_html(components) if components else ""
-    issues_html = generate_issues_html(issues)
-    insights_html = generate_insights_html(file_type)
-    
-    # Fill template using replace instead of format to avoid CSS brace issues
-    html_content = HTML_TEMPLATE
-    replacements = {
-        '{graph_name}': graph_name,
-        '{file_type}': file_type,
-        '{optimization_score}': f"{optimization_score:.1f}",
-        '{score_rating}': get_score_rating(optimization_score),
-        '{total_components}': str(total_components),
-        '{total_issues}': str(total_issues),
-        '{critical_count}': str(summary.get('CRITICAL', 0)),
-        '{high_count}': str(summary.get('HIGH', 0)),
-        '{medium_count}': str(summary.get('MEDIUM', 0)),
-        '{low_count}': str(summary.get('LOW', 0)),
-        '{info_count}': str(summary.get('INFO', 0)),
-        '{components_section}': components_html,
-        '{issues_html}': issues_html,
-        '{insights_section}': insights_html,
-        '{timestamp}': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        '{file_path}': file_path
-    }
-    
-    for placeholder, value in replacements.items():
-        html_content = html_content.replace(placeholder, value)
-    
-    # Write HTML file
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(html_content)
-    
-    print(f"[SUCCESS] Dashboard generated successfully: {output_file}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate HTML dashboard from Ab Initio analysis JSON")
-    parser.add_argument("json_file", help="Path to JSON analysis results file")
-    parser.add_argument("-o", "--output", help="Output HTML file path", default=None)
-    
-    args = parser.parse_args()
-    
-    json_file = Path(args.json_file)
-    
-    if not json_file.exists():
-        print(f"Error: JSON file not found: {json_file}")
-        return 1
-    
-    # Determine output file
-    if args.output:
-        output_file = Path(args.output)
-    else:
-        output_file = json_file.with_suffix('.html')
-    
-    try:
-        generate_dashboard(json_file, output_file)
-        return 0
-    except Exception as e:
-        print(f"Error generating dashboard: {e}")
-        import traceback
-        traceback.print_exc()
-        return 1
-
-
-if __name__ == "__main__":
-    exit(main())
-
-# Made with Bob

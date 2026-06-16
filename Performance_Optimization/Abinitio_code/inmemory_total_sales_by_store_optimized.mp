@@ -1,53 +1,7 @@
 ################################################################################
 # OPTIMIZED Ab Initio Code - 100% Optimization Target
 # Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 18:00:16
-# Optimizations Applied: 1
-# Target Score: 100/100
-################################################################################
-
-
-################################################################################
-# PARTITIONING OPTIMIZED FOR IN-MEMORY ROLLUP
-################################################################################
-# Recommended partitioning for in-memory rollup: 1-2 partitions
-# - Maximizes memory available per partition
-# - Reduces overhead of managing multiple partitions
-# - Set in graph properties: Layout > Partitioning
-#
-# For this in-memory rollup:
-# - Use 1 partition for small datasets (<1M records)
-# - Use 2 partitions for medium datasets (1M-10M records)
-# - Consider sorted rollup for larger datasets
-################################################################################
-
-################################################################################
-# OPTIMIZED Ab Initio Code - 100% Optimization Target
-# Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 17:59:15
-# Optimizations Applied: 1
-# Target Score: 100/100
-################################################################################
-
-
-################################################################################
-# PARTITIONING OPTIMIZED FOR IN-MEMORY ROLLUP
-################################################################################
-# Recommended partitioning for in-memory rollup: 1-2 partitions
-# - Maximizes memory available per partition
-# - Reduces overhead of managing multiple partitions
-# - Set in graph properties: Layout > Partitioning
-#
-# For this in-memory rollup:
-# - Use 1 partition for small datasets (<1M records)
-# - Use 2 partitions for medium datasets (1M-10M records)
-# - Consider sorted rollup for larger datasets
-################################################################################
-
-################################################################################
-# OPTIMIZED Ab Initio Code - 100% Optimization Target
-# Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 17:56:17
+# Optimized: 2026-06-16 17:55:35
 # Optimizations Applied: 2
 # Target Score: 100/100
 ################################################################################

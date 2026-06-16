@@ -405,9 +405,9 @@
         <div class="summary-cards">
             <div class="card score-card">
                 <div class="card-title">Optimization Score</div>
-                <div class="card-value">100.0/100</div>
+                <div class="card-value">96.5/100</div>
                 <div class="score-gauge">
-                    <div class="score-fill" style="width: 100.0%"></div>
+                    <div class="score-fill" style="width: 96.5%"></div>
                 </div>
                 <div class="card-subtitle">Excellent</div>
             </div>
@@ -420,13 +420,19 @@
             
             <div class="card">
                 <div class="card-title">Components</div>
-                <div class="card-value">2</div>
+                <div class="card-value">3</div>
                 <div class="card-subtitle">Analyzed</div>
             </div>
             
             <div class="card">
+                <div class="card-title">Checkpoints</div>
+                <div class="card-value">23/24</div>
+                <div class="card-subtitle">95.8% Complete</div>
+            </div>
+            
+            <div class="card">
                 <div class="card-title">Total Issues</div>
-                <div class="card-value">5</div>
+                <div class="card-value">16</div>
                 <div class="card-subtitle">0 Critical, 0 High</div>
             </div>
         </div>
@@ -462,19 +468,34 @@
             </div></div>
         <div class="component-card">
             <div class="component-header">
-                <div class="component-name">Input File (Transactions)</div>
+                <div class="component-name">Input File</div>
                 <div class="component-type">input_file</div>
             </div>
             <div class="component-params">
         
                 <div class="param-row">
                     <div class="param-key">Layout</div>
-                    <div class="param-value">file:$AI_SERIAL/transactions.dat</div>
+                    <div class="param-value">file:$AI_SERIAL/product_sales_report.dat</div>
                 </div>
             
                 <div class="param-row">
                     <div class="param-key">read_metadata</div>
-                    <div class="param-value">$AI_DML/transactions.dml</div>
+                    <div class="param-value">$AI_DML/products.dml</div>
+                </div>
+            </div></div>
+        <div class="component-card">
+            <div class="component-header">
+                <div class="component-name">Output File</div>
+                <div class="component-type">output_file</div>
+            </div>
+            <div class="component-params">
+        
+                <div class="param-row">
+                    <div class="param-key">write_metadata</div>
+                    <div class="param-value">record
+  decimal("\\t") store_no = 0000;
+  decimal("\\t") zipcode = "";
+  string("\\t") product_c...</div>
                 </div>
             </div></div></div></div>
             
@@ -484,9 +505,9 @@
                     <button class="filter-btn active" onclick="filterIssues('all')">All Issues</button>
                     <button class="filter-btn" onclick="filterIssues('CRITICAL')">Critical (0)</button>
                     <button class="filter-btn" onclick="filterIssues('HIGH')">High (0)</button>
-                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (0)</button>
+                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (2)</button>
                     <button class="filter-btn" onclick="filterIssues('LOW')">Low (0)</button>
-                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (5)</button>
+                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (14)</button>
                 </div>
                 
                 <div class="issues-container">
@@ -494,88 +515,250 @@
         <div class="issue-card issue-info" data-severity="INFO">
             <div class="issue-header">
                 <div>
-                    <span class="issue-component">Rollup</span>
-                    <span class="issue-category">Configuration</span>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Graph Architecture</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Rollup is configured for sorted input processing</div>
+            <div class="issue-message">Graph contains 3 components</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Sorted rollup is memory-efficient for large datasets. Ensure input data is properly sorted by the key field(s).</div>
+                <div class="suggestion-text">Ensure components are organized logically and parallel processing is utilized where possible</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
             <div class="issue-header">
                 <div>
-                    <span class="issue-component">Input File (Transactions)</span>
-                    <span class="issue-category">Configuration</span>
+                    <span class="issue-component">Input File</span>
+                    <span class="issue-category">Metadata Standards</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Using parameter $AI_SERIAL for file path</div>
+            <div class="issue-message">Using external DML file - good practice</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Good practice: Using parameters for file paths enables environment flexibility. Ensure $AI_SERIAL is properly defined in your environment.</div>
+                <div class="suggestion-text">Ensure DML is version-controlled and reusable across graphs</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
             <div class="issue-header">
                 <div>
-                    <span class="issue-component">Input File (Transactions)</span>
-                    <span class="issue-category">Configuration</span>
+                    <span class="issue-component">Input File</span>
+                    <span class="issue-category">Metadata Standards</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Using parameterized DML path ($AI_DML)</div>
+            <div class="issue-message">Verify data types match source system</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Good practice: Centralized DML management improves maintainability.</div>
+                <div class="suggestion-text">Review DML to ensure decimal precision, string lengths, and date formats are correct</div>
+            </div>
+            </div>
+        <div class="issue-card issue-medium" data-severity="MEDIUM">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Partitioning Strategy</span>
+                </div>
+                <span class="issue-severity severity-medium">MEDIUM</span>
+            </div>
+            <div class="issue-message">Partitioning configuration not visible in MP file</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Review graph properties:
+  • For sorted rollup: 2-8 partitions (parallel processing)
+  • For in-memory rollup: 1-2 partitions (maximize memory per partition)
+  • Consider data volume and system resources
+  • Maintain partition preservation where possible</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
             <div class="issue-header">
                 <div>
                     <span class="issue-component">Graph</span>
-                    <span class="issue-category">Performance</span>
+                    <span class="issue-category">Partitioning Strategy</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Partitioning configuration not visible in MP file</div>
+            <div class="issue-message">Review partition flow to avoid unnecessary repartitioning</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Ensure appropriate partitioning is set in graph properties:
-  - For in-memory rollup: 1-2 partitions (to maximize memory per partition)
-  - For sorted rollup: 2-8 partitions (for parallel processing)
-  - Consider data volume and available system resources</div>
+                <div class="suggestion-text">Use 'Same' partitioning to preserve partitions between components when possible</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
             <div class="issue-header">
                 <div>
                     <span class="issue-component">Rollup</span>
-                    <span class="issue-category">Optimization</span>
+                    <span class="issue-category">Sort Optimization</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Sorted rollup optimization strategy</div>
+            <div class="issue-message">Sorted rollup requires pre-sorted input</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Sorted rollup advantages:
-  + Memory-efficient for large datasets
-  + Predictable memory usage
-  + Deterministic output order
-
-Optimization tips:
-  - Ensure input is properly sorted by key
-  - Use parallel sort with appropriate partitions
-  - Consider in-memory rollup for smaller datasets
-  - Enable check-sort to validate input order</div>
+                <div class="suggestion-text">Ensure upstream Sort component exists and sort order matches rollup key</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Join Optimization</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Join components not detected in MP file</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">If graph contains joins, ensure:
+  • Join keys are indexed/sorted
+  • Smaller datasets joined first
+  • Appropriate join type selected
+  • Partition compatibility verified
+  • Consider lookup alternatives for small reference data</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">Aggregation</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Rollup key: product_cd</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Ensure rollup key matches business requirements and is not over-aggregated</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">Aggregation</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Rollup component detected</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Perform aggregation as early as possible to reduce data volume for downstream processing</div>
+            </div>
+            </div>
+        <div class="issue-card issue-medium" data-severity="MEDIUM">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">PDL Quality</span>
+                </div>
+                <span class="issue-severity severity-medium">MEDIUM</span>
+            </div>
+            <div class="issue-message">No explicit null handling detected</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Add null checks to prevent errors: if (is_null(field)) then default_value else field</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Input File</span>
+                    <span class="issue-category">File Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Using parameterized file paths</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Parameters enable environment flexibility</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">File Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Review file compression settings</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Consider compression for large files to reduce I/O and storage costs</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Error Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Reject port handling detected</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Capture and analyze rejected records for data quality monitoring</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Error Handling</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Review logging configuration</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Ensure adequate logging for troubleshooting: record counts, error messages, timing information</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Production Readiness</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Found 368 parameter references</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Good practice: Parameterization enables environment-independent deployment</div>
+            </div>
+            </div>
+        <div class="issue-card issue-info" data-severity="INFO">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Graph</span>
+                    <span class="issue-category">Production Readiness</span>
+                </div>
+                <span class="issue-severity severity-info">INFO</span>
+            </div>
+            <div class="issue-message">Verify graph works across environments</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Test in DEV, QA, and PROD environments to ensure portability</div>
             </div>
             </div>
                 </div>
@@ -590,7 +773,7 @@ Optimization tips:
         
         <div class="footer">
             <p><strong>Generated by Ab Initio Code Analyzer</strong></p>
-            <p class="timestamp">Analysis Date: 2026-06-10 11:33:25</p>
+            <p class="timestamp">Analysis Date: 2026-06-16 17:19:11</p>
             <p class="timestamp">File: Abinitio_code\paralleldesign_intentionally_unoptimized.mp</p>
         </div>
     </div>

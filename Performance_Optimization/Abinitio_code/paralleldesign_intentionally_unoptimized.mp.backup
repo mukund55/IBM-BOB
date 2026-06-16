@@ -16,14 +16,21 @@ Run performed by user MukundSVaidya
 ||||@|33208831|}}
 {2010705002|XXGrunsettings|3|0|5|0|{@{}@ETL DEV Execution||||1|60|0|1|1|0|0|0|0|1|1|0|0|1|2|1|1|0|0|0|@16|}}
 {2010242002|XXGface|4|0|7|0|{@{}@Arial|0|160|0|}}
-{2010240003|XXGlegend|5|0|9|0|{@{}@This graph has unnecessary repartitioning because the components that use "store_no" as part or
-all of the key are separated by the components that use \{product_cd\} as the key. 
+{2010240003|XXGlegend|5|0|9|0|{@{}@INTENTIONALLY UNOPTIMIZED VERSION
 
-Rearrange the components in the graph to eliminate the unnecessary repartitioning.  [Hint: Try doing
-the Join with the Products data first.] Run the graph and check the output to make sure that 
-it works correctly after you've changed the graph.
+Performance anti-patterns intentionally introduced:
+- Excessive repartitioning between store_no and product_cd keys
+- Redundant Sort operations before and after joins
+- Multiple Partition by Key stages on different keys
+- Loss of partition preservation between downstream components
+- Additional data movement across partitions
 
-How many Partition by Key and Sort components were you able to delete?|36000|761000|56000|781000|927000|192000|329|}}
+Expected result:
+- Higher CPU utilization
+- More disk spill during sorting
+- Increased network redistribution
+- Longer graph runtime
+- Clearly visible optimization issues for training/demo purposes|36000|761000|56000|781000|927000|192000|329|}}
 {2010242002|XXGface|6|0|11|0|{@{}@Arial|0|160|0|}}
 {2010210004|XXGflow|7|0|13|0|{@{}@384|.5|.5|{8|175000|139000|195000|139000|233000|139000|254000|139000|}414|17|}}
 {2010210004|XXGflow|8|0|15|0|{@{}@384|.5|.5|{8|334000|484000|354000|484000|373000|484000|394000|484000|}411|18|}}

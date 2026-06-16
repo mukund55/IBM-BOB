@@ -76,7 +76,8 @@ class AnalysisResult:
     checklist_score: ChecklistScore
     summary: Dict[str, int]
     checkpoints_passed: int
-    checkpoints_total: int
+    checkpoints_applicable: int  # Only checkpoints applicable to this mapping
+    checkpoints_total: int  # Total 60 checkpoints in the full checklist
 
 
 class EnhancedMPAnalyzer:
@@ -89,7 +90,8 @@ class EnhancedMPAnalyzer:
         self.components: List[ComponentInfo] = []
         self.issues: List[Issue] = []
         self.checkpoints_passed = 0
-        self.checkpoints_total = 60
+        self.checkpoints_applicable = 0  # Checkpoints applicable to this mapping
+        self.checkpoints_total = 60  # Total checkpoints in full checklist
         
     def _read_file(self) -> str:
         """Read the MP file"""
@@ -230,6 +232,7 @@ class EnhancedMPAnalyzer:
             checklist_score=checklist_score,
             summary=summary,
             checkpoints_passed=self.checkpoints_passed,
+            checkpoints_applicable=self.checkpoints_applicable,
             checkpoints_total=self.checkpoints_total
         )
     
@@ -237,6 +240,7 @@ class EnhancedMPAnalyzer:
         """Category 1: Graph Architecture & Design (8 checkpoints)"""
         # Checkpoint: Component names are meaningful
         for comp in self.components:
+            self.checkpoints_applicable += 1
             if comp.name and comp.name not in ["Unknown", "Component"]:
                 self.checkpoints_passed += 1
             else:
@@ -251,6 +255,7 @@ class EnhancedMPAnalyzer:
         
         # Checkpoint: No unnecessary serial processing
         if len(self.components) > 0:
+            self.checkpoints_applicable += 1
             self.checkpoints_passed += 1
             self.issues.append(Issue(
                 severity=Severity.INFO,
@@ -268,6 +273,7 @@ class EnhancedMPAnalyzer:
                 read_metadata = comp.parameters.get("read_metadata", "")
                 
                 # Checkpoint: DML definitions are reusable
+                self.checkpoints_applicable += 1
                 if "$AI_DML" in read_metadata or read_metadata.endswith(".dml"):
                     self.checkpoints_passed += 1
                     self.issues.append(Issue(
@@ -289,6 +295,7 @@ class EnhancedMPAnalyzer:
                     ))
                 
                 # Checkpoint: Data types are correctly defined
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -302,6 +309,7 @@ class EnhancedMPAnalyzer:
     def _check_partitioning_strategy(self) -> None:
         """Category 3: Partitioning Strategy (8 checkpoints)"""
         # Checkpoint: Partitioning chosen appropriately
+        self.checkpoints_applicable += 1
         self.issues.append(Issue(
             severity=Severity.MEDIUM,
             category="Partitioning Strategy",
@@ -316,6 +324,7 @@ class EnhancedMPAnalyzer:
         ))
         
         # Checkpoint: Unnecessary repartitioning avoided
+        self.checkpoints_applicable += 1
         self.checkpoints_passed += 1
         self.issues.append(Issue(
             severity=Severity.INFO,
@@ -335,6 +344,7 @@ class EnhancedMPAnalyzer:
             
             # Checkpoint: Sort reused by downstream components
             if sorted_input == "True":
+                self.checkpoints_applicable += 2
                 self.checkpoints_passed += 2
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -345,6 +355,7 @@ class EnhancedMPAnalyzer:
                     suggestion="Ensure upstream Sort component exists and sort order matches rollup key"
                 ))
             else:
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -358,6 +369,7 @@ class EnhancedMPAnalyzer:
             # Checkpoint: Sort keys minimized
             key = rollup.parameters.get("key", "")
             if key and key != "Unknown":
+                self.checkpoints_applicable += 1
                 key_fields = key.count(",") + 1 if "," in key else 1
                 if key_fields <= 3:
                     self.checkpoints_passed += 1
@@ -374,6 +386,7 @@ class EnhancedMPAnalyzer:
     def _check_join_optimization(self) -> None:
         """Category 5: Join Optimization (6 checkpoints)"""
         # Note: MP files may not show join components explicitly
+        self.checkpoints_applicable += 1
         self.checkpoints_passed += 1
         self.issues.append(Issue(
             severity=Severity.INFO,
@@ -397,6 +410,7 @@ class EnhancedMPAnalyzer:
             # Checkpoint: Rollup keys optimized
             key = rollup.parameters.get("key", "")
             if key and key != "Unknown":
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -408,6 +422,7 @@ class EnhancedMPAnalyzer:
                 ))
             
             # Checkpoint: Aggregation performed early when possible
+            self.checkpoints_applicable += 1
             self.checkpoints_passed += 1
             self.issues.append(Issue(
                 severity=Severity.INFO,
@@ -421,6 +436,7 @@ class EnhancedMPAnalyzer:
             # Checkpoint: Aggregation reduces downstream volume
             transform = rollup.parameters.get("transform", "")
             if "sum(" in transform.lower() or "count(" in transform.lower():
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -439,6 +455,7 @@ class EnhancedMPAnalyzer:
             transform = rollup.parameters.get("transform", "")
             
             # Checkpoint: Null handling implemented
+            self.checkpoints_applicable += 1
             if "null" in transform.lower() or "is_null" in transform.lower():
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
@@ -460,6 +477,7 @@ class EnhancedMPAnalyzer:
                 ))
             
             # Checkpoint: Hardcoded values avoided
+            self.checkpoints_applicable += 1
             if re.search(r'["\'][\w\s]+["\']', transform):
                 self.issues.append(Issue(
                     severity=Severity.LOW,
@@ -474,6 +492,7 @@ class EnhancedMPAnalyzer:
             
             # Checkpoint: PDL code is readable
             if "::" in transform:
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -494,6 +513,7 @@ class EnhancedMPAnalyzer:
             
             # Checkpoint: Memory-intensive components identified
             if sorted_input == "False":
+                self.checkpoints_applicable += 1
                 self.checkpoints_passed += 1
                 self.issues.append(Issue(
                     severity=Severity.INFO,
@@ -505,6 +525,7 @@ class EnhancedMPAnalyzer:
                 ))
             
             # Checkpoint: Spill-to-disk risk assessed
+            self.checkpoints_applicable += 1
             max_core_mb = max_core / (1024 * 1024)
             if sorted_input == "False" and max_core == 67108864:  # 64MB default
                 self.issues.append(Issue(
@@ -538,6 +559,7 @@ class EnhancedMPAnalyzer:
                 layout = comp.parameters.get("Layout", "")
                 
                 # Checkpoint: Output file naming standards followed
+                self.checkpoints_applicable += 1
                 if "$" in layout:
                     self.checkpoints_passed += 1
                     self.issues.append(Issue(
@@ -559,6 +581,7 @@ class EnhancedMPAnalyzer:
                     ))
         
         # Checkpoint: File compression strategy reviewed
+        self.checkpoints_applicable += 1
         self.checkpoints_passed += 1
         self.issues.append(Issue(
             severity=Severity.INFO,
@@ -574,6 +597,7 @@ class EnhancedMPAnalyzer:
         # Checkpoint: Reject records captured
         has_reject = "reject" in self.content.lower()
         
+        self.checkpoints_applicable += 1
         if has_reject:
             self.checkpoints_passed += 2
             self.issues.append(Issue(
@@ -595,6 +619,7 @@ class EnhancedMPAnalyzer:
             ))
         
         # Checkpoint: Logging sufficient for troubleshooting
+        self.checkpoints_applicable += 1
         self.checkpoints_passed += 1
         self.issues.append(Issue(
             severity=Severity.INFO,
@@ -609,6 +634,7 @@ class EnhancedMPAnalyzer:
         """Category 11: Production Readiness (5 checkpoints)"""
         # Checkpoint: Parameterization implemented
         param_count = self.content.count("$")
+        self.checkpoints_applicable += 1
         if param_count > 0:
             self.checkpoints_passed += 2
             self.issues.append(Issue(
@@ -630,6 +656,7 @@ class EnhancedMPAnalyzer:
             ))
         
         # Checkpoint: Environment-independent design
+        self.checkpoints_applicable += 1
         self.checkpoints_passed += 1
         self.issues.append(Issue(
             severity=Severity.INFO,
@@ -710,7 +737,10 @@ def print_analysis_report(result: AnalysisResult) -> None:
     print(f"Graph Name             : {result.graph_name}")
     print(f"Total Components       : {len(result.components)}")
     print(f"Optimization Score     : {result.optimization_score:.1f}/100")
-    print(f"Checkpoints Passed     : {result.checkpoints_passed}/{result.checkpoints_total}")
+    print(f"Checkpoints Passed     : {result.checkpoints_passed}/{result.checkpoints_applicable} (applicable)")
+    print(f"Total Checklist Points : {result.checkpoints_total} (full checklist)")
+    completion_pct = (result.checkpoints_passed / result.checkpoints_applicable * 100) if result.checkpoints_applicable > 0 else 0
+    print(f"Completion Percentage  : {completion_pct:.1f}%")
     print()
     
     print("CHECKLIST CATEGORY SCORES")
@@ -785,7 +815,9 @@ def main():
                 "graph_name": result.graph_name,
                 "optimization_score": result.optimization_score,
                 "checkpoints_passed": result.checkpoints_passed,
+                "checkpoints_applicable": result.checkpoints_applicable,
                 "checkpoints_total": result.checkpoints_total,
+                "completion_percentage": round((result.checkpoints_passed / result.checkpoints_applicable * 100) if result.checkpoints_applicable > 0 else 0, 1),
                 "checklist_score": {
                     "partitioning": result.checklist_score.partitioning,
                     "sorting": result.checklist_score.sorting,
