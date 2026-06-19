@@ -1,0 +1,100 @@
+{
+  "file_path": "Abinitio_code\\sample_customer.plan",
+  "graph_name": "sample_customer",
+  "version": "4.0",
+  "total_components": 8,
+  "optimization_score": 28.0,
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 4,
+    "MEDIUM": 6,
+    "LOW": 1,
+    "INFO": 1
+  },
+  "issues": [
+    {
+      "severity": "HIGH",
+      "category": "Configuration",
+      "component": "input_customer",
+      "message": "Hardcoded absolute path detected: /data/in/customer.dat",
+      "suggestion": "Use parameter files or environment variables (e.g., ${INPUT_DIR}/customer.dat)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "Configuration",
+      "component": "input_country",
+      "message": "Hardcoded absolute path detected: /data/ref/country.dat",
+      "suggestion": "Use parameter files or environment variables (e.g., ${INPUT_DIR}/customer.dat)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "Configuration",
+      "component": "output_summary",
+      "message": "Hardcoded absolute path detected: /data/out/customer_summary.dat",
+      "suggestion": "Use parameter files or environment variables (e.g., ${INPUT_DIR}/customer.dat)"
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Performance",
+      "component": "reformat_customer",
+      "message": "Component 'reformat_customer' (reformat) is not partitioned",
+      "suggestion": "Consider increasing partitions to 2-4 for parallel processing. Use layout partitioning for reformat operations to improve throughput."
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Performance",
+      "component": "sort_customer",
+      "message": "Component 'sort_customer' (sort) is not partitioned",
+      "suggestion": "Consider increasing partitions to 2-4 for parallel processing. Use layout partitioning for sort operations to improve throughput."
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Performance",
+      "component": "sort_country",
+      "message": "Component 'sort_country' (sort) is not partitioned",
+      "suggestion": "Consider increasing partitions to 2-4 for parallel processing. Use layout partitioning for sort operations to improve throughput."
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Performance",
+      "component": "join_customer_country",
+      "message": "Component 'join_customer_country' (join) is not partitioned",
+      "suggestion": "Consider increasing partitions to 2-4 for parallel processing. Use layout partitioning for join operations to improve throughput."
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Performance",
+      "component": "rollup_country",
+      "message": "Component 'rollup_country' (rollup) is not partitioned",
+      "suggestion": "Consider increasing partitions to 2-4 for parallel processing. Use layout partitioning for rollup operations to improve throughput."
+    },
+    {
+      "severity": "INFO",
+      "category": "Optimization",
+      "component": "join_customer_country",
+      "message": "Consider broadcast join optimization",
+      "suggestion": "If one input is small (reference data), use broadcast join to avoid sorting. Set MAX_CORE parameter to enable in-memory join for better performance."
+    },
+    {
+      "severity": "HIGH",
+      "category": "Configuration",
+      "component": "output_summary",
+      "message": "Input/Output component missing DML specification",
+      "suggestion": "Define DML parameter to specify data structure and improve maintainability"
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Error Handling",
+      "component": "GRAPH",
+      "message": "No explicit reject/error handling detected",
+      "suggestion": "Add reject ports to components to handle bad records gracefully. Use output_file components to capture rejected records for analysis."
+    },
+    {
+      "severity": "LOW",
+      "category": "Documentation",
+      "component": "GRAPH",
+      "message": "Insufficient documentation/comments in plan file",
+      "suggestion": "Add comments to describe graph purpose, data flow, and business logic. Document assumptions and dependencies."
+    }
+  ]
+}

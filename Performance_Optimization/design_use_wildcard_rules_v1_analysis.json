@@ -1,11 +1,11 @@
 {
-  "file_path": "Abinitio_code\\inmemory_total_sales_by_store_optimized.mp",
-  "graph_name": "inmemory_total_sales_by_store",
+  "file_path": "Abinitio_code\\design_use_wildcard_rules_v1.mp",
+  "graph_name": "design_use_wildcard_rules",
   "optimization_score": 100.0,
-  "checkpoints_passed": 26,
-  "checkpoints_applicable": 25,
+  "checkpoints_passed": 25,
+  "checkpoints_applicable": 24,
   "checkpoints_total": 60,
-  "completion_percentage": 104.0,
+  "completion_percentage": 104.2,
   "checklist_score": {
     "partitioning": 100.0,
     "sorting": 100.0,
@@ -20,32 +20,32 @@
     "HIGH": 0,
     "MEDIUM": 0,
     "LOW": 0,
-    "INFO": 19
+    "INFO": 16
   },
   "components": [
     {
       "name": "Rollup",
       "type": "rollup",
       "parameters": {
-        "sorted_input": "False",
-        "key": "store_no",
-        "transform": "/*Do computation*/\nout::rollup(in)=\nbegin\n  out.store_no :: if (is_null(in.store_no)) then 0 else in...",
-        "max_core": "536870912"
+        "sorted_input": "True",
+        "key": "customer_id",
+        "transform": "Unknown",
+        "max_core": "67108864"
       }
     },
     {
       "name": "Input File",
       "type": "input_file",
       "parameters": {
-        "Layout": "file:$AI_SERIAL/total_sales_by_store.dat",
-        "read_metadata": "$AI_DML/transactions.dml"
+        "Layout": "file:$AI_SERIAL/largest_invoices.dat",
+        "read_metadata": "$AI_DML/customers.dml"
       }
     },
     {
       "name": "Output File",
       "type": "output_file",
       "parameters": {
-        "write_metadata": "record\n  decimal(4) store_no = 0000;\n  decimal(9.2)  total_sales;\nend;"
+        "write_metadata": "record\n  decimal(10) customer_id;\n  decimal(10)  invoice_no;\n  decimal(9.2)   max_invoice_total;\n  d..."
       }
     }
   ],
@@ -93,10 +93,10 @@
     {
       "severity": "INFO",
       "category": "Sort Optimization",
-      "checkpoint": "No redundant Sort components",
+      "checkpoint": "Sort reused by downstream components",
       "component": "Rollup",
-      "message": "In-memory rollup does not require sorted input",
-      "suggestion": "Verify no unnecessary Sort component exists before this rollup"
+      "message": "Sorted rollup requires pre-sorted input",
+      "suggestion": "Ensure upstream Sort component exists and sort order matches rollup key"
     },
     {
       "severity": "INFO",
@@ -111,7 +111,7 @@
       "category": "Aggregation",
       "checkpoint": "Rollup keys optimized",
       "component": "Rollup",
-      "message": "Rollup key: store_no",
+      "message": "Rollup key: customer_id",
       "suggestion": "Ensure rollup key matches business requirements and is not over-aggregated"
     },
     {
@@ -127,32 +127,8 @@
       "category": "PDL Quality",
       "checkpoint": "Null handling implemented",
       "component": "Rollup",
-      "message": "Null handling detected in transform logic",
-      "suggestion": "Good practice: Explicit null handling prevents unexpected results"
-    },
-    {
-      "severity": "INFO",
-      "category": "PDL Quality",
-      "checkpoint": "PDL code is readable",
-      "component": "Rollup",
-      "message": "Transform uses proper field assignment syntax (::)",
-      "suggestion": "Good practice: Clear field assignments improve code readability"
-    },
-    {
-      "severity": "INFO",
-      "category": "Resource Utilization",
-      "checkpoint": "Memory-intensive components identified",
-      "component": "Rollup",
-      "message": "In-memory rollup is memory-intensive",
-      "suggestion": "Monitor memory usage and adjust max-core based on data volume"
-    },
-    {
-      "severity": "INFO",
-      "category": "Resource Utilization",
-      "checkpoint": "Spill-to-disk risk assessed",
-      "component": "Rollup",
-      "message": "max-core set to 512MB for in-memory processing",
-      "suggestion": "Good setting for in-memory rollup. Monitor actual usage and adjust if needed"
+      "message": "Null handling guidance added by optimizer",
+      "suggestion": "Review the null handling recommendations and implement in transform logic"
     },
     {
       "severity": "INFO",
@@ -191,7 +167,7 @@
       "category": "Production Readiness",
       "checkpoint": "Parameterization implemented",
       "component": "Graph",
-      "message": "Found 87 parameter references",
+      "message": "Found 246 parameter references",
       "suggestion": "Good practice: Parameterization enables environment-independent deployment"
     },
     {

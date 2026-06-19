@@ -405,9 +405,9 @@
         <div class="summary-cards">
             <div class="card score-card">
                 <div class="card-title">Optimization Score</div>
-                <div class="card-value">97.5/100</div>
+                <div class="card-value">95.0/100</div>
                 <div class="score-gauge">
-                    <div class="score-fill" style="width: 97.5%"></div>
+                    <div class="score-fill" style="width: 95.0%"></div>
                 </div>
                 <div class="card-subtitle">Excellent</div>
             </div>
@@ -426,14 +426,14 @@
             
             <div class="card">
                 <div class="card-title">Checkpoints</div>
-                <div class="card-value">25/25</div>
-                <div class="card-subtitle">100.0% Complete</div>
+                <div class="card-value">24/26</div>
+                <div class="card-subtitle">92.3% Complete</div>
             </div>
             
             <div class="card">
                 <div class="card-title">Total Issues</div>
-                <div class="card-value">19</div>
-                <div class="card-subtitle">0 Critical, 0 High</div>
+                <div class="card-value">20</div>
+                <div class="card-subtitle">0 Critical, 1 High</div>
             </div>
         </div>
         
@@ -459,13 +459,15 @@
                 <div class="param-row">
                     <div class="param-key">transform</div>
                     <div class="param-value">/*Do computation*/
-/* NULL HANDLING IMPLEMENTED */
-/* Example: out_field :: if (is_null(in_field)...</div>
+out::rollup(in)=
+begin
+  out.store_no :: in.store_no;
+  out.total_sales :: sum...</div>
                 </div>
             
                 <div class="param-row">
                     <div class="param-key">max_core</div>
-                    <div class="param-value">536870912</div>
+                    <div class="param-value">67108864</div>
                 </div>
             </div></div>
         <div class="component-card">
@@ -506,10 +508,10 @@ end;</div>
                 <div class="filter-buttons">
                     <button class="filter-btn active" onclick="filterIssues('all')">All Issues</button>
                     <button class="filter-btn" onclick="filterIssues('CRITICAL')">Critical (0)</button>
-                    <button class="filter-btn" onclick="filterIssues('HIGH')">High (0)</button>
-                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (1)</button>
+                    <button class="filter-btn" onclick="filterIssues('HIGH')">High (1)</button>
+                    <button class="filter-btn" onclick="filterIssues('MEDIUM')">Medium (2)</button>
                     <button class="filter-btn" onclick="filterIssues('LOW')">Low (0)</button>
-                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (18)</button>
+                    <button class="filter-btn" onclick="filterIssues('INFO')">Info (17)</button>
                 </div>
                 
                 <div class="issues-container">
@@ -662,15 +664,30 @@ end;</div>
             <div class="issue-header">
                 <div>
                     <span class="issue-component">Rollup</span>
-                    <span class="issue-category">PDL Quality</span>
+                    <span class="issue-category">Aggregation</span>
                 </div>
                 <span class="issue-severity severity-info">INFO</span>
             </div>
-            <div class="issue-message">Null handling detected in transform logic</div>
+            <div class="issue-message">Aggregation functions detected in transform</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Good practice: Explicit null handling prevents unexpected results</div>
+                <div class="suggestion-text">Verify aggregation significantly reduces record count for performance benefit</div>
+            </div>
+            </div>
+        <div class="issue-card issue-medium" data-severity="MEDIUM">
+            <div class="issue-header">
+                <div>
+                    <span class="issue-component">Rollup</span>
+                    <span class="issue-category">PDL Quality</span>
+                </div>
+                <span class="issue-severity severity-medium">MEDIUM</span>
+            </div>
+            <div class="issue-message">No explicit null handling detected</div>
+        
+            <div class="issue-suggestion">
+                <div class="suggestion-title">💡 Recommendation:</div>
+                <div class="suggestion-text">Add null checks to prevent errors: if (is_null(field)) then default_value else field</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
@@ -703,19 +720,22 @@ end;</div>
                 <div class="suggestion-text">Monitor memory usage and adjust max-core based on data volume</div>
             </div>
             </div>
-        <div class="issue-card issue-info" data-severity="INFO">
+        <div class="issue-card issue-high" data-severity="HIGH">
             <div class="issue-header">
                 <div>
                     <span class="issue-component">Rollup</span>
                     <span class="issue-category">Resource Utilization</span>
                 </div>
-                <span class="issue-severity severity-info">INFO</span>
+                <span class="issue-severity severity-high">HIGH</span>
             </div>
-            <div class="issue-message">max-core set to 512MB for in-memory processing</div>
+            <div class="issue-message">In-memory rollup using default max-core (64MB)</div>
         
             <div class="issue-suggestion">
                 <div class="suggestion-title">💡 Recommendation:</div>
-                <div class="suggestion-text">Good setting for in-memory rollup. Monitor actual usage and adjust if needed</div>
+                <div class="suggestion-text">Increase max-core to prevent disk spilling:
+  • Small datasets (<100K): 128-256MB
+  • Medium datasets (100K-1M): 512MB-1GB
+  • Large datasets (>1M): 2-4GB or use sorted rollup</div>
             </div>
             </div>
         <div class="issue-card issue-info" data-severity="INFO">
@@ -820,7 +840,7 @@ end;</div>
         
         <div class="footer">
             <p><strong>Generated by Ab Initio Code Analyzer</strong></p>
-            <p class="timestamp">Analysis Date: 2026-06-16 18:01:32</p>
+            <p class="timestamp">Analysis Date: 2026-06-19 18:07:35</p>
             <p class="timestamp">File: Abinitio_code\inmemory_total_sales_by_store.mp</p>
         </div>
     </div>

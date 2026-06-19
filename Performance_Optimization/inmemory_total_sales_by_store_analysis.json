@@ -1,26 +1,26 @@
 {
   "file_path": "Abinitio_code\\inmemory_total_sales_by_store.mp",
   "graph_name": "inmemory_total_sales_by_store",
-  "optimization_score": 97.5,
-  "checkpoints_passed": 25,
-  "checkpoints_applicable": 25,
+  "optimization_score": 95.0,
+  "checkpoints_passed": 24,
+  "checkpoints_applicable": 26,
   "checkpoints_total": 60,
-  "completion_percentage": 100.0,
+  "completion_percentage": 92.3,
   "checklist_score": {
     "partitioning": 90.0,
     "sorting": 100.0,
     "join_efficiency": 100.0,
     "aggregation_strategy": 100.0,
-    "resource_utilization": 100.0,
-    "pdl_quality": 100.0,
+    "resource_utilization": 85.0,
+    "pdl_quality": 90.0,
     "maintainability": 100.0
   },
   "summary": {
     "CRITICAL": 0,
-    "HIGH": 0,
-    "MEDIUM": 1,
+    "HIGH": 1,
+    "MEDIUM": 2,
     "LOW": 0,
-    "INFO": 18
+    "INFO": 17
   },
   "components": [
     {
@@ -29,8 +29,8 @@
       "parameters": {
         "sorted_input": "False",
         "key": "store_no",
-        "transform": "/*Do computation*/\n/* NULL HANDLING IMPLEMENTED */\n/* Example: out_field :: if (is_null(in_field)) t...",
-        "max_core": "536870912"
+        "transform": "/*Do computation*/\nout::rollup(in)=\nbegin\n  out.store_no :: in.store_no;\n  out.total_sales :: sum(in...",
+        "max_core": "67108864"
       }
     },
     {
@@ -124,11 +124,19 @@
     },
     {
       "severity": "INFO",
+      "category": "Aggregation",
+      "checkpoint": "Aggregation reduces volume",
+      "component": "Rollup",
+      "message": "Aggregation functions detected in transform",
+      "suggestion": "Verify aggregation significantly reduces record count for performance benefit"
+    },
+    {
+      "severity": "MEDIUM",
       "category": "PDL Quality",
       "checkpoint": "Null handling implemented",
       "component": "Rollup",
-      "message": "Null handling detected in transform logic",
-      "suggestion": "Good practice: Explicit null handling prevents unexpected results"
+      "message": "No explicit null handling detected",
+      "suggestion": "Add null checks to prevent errors: if (is_null(field)) then default_value else field"
     },
     {
       "severity": "INFO",
@@ -147,12 +155,12 @@
       "suggestion": "Monitor memory usage and adjust max-core based on data volume"
     },
     {
-      "severity": "INFO",
+      "severity": "HIGH",
       "category": "Resource Utilization",
       "checkpoint": "Spill-to-disk risk assessed",
       "component": "Rollup",
-      "message": "max-core set to 512MB for in-memory processing",
-      "suggestion": "Good setting for in-memory rollup. Monitor actual usage and adjust if needed"
+      "message": "In-memory rollup using default max-core (64MB)",
+      "suggestion": "Increase max-core to prevent disk spilling:\n  \u2022 Small datasets (<100K): 128-256MB\n  \u2022 Medium datasets (100K-1M): 512MB-1GB\n  \u2022 Large datasets (>1M): 2-4GB or use sorted rollup"
     },
     {
       "severity": "INFO",

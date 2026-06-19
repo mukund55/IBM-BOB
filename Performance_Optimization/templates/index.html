@@ -484,13 +484,27 @@
                     throw new Error(data.error);
                 }
                 
-                // Show success message
-                document.getElementById('updateMessage').innerHTML = `
+                // Show success message with updated score
+                let message = `
                     <strong>${data.message}</strong><br>
                     New optimized version: <strong>${data.versioned_file}</strong><br>
                     Original file preserved. Version ${data.version} created with all optimizations.
                 `;
+                
+                if (data.updated_score !== null && data.updated_score !== undefined) {
+                    message += `<br><strong>Updated Optimization Score: ${data.updated_score}/100</strong>`;
+                }
+                
+                document.getElementById('updateMessage').innerHTML = message;
                 updateSuccess.style.display = 'block';
+                
+                // If new dashboard was generated, update the View Dashboard button
+                if (data.dashboard_file) {
+                    currentDashboard = data.dashboard_file;
+                    document.getElementById('viewDashboard').onclick = function() {
+                        window.open(`/dashboard/${currentDashboard}`, '_blank');
+                    };
+                }
                 
                 // Keep the update button visible for next file
                 // User might want to update another file

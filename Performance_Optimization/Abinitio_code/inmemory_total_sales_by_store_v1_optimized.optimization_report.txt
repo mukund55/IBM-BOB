@@ -1,14 +1,15 @@
 ================================================================================
 AB INITIO CODE OPTIMIZATION REPORT - ENHANCED VERSION
 ================================================================================
-Original File: casting_join_keys_v1_optimized.mp
-Optimization Date: 2026-06-16 18:12:38
-Total Optimizations: 1
+Original File: inmemory_total_sales_by_store_v1.mp
+Optimization Date: 2026-06-19 18:12:08
+Total Optimizations: 2
 Target Score: 100/100
 
 OPTIMIZATIONS APPLIED:
 --------------------------------------------------------------------------------
-1. [SUCCESS] Added partitioning optimization for sorted rollup (2-8 partitions)
+1. [SUCCESS] Added partitioning optimization for in-memory rollup (1-2 partitions)
+2. [SUCCESS] Added comprehensive manual optimization guide for 100% score
 
 EXPECTED IMPROVEMENTS:
 --------------------------------------------------------------------------------

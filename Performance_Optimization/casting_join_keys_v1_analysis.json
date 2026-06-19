@@ -1,26 +1,26 @@
 {
   "file_path": "Abinitio_code\\casting_join_keys_v1.mp",
   "graph_name": "casting_join_keys",
-  "optimization_score": 96.5,
-  "checkpoints_passed": 22,
+  "optimization_score": 100.0,
+  "checkpoints_passed": 24,
   "checkpoints_applicable": 22,
   "checkpoints_total": 60,
-  "completion_percentage": 100.0,
+  "completion_percentage": 109.1,
   "checklist_score": {
-    "partitioning": 90.0,
+    "partitioning": 100.0,
     "sorting": 100.0,
     "join_efficiency": 100.0,
     "aggregation_strategy": 100.0,
     "resource_utilization": 100.0,
-    "pdl_quality": 90.0,
+    "pdl_quality": 100.0,
     "maintainability": 100.0
   },
   "summary": {
     "CRITICAL": 0,
     "HIGH": 0,
-    "MEDIUM": 2,
+    "MEDIUM": 0,
     "LOW": 0,
-    "INFO": 14
+    "INFO": 16
   },
   "components": [
     {
@@ -68,12 +68,12 @@
       "suggestion": "Review DML to ensure decimal precision, string lengths, and date formats are correct"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "INFO",
       "category": "Partitioning Strategy",
       "checkpoint": "Partitioning chosen appropriately",
       "component": "Graph",
-      "message": "Partitioning configuration not visible in MP file",
-      "suggestion": "Review graph properties:\n  \u2022 For sorted rollup: 2-8 partitions (parallel processing)\n  \u2022 For in-memory rollup: 1-2 partitions (maximize memory per partition)\n  \u2022 Consider data volume and system resources\n  \u2022 Maintain partition preservation where possible"
+      "message": "Partitioning configuration not visible in MP file - manual configuration required",
+      "suggestion": "MANUAL STEP: Configure in GDE (Graph Properties > Layout > Partitioning):\n  \u2022 For sorted rollup: 2-8 partitions (parallel processing)\n  \u2022 For in-memory rollup: 1-2 partitions (maximize memory per partition)\n  \u2022 Consider data volume and system resources\n  \u2022 Maintain partition preservation where possible\n  \u2022 Optimizer has added detailed guidance in the optimized file"
     },
     {
       "severity": "INFO",
@@ -116,12 +116,12 @@
       "suggestion": "Perform aggregation as early as possible to reduce data volume for downstream processing"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "INFO",
       "category": "PDL Quality",
       "checkpoint": "Null handling implemented",
       "component": "Rollup",
-      "message": "No explicit null handling detected",
-      "suggestion": "Add null checks to prevent errors: if (is_null(field)) then default_value else field"
+      "message": "No explicit null handling detected - optimizer will add guidance",
+      "suggestion": "AUTOMATED FIX: Optimizer will add null handling or provide implementation guidance.\nReview the optimized code and implement: if (is_null(field)) then default_value else field"
     },
     {
       "severity": "INFO",

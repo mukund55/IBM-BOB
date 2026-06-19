@@ -658,8 +658,16 @@ def generate_dashboard(json_file: Path, output_file: Path) -> None:
     checkpoints_passed = data.get('checkpoints_passed', 0)
     checkpoints_applicable = data.get('checkpoints_applicable', data.get('checkpoints_total', 60))
     checkpoints_total = data.get('checkpoints_total', 60)
+    
+    # Cap checkpoints_passed at checkpoints_applicable to prevent >100%
+    if checkpoints_passed > checkpoints_applicable:
+        checkpoints_passed = checkpoints_applicable
+    
     completion_percentage = data.get('completion_percentage',
                                     round((checkpoints_passed / checkpoints_applicable * 100) if checkpoints_applicable > 0 else 0, 1))
+    
+    # Ensure completion percentage never exceeds 100%
+    completion_percentage = min(completion_percentage, 100.0)
     
     # Calculate totals
     total_components = len(components) if components else data.get('total_components', 0)

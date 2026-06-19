@@ -1,51 +1,44 @@
 {
-  "file_path": "Abinitio_code\\inmemory_total_sales_by_store_optimized.mp",
-  "graph_name": "inmemory_total_sales_by_store",
-  "optimization_score": 100.0,
-  "checkpoints_passed": 26,
-  "checkpoints_applicable": 25,
+  "file_path": "Abinitio_code\\casting_join_keys_v2.mp",
+  "graph_name": "casting_join_keys",
+  "optimization_score": 96.5,
+  "checkpoints_passed": 22,
+  "checkpoints_applicable": 22,
   "checkpoints_total": 60,
-  "completion_percentage": 104.0,
+  "completion_percentage": 100.0,
   "checklist_score": {
-    "partitioning": 100.0,
+    "partitioning": 90.0,
     "sorting": 100.0,
     "join_efficiency": 100.0,
     "aggregation_strategy": 100.0,
     "resource_utilization": 100.0,
-    "pdl_quality": 100.0,
+    "pdl_quality": 90.0,
     "maintainability": 100.0
   },
   "summary": {
     "CRITICAL": 0,
     "HIGH": 0,
-    "MEDIUM": 0,
+    "MEDIUM": 2,
     "LOW": 0,
-    "INFO": 19
+    "INFO": 14
   },
   "components": [
     {
       "name": "Rollup",
       "type": "rollup",
       "parameters": {
-        "sorted_input": "False",
-        "key": "store_no",
-        "transform": "/*Do computation*/\nout::rollup(in)=\nbegin\n  out.store_no :: if (is_null(in.store_no)) then 0 else in...",
-        "max_core": "536870912"
+        "sorted_input": "True",
+        "key": "customer_id",
+        "transform": "Unknown",
+        "max_core": "67108864"
       }
     },
     {
       "name": "Input File",
       "type": "input_file",
       "parameters": {
-        "Layout": "file:$AI_SERIAL/total_sales_by_store.dat",
+        "Layout": "file:$AI_SERIAL/customer_shopping_stats.dat",
         "read_metadata": "$AI_DML/transactions.dml"
-      }
-    },
-    {
-      "name": "Output File",
-      "type": "output_file",
-      "parameters": {
-        "write_metadata": "record\n  decimal(4) store_no = 0000;\n  decimal(9.2)  total_sales;\nend;"
       }
     }
   ],
@@ -55,7 +48,7 @@
       "category": "Graph Architecture",
       "checkpoint": "Graph has clear logical flow",
       "component": "Graph",
-      "message": "Graph contains 3 components",
+      "message": "Graph contains 2 components",
       "suggestion": "Ensure components are organized logically and parallel processing is utilized where possible"
     },
     {
@@ -75,12 +68,12 @@
       "suggestion": "Review DML to ensure decimal precision, string lengths, and date formats are correct"
     },
     {
-      "severity": "INFO",
+      "severity": "MEDIUM",
       "category": "Partitioning Strategy",
       "checkpoint": "Partitioning chosen appropriately",
       "component": "Graph",
-      "message": "Partitioning optimization guidance added by optimizer",
-      "suggestion": "Review the partitioning recommendations at the top of the file and configure in GDE"
+      "message": "Partitioning configuration not visible in MP file",
+      "suggestion": "Review graph properties:\n  \u2022 For sorted rollup: 2-8 partitions (parallel processing)\n  \u2022 For in-memory rollup: 1-2 partitions (maximize memory per partition)\n  \u2022 Consider data volume and system resources\n  \u2022 Maintain partition preservation where possible"
     },
     {
       "severity": "INFO",
@@ -93,10 +86,10 @@
     {
       "severity": "INFO",
       "category": "Sort Optimization",
-      "checkpoint": "No redundant Sort components",
+      "checkpoint": "Sort reused by downstream components",
       "component": "Rollup",
-      "message": "In-memory rollup does not require sorted input",
-      "suggestion": "Verify no unnecessary Sort component exists before this rollup"
+      "message": "Sorted rollup requires pre-sorted input",
+      "suggestion": "Ensure upstream Sort component exists and sort order matches rollup key"
     },
     {
       "severity": "INFO",
@@ -111,7 +104,7 @@
       "category": "Aggregation",
       "checkpoint": "Rollup keys optimized",
       "component": "Rollup",
-      "message": "Rollup key: store_no",
+      "message": "Rollup key: customer_id",
       "suggestion": "Ensure rollup key matches business requirements and is not over-aggregated"
     },
     {
@@ -123,36 +116,12 @@
       "suggestion": "Perform aggregation as early as possible to reduce data volume for downstream processing"
     },
     {
-      "severity": "INFO",
+      "severity": "MEDIUM",
       "category": "PDL Quality",
       "checkpoint": "Null handling implemented",
       "component": "Rollup",
-      "message": "Null handling detected in transform logic",
-      "suggestion": "Good practice: Explicit null handling prevents unexpected results"
-    },
-    {
-      "severity": "INFO",
-      "category": "PDL Quality",
-      "checkpoint": "PDL code is readable",
-      "component": "Rollup",
-      "message": "Transform uses proper field assignment syntax (::)",
-      "suggestion": "Good practice: Clear field assignments improve code readability"
-    },
-    {
-      "severity": "INFO",
-      "category": "Resource Utilization",
-      "checkpoint": "Memory-intensive components identified",
-      "component": "Rollup",
-      "message": "In-memory rollup is memory-intensive",
-      "suggestion": "Monitor memory usage and adjust max-core based on data volume"
-    },
-    {
-      "severity": "INFO",
-      "category": "Resource Utilization",
-      "checkpoint": "Spill-to-disk risk assessed",
-      "component": "Rollup",
-      "message": "max-core set to 512MB for in-memory processing",
-      "suggestion": "Good setting for in-memory rollup. Monitor actual usage and adjust if needed"
+      "message": "No explicit null handling detected",
+      "suggestion": "Add null checks to prevent errors: if (is_null(field)) then default_value else field"
     },
     {
       "severity": "INFO",
@@ -191,7 +160,7 @@
       "category": "Production Readiness",
       "checkpoint": "Parameterization implemented",
       "component": "Graph",
-      "message": "Found 87 parameter references",
+      "message": "Found 215 parameter references",
       "suggestion": "Good practice: Parameterization enables environment-independent deployment"
     },
     {

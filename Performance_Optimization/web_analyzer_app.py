@@ -93,6 +93,19 @@ def upload_file():
         filename = secure_filename(file.filename)
         ext = Path(filename).suffix.lower()
         upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        # Clean up previous intermediate files for this filename
+        base_name = Path(filename).stem
+        cleanup_patterns = [
+            f"{base_name}_analysis.json",
+            f"{base_name}_optimized{ext}",
+            f"{base_name}.optimization_report.txt"
+        ]
+        for pattern in cleanup_patterns:
+            cleanup_path = os.path.join(app.config['UPLOAD_FOLDER'], pattern)
+            if os.path.exists(cleanup_path):
+                os.remove(cleanup_path)
+        
         file.save(upload_path)
         
         analysis_path, error = run_analysis(upload_path, ext)
@@ -182,6 +195,9 @@ def update_mapping():
         if os.path.exists(optimized_path):
             shutil.copy2(optimized_path, versioned_path)
             
+            # Clean up intermediate optimized file (keep only versioned file)
+            os.remove(optimized_path)
+            
             # Read optimization report
             report_path = optimized_path.replace(ext, '.optimization_report.txt')
             optimizations_count = 0
@@ -190,12 +206,53 @@ def update_mapping():
                     report_content = f.read()
                     optimizations_count = report_content.count('[SUCCESS]')
             
+            # Re-analyze the versioned file to get updated score
+            versioned_base = Path(versioned_name).stem
+            versioned_analysis_path = f"{versioned_base}_analysis.json"
+            versioned_dashboard_path = None
+            
+            try:
+                # Run analysis on versioned file
+                if ext == '.mp':
+                    analyze_cmd = ['python', 'Agents/abinitio_mp_analyzer_enhanced.py', versioned_path]
+                elif ext == '.plan':
+                    analyze_cmd = ['python', 'Agents/abinitio_plan_analyzer.py', versioned_path]
+                else:
+                    analyze_cmd = None
+                
+                if analyze_cmd:
+                    subprocess.run(analyze_cmd, capture_output=True, text=True, check=True)
+                    
+                    # Generate new dashboard for versioned file
+                    dashboard_cmd = ['python', 'Agents/generate_dashboard.py',
+                                   versioned_analysis_path,
+                                   '--output', app.config['DASHBOARD_FOLDER']]
+                    subprocess.run(dashboard_cmd, capture_output=True, text=True, check=True)
+                    
+                    # Find the generated dashboard
+                    versioned_dashboard_path = os.path.join(app.config['DASHBOARD_FOLDER'],
+                                                           f"{versioned_base}_dashboard.html")
+                    
+                    # Read updated score
+                    if os.path.exists(versioned_analysis_path):
+                        with open(versioned_analysis_path, 'r') as f:
+                            analysis_data = json.load(f)
+                            updated_score = analysis_data.get('optimization_score', 0)
+                    else:
+                        updated_score = None
+            except Exception as e:
+                print(f"Re-analysis failed: {e}")
+                updated_score = None
+                versioned_dashboard_path = None
+            
             return jsonify({
                 'success': True,
                 'message': f'Created optimized version with {optimizations_count} optimizations',
                 'versioned_file': versioned_name,
                 'version': version,
-                'optimizations_applied': optimizations_count
+                'optimizations_applied': optimizations_count,
+                'updated_score': updated_score,
+                'dashboard_file': os.path.basename(versioned_dashboard_path) if versioned_dashboard_path else None
             })
         else:
             return jsonify({'error': 'Optimization failed to generate file'}), 500

@@ -1,57 +1,3 @@
-################################################################################
-# OPTIMIZED Ab Initio Code - 100% Optimization Target
-# Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 18:00:16
-# Optimizations Applied: 1
-# Target Score: 100/100
-################################################################################
-
-
-################################################################################
-# PARTITIONING OPTIMIZED FOR IN-MEMORY ROLLUP
-################################################################################
-# Recommended partitioning for in-memory rollup: 1-2 partitions
-# - Maximizes memory available per partition
-# - Reduces overhead of managing multiple partitions
-# - Set in graph properties: Layout > Partitioning
-#
-# For this in-memory rollup:
-# - Use 1 partition for small datasets (<1M records)
-# - Use 2 partitions for medium datasets (1M-10M records)
-# - Consider sorted rollup for larger datasets
-################################################################################
-
-################################################################################
-# OPTIMIZED Ab Initio Code - 100% Optimization Target
-# Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 17:59:15
-# Optimizations Applied: 1
-# Target Score: 100/100
-################################################################################
-
-
-################################################################################
-# PARTITIONING OPTIMIZED FOR IN-MEMORY ROLLUP
-################################################################################
-# Recommended partitioning for in-memory rollup: 1-2 partitions
-# - Maximizes memory available per partition
-# - Reduces overhead of managing multiple partitions
-# - Set in graph properties: Layout > Partitioning
-#
-# For this in-memory rollup:
-# - Use 1 partition for small datasets (<1M records)
-# - Use 2 partitions for medium datasets (1M-10M records)
-# - Consider sorted rollup for larger datasets
-################################################################################
-
-################################################################################
-# OPTIMIZED Ab Initio Code - 100% Optimization Target
-# Original: inmemory_total_sales_by_store.mp
-# Optimized: 2026-06-16 17:56:17
-# Optimizations Applied: 2
-# Target Score: 100/100
-################################################################################
-
 @
 {18|Type|XXGrepository|Primary_Name|XXGgraph|_ab_object_schema|0|_ab_semantic_schema|6|eme_flatten_format|1|schema_version|34|root_id|0|ent_count|30|rel_count|43|}
 {2010001002|XXGdirectory|0|1|1|0|{@{}@}}
@@ -83,10 +29,6 @@ USE AND DISCLOSURE IS RESTRICTED BY CONFIDENTIALITY & LICENSE CONDITIONS|{301000
 {30001002|XXparameter|sorted_input|False|3|1|l|@{0|}}
 {30001002|XXparameter|key|\{store_no\}|3|2|$|@{0|}}
 {30001002|XXparameter|transform|/*Do computation*/
-/* NULL HANDLING IMPLEMENTED */
-/* Example: out_field :: if (is_null(in_field)) then default_value else in_field; */
-/* Apply null checks to all critical fields to prevent runtime errors */
-
 out::rollup(in)=
 begin
   out.store_no :: in.store_no;
@@ -121,7 +63,7 @@ end;|3|1|l|@{0|}}
 {30001002|XXparameter|key.condition|param key-method True|3|15|P?|@{0|}}
 {30001002|XXparameter|positional_key|value key-method False "" sameas key|19|13|Ov|Key to define rollup groups|{0|}}
 {30001002|XXparameter|transform||8|1|RFOl|Required and optional DML functions|{0|}}
-{30001002|XXparameter|max_core|536870912|1|2|FK$|Maximum memory usage (before spilling to disk) in bytes|{0|}}
+{30001002|XXparameter|max_core|67108864|1|2|FK$|Maximum memory usage (before spilling to disk) in bytes|{0|}}
 {30001002|XXparameter|max_core.display_name|max-core|3|9|P|@{0|}}
 {30001002|XXparameter|max_core.keyword|max-core|3|9|P|@{0|}}
 {30001002|XXparameter|max_core.condition|param sorted-input False|3|15|P?|@{0|}}
