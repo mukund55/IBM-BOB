@@ -1,0 +1,3 @@
+issue_type,issue_detail,columns_involved,USER_ID,DATE_OF_BIRTH,EMAIL,PHONE
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,2,2024-15-01,invalid@,12345
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,3,31-02-2020,abc.com,phone123

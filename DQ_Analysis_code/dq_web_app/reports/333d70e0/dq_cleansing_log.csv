@@ -1,0 +1,2 @@
+column,operation,records_affected,description
+EMAIL,normalize_email,2,Converted to lowercase and removed invalid entries

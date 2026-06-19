@@ -1,0 +1,33 @@
+{
+  "rules": {
+    "mandatory_columns": [
+      "EMP_NO",
+      "FIRST_NAME",
+      "LAST_NAME",
+      "DATE_OF_BIRTH"
+    ],
+    "date_columns": {
+      "DATE_OF_BIRTH": {
+        "format": "%Y-%m-%d",
+        "allow_future": false
+      }
+    },
+    "pattern_columns": {}
+  },
+  "thresholds": {
+    "null_blank": 5,
+    "duplicates": 5,
+    "outliers": 10,
+    "pattern_violations": 5,
+    "range_violations": 5,
+    "allowed_value_violations": 5,
+    "referential_integrity": 5,
+    "business_rule_violations": 5,
+    "datatype_violations": 5,
+    "special_characters": 10,
+    "mixed_types": 10,
+    "invalid_dates": 10,
+    "invalid_emails": 10,
+    "negative_values": 10
+  }
+}

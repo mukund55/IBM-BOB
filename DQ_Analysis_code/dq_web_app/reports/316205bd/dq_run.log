@@ -1,0 +1,35 @@
+2026-06-16 16:04:33,868 | INFO | Starting ENHANCED data quality analysis
+2026-06-16 16:04:33,868 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-16 16:04:33,868 | INFO | Loading data from database...
+2026-06-16 16:04:33,868 | INFO | Connecting to oracle database...
+2026-06-16 16:04:34,232 | INFO | Successfully loaded 20 rows from database
+2026-06-16 16:04:34,266 | INFO | Loaded dataset with 20 rows and 18 columns
+2026-06-16 16:04:34,269 | INFO | Calculating baseline quality score on original data...
+2026-06-16 16:04:34,387 | INFO | All 20 records are clean (no issues found)
+2026-06-16 16:04:34,397 | INFO | Baseline quality score: 100.00%
+2026-06-16 16:04:34,675 | INFO | All 20 records are clean (no issues found)
+2026-06-16 16:04:34,795 | INFO | Good records file created: 20 clean records
+2026-06-16 16:04:34,796 | INFO | Skipping empty file: dq_all_bad_records.csv
+2026-06-16 16:04:34,796 | INFO | Skipping empty bad records file for category: null_blank
+2026-06-16 16:04:34,797 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-16 16:04:34,797 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-16 16:04:34,797 | INFO | Skipping empty bad records file for category: outliers
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: negative_values
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: range_violations
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: pattern_violations
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-16 16:04:34,799 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-06-16 16:04:34,799 | INFO | Bad record files: 0 created, 17 skipped (no issues found)
+2026-06-16 16:04:35,891 | INFO | Aggregated metrics saved
+2026-06-16 16:04:35,914 | INFO | Executive summary report generated
+2026-06-16 16:04:35,914 | INFO | Generating executive dashboard...
+2026-06-16 16:04:35,930 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\316205bd\dq_executive_dashboard.html
+2026-06-16 16:04:35,930 | INFO | Data quality analysis completed successfully

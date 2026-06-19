@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,email,phone,gender,dob,city,salary
+3001,Arjun,Mehta,arjun.mehta@gmail.com,9876500001,Male,1993-04-12,Pune,65000
+3002,Kavya,Rao,kavya.rao@yahoo.com,9876500002,Female,1995-08-21,Bangalore,72000
+3003,Sameer,Patel,sameer.patel@company.com,9876500003,Male,1991-11-11,Ahmedabad,58000
+3004,Neha,Joshi,neha.joshi@gmail.com,9876500004,Female,1997-02-28,Mumbai,61000
+3005,Rakesh,Verma,,9876500005,Male,2032-01-01,Delhi,-5000

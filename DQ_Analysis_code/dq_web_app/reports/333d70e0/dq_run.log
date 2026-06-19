@@ -1,0 +1,41 @@
+2026-06-16 15:12:30,520 | INFO | Starting ENHANCED data quality analysis
+2026-06-16 15:12:30,520 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-16 15:12:30,520 | INFO | Loading input file: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\uploads\333d70e0_invalid_date_format_test.csv
+2026-06-16 15:12:30,527 | INFO | Loaded dataset with 5 rows and 4 columns
+2026-06-16 15:12:30,527 | INFO | Calculating baseline quality score on original data...
+2026-06-16 15:12:30,554 | INFO | Good records: 1, Bad records: 4
+2026-06-16 15:12:30,554 | INFO | Baseline quality score: 20.00%
+2026-06-16 15:12:30,554 | INFO | Applying data cleansing...
+2026-06-16 15:12:30,554 | INFO | Starting data cleansing process...
+2026-06-16 15:12:30,554 | INFO | Normalized emails in EMAIL: 2 records
+2026-06-16 15:12:30,554 | INFO | Data cleansing completed: 1 operations, 2 total records affected
+2026-06-16 15:12:30,554 | INFO | Original records: 5, Cleansed records: 5
+2026-06-16 15:12:30,554 | INFO | Data cleansing completed. Records: 5 -> 5
+2026-06-16 15:12:30,554 | INFO | Cleansed data saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\333d70e0\cleansed_data.csv
+2026-06-16 15:12:30,554 | INFO | Calculating quality score on cleansed data...
+2026-06-16 15:12:30,577 | INFO | Good records: 1, Bad records: 4
+2026-06-16 15:12:30,579 | INFO | Quality score after cleansing: 20.00%
+2026-06-16 15:12:30,579 | INFO | Quality improvement: +0.00%
+2026-06-16 15:12:30,587 | INFO | Good records: 1, Bad records: 4
+2026-06-16 15:12:30,634 | INFO | Good records file created: 1 clean records
+2026-06-16 15:12:30,639 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-16 15:12:30,640 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-16 15:12:30,640 | INFO | Skipping empty bad records file for category: outliers
+2026-06-16 15:12:30,640 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-16 15:12:30,640 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-16 15:12:30,642 | INFO | Skipping empty bad records file for category: negative_values
+2026-06-16 15:12:30,643 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-16 15:12:30,643 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-06-16 15:12:30,643 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-16 15:12:30,643 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-16 15:12:30,643 | INFO | Skipping empty bad records file for category: range_violations
+2026-06-16 15:12:30,646 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-16 15:12:30,646 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-16 15:12:30,646 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-06-16 15:12:30,646 | INFO | Bad record files: 3 created, 14 skipped (no issues found)
+2026-06-16 15:12:30,649 | INFO | Cleansing log saved: 1 operations logged
+2026-06-16 15:12:31,153 | INFO | Aggregated metrics saved
+2026-06-16 15:12:31,153 | INFO | Executive summary report generated
+2026-06-16 15:12:31,153 | INFO | Generating executive dashboard...
+2026-06-16 15:12:31,171 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\333d70e0\dq_executive_dashboard.html
+2026-06-16 15:12:31,172 | INFO | Data quality analysis completed successfully

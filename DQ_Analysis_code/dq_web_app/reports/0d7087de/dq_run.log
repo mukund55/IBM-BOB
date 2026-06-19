@@ -1,0 +1,30 @@
+2026-06-17 00:06:16,322 | INFO | Starting ENHANCED data quality analysis
+2026-06-17 00:06:16,322 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-17 00:06:16,322 | INFO | Loading data from database...
+2026-06-17 00:06:16,323 | INFO | Connecting to oracle database...
+2026-06-17 00:06:16,815 | INFO | Successfully loaded 54 rows from database
+2026-06-17 00:06:16,836 | INFO | Loaded dataset with 54 rows and 18 columns
+2026-06-17 00:06:16,837 | INFO | Calculating baseline quality score on original data...
+2026-06-17 00:06:16,999 | INFO | Good records: 33, Bad records: 21
+2026-06-17 00:06:17,001 | INFO | Baseline quality score: 61.11%
+2026-06-17 00:06:17,251 | INFO | Good records: 33, Bad records: 21
+2026-06-17 00:06:17,335 | INFO | Good records file created: 33 clean records
+2026-06-17 00:06:17,351 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-17 00:06:17,355 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-17 00:06:17,362 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-17 00:06:17,362 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-17 00:06:17,369 | INFO | Skipping empty bad records file for category: negative_values
+2026-06-17 00:06:17,370 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-17 00:06:17,371 | INFO | Skipping empty bad records file for category: missing_mandatory_columns
+2026-06-17 00:06:17,371 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-17 00:06:17,371 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-17 00:06:17,371 | INFO | Skipping empty bad records file for category: range_violations
+2026-06-17 00:06:17,375 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-17 00:06:17,375 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-17 00:06:17,375 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-06-17 00:06:17,375 | INFO | Bad record files: 4 created, 13 skipped (no issues found)
+2026-06-17 00:06:18,359 | INFO | Aggregated metrics saved
+2026-06-17 00:06:18,378 | INFO | Executive summary report generated
+2026-06-17 00:06:18,378 | INFO | Generating executive dashboard...
+2026-06-17 00:06:18,385 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\0d7087de\dq_executive_dashboard.html
+2026-06-17 00:06:18,388 | INFO | Data quality analysis completed successfully

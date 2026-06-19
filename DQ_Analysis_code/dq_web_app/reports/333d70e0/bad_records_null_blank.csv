@@ -1,0 +1,6 @@
+issue_type,issue_detail,columns_involved,USER_ID,DATE_OF_BIRTH,EMAIL,PHONE
+null_blank,Null values detected in column DATE_OF_BIRTH,DATE_OF_BIRTH,5,,,
+null_blank,Null values detected in column EMAIL,EMAIL,4,invalid_date,,
+null_blank,Null values detected in column EMAIL,EMAIL,5,,,
+null_blank,Null values detected in column PHONE,PHONE,4,invalid_date,,
+null_blank,Null values detected in column PHONE,PHONE,5,,,

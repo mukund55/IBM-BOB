@@ -1,0 +1,10 @@
+issue_type,issue_detail,columns_involved,USER_ID,DATE_OF_BIRTH,EMAIL,PHONE
+null_blank,Null values detected in column DATE_OF_BIRTH,DATE_OF_BIRTH,5,,,
+null_blank,Null values detected in column EMAIL,EMAIL,4,invalid_date,,
+null_blank,Null values detected in column EMAIL,EMAIL,5,,,
+null_blank,Null values detected in column PHONE,PHONE,4,invalid_date,,
+null_blank,Null values detected in column PHONE,PHONE,5,,,
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,2,2024-15-01,invalid@,12345
+invalid_emails,Malformed email syntax detected in column EMAIL,EMAIL,3,31-02-2020,abc.com,phone123
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,2,2024-15-01,invalid@,12345
+pattern_violations,Regex pattern validation failed for column EMAIL,EMAIL,3,31-02-2020,abc.com,phone123

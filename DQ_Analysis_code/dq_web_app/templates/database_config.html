@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Configuration - Enterprise DQ Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .hero-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        .config-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-select, .form-control {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            font-size: 1rem;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-analyze {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            border: none;
+            color: white;
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(249, 115, 22, 0.6);
+        }
+        .btn-analyze:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(249, 115, 22, 0.8);
+            background: linear-gradient(135deg, #ea580c 0%, #b91c1c 100%);
+        }
+        .btn-analyze:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .loading-spinner {
+            display: none;
+        }
+        .loading-spinner.show {
+            display: inline-block;
+        }
+        .progress-section {
+            display: none;
+            margin-top: 30px;
+        }
+        .progress-section.show {
+            display: block;
+        }
+        .alert-custom {
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('source_selection') }}">
+                <i class="fas fa-chart-line me-2"></i>Enterprise DQ Platform
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('source_selection') }}">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Source Selection
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title"><i class="fas fa-database me-3"></i>Database Configuration</h1>
+            <p class="hero-subtitle">Configure your database connection and select a table for analysis</p>
+        </div>
+
+        <!-- Configuration Card -->
+        <div class="config-card">
+            <form id="db-config-form">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label for="db-type" class="form-label">
+                            <i class="fas fa-server me-2"></i>Database Type
+                        </label>
+                        <select class="form-select" id="db-type" required onchange="loadTables()">
+                            <option value="oracle" selected>Oracle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="db-table" class="form-label">
+                            <i class="fas fa-table me-2"></i>Table Name
+                            <span class="loading-spinner ms-2" id="table-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </span>
+                        </label>
+                        <select class="form-select" id="db-table" required disabled>
+                            <option value="">Loading tables...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-12">
+                        <label for="db-connection" class="form-label">
+                            <i class="fas fa-link me-2"></i>Connection String (Optional)
+                        </label>
+                        <input type="text" class="form-control" id="db-connection" 
+                               placeholder="e.g., oracle+oracledb://user:pass@localhost:1521/?service_name=XEPDB1">
+                        <small class="text-muted">Leave empty to use default Oracle connection (localhost:1521/XEPDB1)</small>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section" id="progress-section">
+            <div class="config-card">
+                <h5 class="mb-3"><i class="fas fa-cog fa-spin me-2"></i>Running Data Quality Analysis...</h5>
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 100%">
+                        Analyzing data...
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="fas fa-info-circle me-2"></i>This may take a few moments depending on the data size
+                </p>
+            </div>
+        </div>
+
+        <!-- Analyze Button -->
+        <div class="text-center">
+            <button class="btn btn-analyze" id="analyze-btn" onclick="runAnalysis()" disabled>
+                <i class="fas fa-play-circle me-2"></i>Run DQ Analysis
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load tables on page load for Oracle (default selection)
+        window.addEventListener('DOMContentLoaded', function() {
+            loadTables();
+        });
+
+        async function loadTables() {
+            const dbType = document.getElementById('db-type').value;
+            const tableSelect = document.getElementById('db-table');
+            const loading = document.getElementById('table-loading');
+            const analyzeBtn = document.getElementById('analyze-btn');
+            
+            if (!dbType) {
+                tableSelect.disabled = true;
+                tableSelect.innerHTML = '<option value="">Select a database type first</option>';
+                analyzeBtn.disabled = true;
+                return;
+            }
+            
+            // Show loading
+            loading.classList.add('show');
+            tableSelect.disabled = true;
+            tableSelect.innerHTML = '<option value="">Loading tables...</option>';
+            analyzeBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`/api/analysis/database-tables?db_type=${dbType}`);
+                const data = await response.json();
+                
+                if (data.success && data.tables && data.tables.length > 0) {
+                    tableSelect.innerHTML = '<option value="">Select a table</option>';
+                    data.tables.forEach(table => {
+                        const option = document.createElement('option');
+                        option.value = table;
+                        option.textContent = table;
+                        tableSelect.appendChild(option);
+                    });
+                    tableSelect.disabled = false;
+                } else {
+                    tableSelect.innerHTML = '<option value="">No tables found</option>';
+                    alert('No tables found in the database. Please check your connection.');
+                }
+            } catch (error) {
+                console.error('Error loading tables:', error);
+                tableSelect.innerHTML = '<option value="">Error loading tables</option>';
+                alert('Failed to load tables. Please check your database connection.');
+            } finally {
+                loading.classList.remove('show');
+            }
+        }
+        
+        // Enable analyze button when table is selected
+        document.getElementById('db-table').addEventListener('change', function() {
+            const analyzeBtn = document.getElementById('analyze-btn');
+            analyzeBtn.disabled = !this.value;
+        });
+
+        async function runAnalysis() {
+            const dbType = document.getElementById('db-type').value;
+            const tableName = document.getElementById('db-table').value;
+            const connectionString = document.getElementById('db-connection').value;
+            
+            if (!dbType || !tableName) {
+                alert('Please select database type and table name');
+                return;
+            }
+            
+            // Show progress section
+            document.getElementById('progress-section').classList.add('show');
+            document.getElementById('analyze-btn').disabled = true;
+            
+            try {
+                // Call API to run DQ analysis
+                const response = await fetch('/api/analysis/analyze-database', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        db_type: dbType,
+                        table_name: tableName,
+                        connection_string: connectionString
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to results page
+                    window.location.href = `/results/${result.run_id}`;
+                } else {
+                    alert('Analysis failed: ' + (result.error || 'Unknown error'));
+                    document.getElementById('progress-section').classList.remove('show');
+                    document.getElementById('analyze-btn').disabled = false;
+                }
+            } catch (error) {
+                console.error('Error running analysis:', error);
+                alert('Failed to run analysis: ' + error.message);
+                document.getElementById('progress-section').classList.remove('show');
+                document.getElementById('analyze-btn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

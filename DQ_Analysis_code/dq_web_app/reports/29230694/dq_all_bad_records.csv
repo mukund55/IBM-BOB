@@ -1,0 +1,3 @@
+issue_type,issue_detail,columns_involved,EMP_NO,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH
+invalid_dates,Date issues in column DATE_OF_BIRTH: 2 future dates,DATE_OF_BIRTH,000QCB,JACKSON,JAMES,2029-10-09
+invalid_dates,Date issues in column DATE_OF_BIRTH: 2 future dates,DATE_OF_BIRTH,0,HICKS,JAMES,2028-02-23

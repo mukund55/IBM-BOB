@@ -1,0 +1,22 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,AGE,SALARY,JOIN_DATE,COUNTRY_CODE,STATUS
+null_blank,Null values detected in column CUSTOMER_ID,CUSTOMER_ID,,David Lee,david@test.com,,81000.0,,,
+null_blank,Null values detected in column CUSTOMER_NAME,CUSTOMER_NAME,1003.0,,,35.0,,,IN,INACTIVE
+null_blank,Null values detected in column CUSTOMER_NAME,CUSTOMER_NAME,1007.0,,anna.com,28.0,0.0,2025-02-15,IN,ACTIVE
+null_blank,Null values detected in column EMAIL,EMAIL,1003.0,,,35.0,,,IN,INACTIVE
+null_blank,Null values detected in column EMAIL,EMAIL,1008.0,Anna,,32.0,1000000.0,2022-11-30,,INACTIVE
+null_blank,Null values detected in column AGE,AGE,,David Lee,david@test.com,,81000.0,,,
+null_blank,Null values detected in column AGE,AGE,1009.0,Chris,chris@test.com,,67000.0,,,
+null_blank,Null values detected in column SALARY,SALARY,1003.0,,,35.0,,,IN,INACTIVE
+null_blank,Null values detected in column SALARY,SALARY,1010.0,Tom,tom@test.com,45.0,,,IN,
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1002.0,Sara Khan,sara@test,5.0,62000.0,,US,ACTIVE
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1003.0,,,35.0,,,IN,INACTIVE
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,,David Lee,david@test.com,,81000.0,,,
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1009.0,Chris,chris@test.com,,67000.0,,,
+null_blank,Null values detected in column JOIN_DATE,JOIN_DATE,1010.0,Tom,tom@test.com,45.0,,,IN,
+null_blank,Null values detected in column COUNTRY_CODE,COUNTRY_CODE,,David Lee,david@test.com,,81000.0,,,
+null_blank,Null values detected in column COUNTRY_CODE,COUNTRY_CODE,1008.0,Anna,,32.0,1000000.0,2022-11-30,,INACTIVE
+null_blank,Null values detected in column COUNTRY_CODE,COUNTRY_CODE,1009.0,Chris,chris@test.com,,67000.0,,,
+null_blank,Null values detected in column STATUS,STATUS,1004.0,Mike Ross,mike.ross@test.com,120.0,1000.0,2023-05-20,UK,
+null_blank,Null values detected in column STATUS,STATUS,,David Lee,david@test.com,,81000.0,,,
+null_blank,Null values detected in column STATUS,STATUS,1009.0,Chris,chris@test.com,,67000.0,,,
+null_blank,Null values detected in column STATUS,STATUS,1010.0,Tom,tom@test.com,45.0,,,IN,

@@ -1,0 +1,5 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+EMP_NO,string,6,6,0,0,0.0,6,1.0,"{""000QVU"": 1, ""000QRS"": 1, ""000QCB"": 1, ""000QWB"": 1, ""000QHD"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+FIRST_NAME,string,6,6,0,0,0.0,6,1.0,"{""DAWSON"": 1, ""WARD"": 1, ""JACKSON"": 1, ""KIDD"": 1, ""SEYBERT"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+LAST_NAME,string,6,6,0,0,0.0,5,0.8333,"{""JAMES"": 2, ""MARK"": 1, ""BAILEY"": 1, ""COLTON"": 1, ""LARRY"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+DATE_OF_BIRTH,string,6,6,0,0,0.0,6,1.0,"{""1997-01-12"": 1, ""1995-10-02"": 1, ""2029-10-09"": 1, ""1993-10-09"": 1, ""1998-07-14"": 1}",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,2,66.67

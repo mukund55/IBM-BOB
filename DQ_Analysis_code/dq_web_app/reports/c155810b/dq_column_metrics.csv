@@ -1,0 +1,6 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,mixed_types,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+ORDER_ID,string,3,3,0,0,0.0,3,1.0,"{""1"": 1, ""2"": 1, ""3"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+CUSTOMER_ID,string,3,3,0,0,0.0,3,1.0,"{""1"": 1, ""2"": 1, ""3"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+ORDER_DATE,string,3,3,0,0,0.0,3,1.0,"{""2026-04-28 07:42:57"": 1, ""2026-05-03 07:42:57"": 1, ""2026-05-08 07:42:57"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+ORDER_AMOUNT,string,3,3,0,0,0.0,3,1.0,"{""150.0"": 1, ""200.0"": 1, ""50.0"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+ORDER_STATUS,string,3,3,0,0,0.0,2,0.6667,"{""COMPLETED"": 2, ""PENDING"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0

@@ -1,0 +1,9 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values
+CUSTOMER_ID,floating,9,8,1,0,11.11,8,0.8889,"{""1001.0"": 1, ""1002.0"": 1, ""1003.0"": 1, ""1004.0"": 1, ""1007.0"": 1}"
+CUSTOMER_NAME,string,9,7,2,0,22.22,7,0.7778,"{""John Doe"": 1, ""Sara Khan"": 1, ""Mike Ross"": 1, ""David Lee"": 1, ""Anna"": 1}"
+EMAIL,string,9,7,2,0,22.22,7,0.7778,"{""john.doe@test.com"": 1, ""sara@test"": 1, ""mike.ross@test.com"": 1, ""david@test.com"": 1, ""anna.com"": 1}"
+AGE,floating,9,7,2,0,22.22,7,0.7778,"{""29.0"": 1, ""5.0"": 1, ""35.0"": 1, ""120.0"": 1, ""28.0"": 1}"
+SALARY,floating,9,7,2,0,22.22,7,0.7778,"{""55000.0"": 1, ""62000.0"": 1, ""1000.0"": 1, ""81000.0"": 1, ""0.0"": 1}"
+JOIN_DATE,datetime64,9,4,5,0,55.56,4,0.4444,"{""2024-01-10"": 1, ""2023-05-20"": 1, ""2025-02-15"": 1, ""2022-11-30"": 1}"
+COUNTRY_CODE,string,9,6,3,0,33.33,3,0.3333,"{""IN"": 4, ""US"": 1, ""UK"": 1}"
+STATUS,string,9,5,4,0,44.44,2,0.2222,"{""ACTIVE"": 3, ""INACTIVE"": 2}"

@@ -1,0 +1,11 @@
+column,operation,records_affected,description
+EMAIL,normalize_email,2,Converted to lowercase and removed invalid entries
+SALARY,convert_to_numeric,21,"Converted to numeric type, invalid values set to NaN"
+JOIN_DATE,convert_to_date,1,"Converted to date type (format: %Y-%m-%d), invalid dates set to NaT"
+AGE,fix_negative_values,1,Converted negative values to absolute values
+SALARY,fix_negative_values,1,Converted negative values to absolute values
+STATUS,enforce_allowed_values,1,"Set invalid values to NaN (allowed: ['ACTIVE', 'INACTIVE'])"
+COUNTRY_CODE,enforce_allowed_values,1,"Set invalid values to NaN (allowed: ['IN', 'US', 'UK'])"
+AGE,apply_range_constraints,1,"Clipped values to range [0, 120]"
+SALARY,apply_range_constraints,1,"Clipped values to range [0, 1000000]"
+CUSTOMER_ID,remove_duplicate_primary_keys,1,Removed records with duplicate primary keys (kept first occurrence)

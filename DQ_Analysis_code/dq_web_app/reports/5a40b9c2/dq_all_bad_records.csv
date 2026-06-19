@@ -1,0 +1,6 @@
+issue_type,issue_detail,columns_involved,PRODUCT_ID,PRICE,QUANTITY,DISCOUNT
+null_blank,Null values detected in column DISCOUNT,DISCOUNT,6,ABC,XYZ,
+outliers,"Outliers detected in numeric column PRICE using IQR method (IQR multiplier=1.5, lower=55.0, upper=175.0)",PRICE,4,999999,10000,200.0
+outliers,"Outliers detected in numeric column PRICE using IQR method (IQR multiplier=1.5, lower=55.0, upper=175.0)",PRICE,5,-50,-5,-10.0
+outliers,"Outliers detected in numeric column QUANTITY using IQR method (IQR multiplier=1.5, lower=-5.0, upper=35.0)",QUANTITY,4,999999,10000,200.0
+outliers,"Outliers detected in numeric column DISCOUNT using IQR method (IQR multiplier=1.5, lower=-10.0, upper=30.0)",DISCOUNT,4,999999,10000,200.0

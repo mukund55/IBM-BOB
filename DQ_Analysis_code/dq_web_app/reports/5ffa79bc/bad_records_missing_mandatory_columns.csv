@@ -1,0 +1,10 @@
+issue_type,issue_detail,columns_involved
+missing_mandatory_columns,Mandatory column missing,customer_id
+missing_mandatory_columns,Mandatory column missing,first_name
+missing_mandatory_columns,Mandatory column missing,last_name
+missing_mandatory_columns,Mandatory column missing,email
+missing_mandatory_columns,Mandatory column missing,phone
+missing_mandatory_columns,Mandatory column missing,gender
+missing_mandatory_columns,Mandatory column missing,dob
+missing_mandatory_columns,Mandatory column missing,city
+missing_mandatory_columns,Mandatory column missing,salary

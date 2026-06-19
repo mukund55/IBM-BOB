@@ -1,0 +1,2 @@
+issue_type,issue_detail,columns_involved,PRODUCT_ID,PRICE,QUANTITY,DISCOUNT
+null_blank,Null values detected in column DISCOUNT,DISCOUNT,6,ABC,XYZ,

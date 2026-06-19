@@ -1,0 +1,42 @@
+2026-06-16 11:22:14,871 | INFO | Starting ENHANCED data quality analysis
+2026-06-16 11:22:14,872 | INFO | Features: DB connectivity, Multi-format support, Dashboard, Aggregation, Newline fixing
+2026-06-16 11:22:14,872 | INFO | Loading input file: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\uploads\5ffa79bc_customer_data.csv
+2026-06-16 11:22:14,896 | INFO | Loaded dataset with 5 rows and 9 columns
+2026-06-16 11:22:14,897 | INFO | Calculating baseline quality score on original data...
+2026-06-16 11:22:15,016 | INFO | Good records: 0, Bad records: 9
+2026-06-16 11:22:15,025 | INFO | Baseline quality score: 0.00%
+2026-06-16 11:22:15,025 | INFO | Applying data cleansing...
+2026-06-16 11:22:15,026 | INFO | Starting data cleansing process...
+2026-06-16 11:22:15,032 | INFO | Normalized emails in EMAIL: 1 records
+2026-06-16 11:22:15,045 | INFO | Fixed negative values in SALARY: 1 records
+2026-06-16 11:22:15,056 | INFO | Data cleansing completed: 2 operations, 2 total records affected
+2026-06-16 11:22:15,056 | INFO | Original records: 5, Cleansed records: 5
+2026-06-16 11:22:15,058 | INFO | Data cleansing completed. Records: 5 -> 5
+2026-06-16 11:22:15,070 | INFO | Cleansed data saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\5ffa79bc\cleansed_data.csv
+2026-06-16 11:22:15,071 | INFO | Calculating quality score on cleansed data...
+2026-06-16 11:22:15,179 | INFO | Good records: 0, Bad records: 9
+2026-06-16 11:22:15,186 | INFO | Quality score after cleansing: 0.00%
+2026-06-16 11:22:15,186 | INFO | Quality improvement: +0.00%
+2026-06-16 11:22:15,379 | INFO | Good records: 0, Bad records: 9
+2026-06-16 11:22:15,461 | INFO | Skipping empty file: good_records.csv
+2026-06-16 11:22:15,473 | INFO | Skipping empty bad records file for category: duplicates
+2026-06-16 11:22:15,473 | INFO | Skipping empty bad records file for category: duplicate_primary_keys
+2026-06-16 11:22:15,479 | INFO | Skipping empty bad records file for category: mixed_types
+2026-06-16 11:22:15,480 | INFO | Skipping empty bad records file for category: invalid_dates
+2026-06-16 11:22:15,480 | INFO | Skipping empty bad records file for category: invalid_emails
+2026-06-16 11:22:15,480 | INFO | Skipping empty bad records file for category: negative_values
+2026-06-16 11:22:15,482 | INFO | Skipping empty bad records file for category: special_characters
+2026-06-16 11:22:15,486 | INFO | Skipping empty bad records file for category: mandatory_field_violations
+2026-06-16 11:22:15,487 | INFO | Skipping empty bad records file for category: datatype_violations
+2026-06-16 11:22:15,487 | INFO | Skipping empty bad records file for category: range_violations
+2026-06-16 11:22:15,488 | INFO | Skipping empty bad records file for category: pattern_violations
+2026-06-16 11:22:15,488 | INFO | Skipping empty bad records file for category: allowed_value_violations
+2026-06-16 11:22:15,488 | INFO | Skipping empty bad records file for category: referential_integrity
+2026-06-16 11:22:15,488 | INFO | Skipping empty bad records file for category: business_rule_violations
+2026-06-16 11:22:15,489 | INFO | Bad record files: 3 created, 14 skipped (no issues found)
+2026-06-16 11:22:15,493 | INFO | Cleansing log saved: 2 operations logged
+2026-06-16 11:22:16,669 | INFO | Aggregated metrics saved
+2026-06-16 11:22:16,687 | INFO | Executive summary report generated
+2026-06-16 11:22:16,687 | INFO | Generating executive dashboard...
+2026-06-16 11:22:16,702 | INFO | Executive dashboard saved to: C:\Users\000QVU744\BoB\DQ_Analysis_code\dq_web_app\reports\5ffa79bc\dq_executive_dashboard.html
+2026-06-16 11:22:16,705 | INFO | Data quality analysis completed successfully

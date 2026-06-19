@@ -1,0 +1,6 @@
+USER_ID,DATE_OF_BIRTH,EMAIL,PHONE
+1,1995-05-20,valid@test.com,9876543210
+2,2024-15-01,invalid@,12345
+3,31-02-2020,abc.com,phone123
+4,invalid_date,,
+5,,,

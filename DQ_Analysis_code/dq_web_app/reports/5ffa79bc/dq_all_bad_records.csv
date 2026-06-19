@@ -1,0 +1,12 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE,GENDER,DOB,CITY,SALARY
+null_blank,Null values detected in column EMAIL,EMAIL,3005.0,Rakesh,Verma,,9876500005,Male,2032-01-01,Delhi,5000.0
+outliers,"Outliers detected in numeric column SALARY using IQR method (IQR multiplier=1.5, lower=47500.0, upper=75500.0)",SALARY,3005.0,Rakesh,Verma,,9876500005,Male,2032-01-01,Delhi,5000.0
+missing_mandatory_columns,Mandatory column missing,customer_id,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,first_name,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,last_name,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,email,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,phone,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,gender,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,dob,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,city,,,,,,,,,
+missing_mandatory_columns,Mandatory column missing,salary,,,,,,,,,

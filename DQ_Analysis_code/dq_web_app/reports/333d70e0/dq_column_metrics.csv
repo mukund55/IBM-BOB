@@ -1,0 +1,5 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+USER_ID,string,5,5,0,0,0.0,5,1.0,"{""1"": 1, ""2"": 1, ""3"": 1, ""4"": 1, ""5"": 1}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+DATE_OF_BIRTH,string,5,4,1,0,20.0,4,0.8,"{""1995-05-20"": 1, ""2024-15-01"": 1, ""31-02-2020"": 1, ""invalid_date"": 1}",0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,80.0
+EMAIL,string,5,3,2,0,40.0,3,0.6,"{""valid@test.com"": 1, ""invalid@"": 1, ""abc.com"": 1}",0,0,0,0,0,0,2,0,0,2,0,2,0,0,0,6,0.0
+PHONE,string,5,3,2,0,40.0,3,0.6,"{""9876543210"": 1, ""12345"": 1, ""phone123"": 1}",0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,60.0

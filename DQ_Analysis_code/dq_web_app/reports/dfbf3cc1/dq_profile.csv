@@ -1,0 +1,11 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values
+CUSTOMER_ID,string,12,12,0,0,0.0,12,1.0,"{""4"": 1, ""5"": 1, ""6"": 1, ""7"": 1, ""8"": 1}"
+CUSTOMER_NAME,string,12,11,1,0,8.33,9,0.75,"{""John Doe"": 2, ""Jane Smith"": 2, ""Alice Williams"": 1, ""Charlie Brown"": 1, ""David Lee"": 1}"
+EMAIL,string,12,11,1,0,8.33,9,0.75,"{""john.doe@example.com"": 2, ""jane.smith@example.com"": 2, ""charlie@invalid"": 1, ""test@example.com"": 1, ""david.lee@example.com"": 1}"
+PHONE,string,12,11,1,0,8.33,9,0.75,"{""1234567890"": 2, ""0987654321"": 2, ""4444444444"": 1, ""3333333333"": 1, ""2222222222"": 1}"
+COUNTRY,string,12,11,1,0,8.33,8,0.6667,"{""USA"": 3, ""UK"": 2, ""Australia"": 1, ""Germany"": 1, ""Spain"": 1}"
+REGISTRATION_DATE,string,12,11,1,0,8.33,11,0.9167,"{""2025-11-09 07:43:14"": 1, ""2025-12-29 07:43:14"": 1, ""2026-02-17 07:43:14"": 1, ""2026-04-08 07:43:14"": 1, ""2026-05-03 07:43:14"": 1}"
+PURCHASE_AMOUNT,string,12,12,0,0,0.0,10,0.8333,"{""1500.5"": 2, ""2000.0"": 2, ""3000.0"": 1, ""-100.0"": 1, ""750.0"": 1}"
+IS_ACTIVE,string,12,12,0,0,0.0,3,0.25,"{""1"": 10, ""0"": 1, ""2"": 1}"
+CREATED_DATE,string,12,12,0,0,0.0,2,0.1667,"{""2026-05-28 07:43:14"": 9, ""2026-05-28 07:42:57"": 3}"
+UPDATED_DATE,string,12,12,0,0,0.0,2,0.1667,"{""2026-05-28 07:43:14"": 9, ""2026-05-28 07:42:57"": 3}"

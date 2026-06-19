@@ -1,0 +1,7 @@
+metric,value
+row_count,6
+column_count,4
+generated_at,2026-06-16T09:44:28.563298+00:00
+quality_score,50.0
+total_anomaly_records,5
+trend_summary,Use persisted dq_summary.csv files from prior runs to compare trends over time.

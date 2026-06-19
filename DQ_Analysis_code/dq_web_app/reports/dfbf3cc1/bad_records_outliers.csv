@@ -1,0 +1,2 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,PHONE,COUNTRY,REGISTRATION_DATE,PURCHASE_AMOUNT,IS_ACTIVE,CREATED_DATE,UPDATED_DATE
+outliers,"Outliers detected in numeric column PURCHASE_AMOUNT using IQR method (IQR multiplier=1.5, lower=-1281.25, upper=3968.75)",PURCHASE_AMOUNT,10,Grace Taylor,grace.taylor@example.com,8888888888,Italy,2026-05-18 07:43:14,999999.99,1,2026-05-28 07:43:14,2026-05-28 07:43:14

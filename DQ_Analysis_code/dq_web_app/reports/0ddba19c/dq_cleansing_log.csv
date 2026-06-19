@@ -1,0 +1,3 @@
+column,operation,records_affected,description
+EMAIL,normalize_email,150,Converted to lowercase and removed invalid entries
+SALARY,fix_negative_values,100,Converted negative values to absolute values

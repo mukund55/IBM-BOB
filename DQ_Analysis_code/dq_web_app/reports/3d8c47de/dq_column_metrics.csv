@@ -1,0 +1,8 @@
+column_name,inferred_dtype,row_count,non_null_count,null_count,blank_count,null_percentage,distinct_count,distinct_ratio,top_values,allowed_value_violations,business_rule_violations,datatype_violations,duplicate_primary_keys,duplicates,invalid_dates,invalid_emails,missing_mandatory_columns,mixed_types,negative_values,null_blank,outliers,pattern_violations,range_violations,referential_integrity,special_characters,total_anomaly_count,column_quality_score
+EMP_ID,string,20000,20000,0,0,0.0,19900,0.995,"{""551"": 2, ""552"": 2, ""553"": 2, ""554"": 2, ""555"": 2}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+EMP_NAME,string,20000,19800,200,0,1.0,19800,0.99,"{""Employee_201"": 1, ""Employee_202"": 1, ""Employee_203"": 1, ""Employee_204"": 1, ""Employee_205"": 1}",0,0,0,0,0,0,0,0,0,0,200,0,0,0,0,0,200,99.0
+EMAIL,string,20000,19850,150,0,0.75,19551,0.9776,"{""invalid_email"": 300, ""employee1@example.com"": 1, ""employee2@example.com"": 1, ""employee3@example.com"": 1, ""employee4@example.com"": 1}",0,0,0,0,0,0,300,0,0,0,150,0,300,0,0,0,750,96.25
+PHONE,string,20000,20000,0,0,0.0,19751,0.9876,"{""12345"": 250, ""9386730183"": 1, ""9911077779"": 1, ""9911081431"": 1, ""9198628151"": 1}",0,0,0,0,0,0,0,0,0,0,0,250,0,0,0,0,250,98.75
+SALARY,integer,20000,20000,0,0,0.0,18321,0.9161,"{""100"": 100, ""46915"": 4, ""132380"": 3, ""58314"": 3, ""105368"": 3}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+DEPT_ID,string,20000,20000,0,0,0.0,20,0.001,"{""2"": 1043, ""6"": 1042, ""1"": 1041, ""12"": 1025, ""18"": 1022}",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100.0
+JOIN_DATE,datetime64,20000,20000,0,0,0.0,2002,0.1001,"{""2099-12-31"": 50, ""2023-10-06"": 21, ""2020-05-22"": 21, ""2022-10-14"": 19, ""2022-01-23"": 19}",0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,50,99.75

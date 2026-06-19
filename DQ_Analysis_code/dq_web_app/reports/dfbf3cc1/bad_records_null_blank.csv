@@ -1,0 +1,6 @@
+issue_type,issue_detail,columns_involved,CUSTOMER_ID,CUSTOMER_NAME,EMAIL,PHONE,COUNTRY,REGISTRATION_DATE,PURCHASE_AMOUNT,IS_ACTIVE,CREATED_DATE,UPDATED_DATE
+null_blank,Null values detected in column CUSTOMER_NAME,CUSTOMER_NAME,6,,test@example.com,3333333333,Germany,2026-02-17 07:43:14,750.0,0,2026-05-28 07:43:14,2026-05-28 07:43:14
+null_blank,Null values detected in column EMAIL,EMAIL,4,Alice Williams,,4444444444,Australia,2025-11-09 07:43:14,3000.0,1,2026-05-28 07:43:14,2026-05-28 07:43:14
+null_blank,Null values detected in column PHONE,PHONE,5,Charlie Brown,charlie@invalid,,USA,2025-12-29 07:43:14,-100.0,1,2026-05-28 07:43:14,2026-05-28 07:43:14
+null_blank,Null values detected in column COUNTRY,COUNTRY,7,David Lee,david.lee@example.com,2222222222,,2026-04-08 07:43:14,1200.0,1,2026-05-28 07:43:14,2026-05-28 07:43:14
+null_blank,Null values detected in column REGISTRATION_DATE,REGISTRATION_DATE,8,Eve Martinez,eve.martinez@example.com,1111111111,Spain,,850.0,1,2026-05-28 07:43:14,2026-05-28 07:43:14
